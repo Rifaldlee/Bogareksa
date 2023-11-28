@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -39,9 +40,9 @@ fun ItemCard(
     modifier: Modifier = Modifier){
     Box(
         modifier
-            .height(290.dp)
-            .background(color = Color.White)
-            .width(190.dp)
+            .height(265.dp)
+            .background(color = Color(0xFFF8F8F8))
+            .width(180.dp)
             .padding(10.dp)
         ){
         Column{
@@ -73,6 +74,6 @@ fun ItemCard(
 @Preview(showBackground = true)
 fun preview(){
 
-        ItemCard(image = R.drawable.back, title = "AISURIX VGA Card RX 560XT 8GB AMD DDR5 256Bit GPU Radeon Video Card - RX550-DK", price = 2000, rate = 2)
+        ItemCard(image = R.drawable.food, title = "AISURIX VGA Card RX 560XT 8GB AMD DDR5 256Bit GPU Radeon Video Card - RX550-DK", price = 2000, rate = 2)
 
 }
