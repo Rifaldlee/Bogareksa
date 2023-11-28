@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screen.AddressActivity">
+    tools:context=".ui.pembeli.screen.AddressActivity">
 
     <TextView
         android:id="@+id/addressTextView"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <com.bogareksa.ui.custom.EditText
+    <com.bogareksa.ui.auth.custom.EditText
         android:id="@+id/addressEditText"
         android:layout_width="match_parent"
         android:layout_height="150dp"
@@ -39,7 +39,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addressEditText" />
 
-    <com.bogareksa.ui.custom.EditText
+    <com.bogareksa.ui.auth.custom.EditText
         android:id="@+id/additionalEditText"
         android:layout_width="match_parent"
         android:layout_height="70dp"

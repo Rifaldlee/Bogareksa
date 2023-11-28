@@ -13,13 +13,13 @@
         android:theme="@style/Theme.Bogareksa"
         tools:targetApi="31">
         <activity
-            android:name=".ui.screen.AddressActivity"
+            android:name=".ui.pembeli.screen.AddressActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.screen.RegisterActivity"
+            android:name=".ui.auth.RegisterActivity"
             android:exported="false"></activity>
         <activity
-            android:name=".ui.screen.LoginActivity"
+            android:name=".ui.auth.LoginActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
