@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.screen.RegisterActivity">
+    tools:context=".ui.auth.RegisterActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -93,7 +93,7 @@
         app:layout_constraintTop_toBottomOf="@+id/nameTextView"
         app:startIconDrawable="@drawable/ic_baseline_person_24">
 
-        <com.bogareksa.ui.custom.NameEditText
+        <com.bogareksa.ui.auth.custom.NameEditText
             android:id="@+id/nameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
         app:layout_constraintTop_toBottomOf="@+id/emailTextView"
         app:startIconDrawable="@drawable/ic_baseline_email_24">
 
-        <com.bogareksa.ui.custom.EmailEditText
+        <com.bogareksa.ui.auth.custom.EmailEditText
             android:id="@+id/emailEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -167,7 +167,7 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordTextView"
         app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
-        <com.bogareksa.ui.custom.PasswordEditText
+        <com.bogareksa.ui.auth.custom.PasswordEditText
             android:id="@+id/passwordEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
