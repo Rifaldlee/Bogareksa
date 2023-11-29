@@ -24,7 +24,7 @@ fun BoxData(modifier : Modifier = Modifier){
         .width(90.dp)
         .height(90.dp)
         .shadow(elevation = 10.dp,shape = RoundedCornerShape(8.dp))
-        .background(color = Color.White, shape = RoundedCornerShape(20.dp))
+        .background(color = Color.White, shape = RoundedCornerShape(10.dp))
         .padding(10.dp)
 
     ){

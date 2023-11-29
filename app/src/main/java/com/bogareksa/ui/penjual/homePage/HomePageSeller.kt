@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -21,9 +22,12 @@ import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -32,11 +36,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bogareksa.R
 import com.bogareksa.ui.penjual.homePage.component.BoxData
+import com.bogareksa.ui.penjual.homePage.component.CardItem
 import com.bogareksa.ui.penjual.homePage.component.CardProfile
 import com.bogareksa.ui.penjual.homePage.component.VerticalSpace
 import com.bogareksa.ui.penjual.listProductPage.component.ItemCard
@@ -95,7 +102,7 @@ VerticalSpace()
                 columns = GridCells.Adaptive(140.dp),
                 contentPadding = PaddingValues(15.dp),
                 horizontalArrangement = Arrangement.spacedBy(20.dp),
-                verticalArrangement = Arrangement.spacedBy(17.dp)
+                verticalArrangement = Arrangement.spacedBy(10.dp)
             ){
                 for (i in 1..4){
                     item {
@@ -103,6 +110,18 @@ VerticalSpace()
                     }
                 }
             }
+            VerticalSpace()
+            Row {
+                Text(text = stringResource(id = R.string.product_title), style = MaterialTheme.typography.titleLarge)
+                Spacer(modifier = Modifier.weight(1f))
+                Button(onClick = { /*TODO*/ }) {
+                    Icon(imageVector = Icons.Default.Add, contentDescription = "add product")
+                }
+            }
+            CardItem()
+
+
+
         }
     }
 }
