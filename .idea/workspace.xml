@@ -10,9 +10,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="401ed795-77aa-4c57-8eaf-d15b3b26dee7" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Bogareksa.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/Bogareksa.app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/screen/CustomerProfile.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/screen/CustomerProfile.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -95,7 +93,10 @@
     "android-custom-viewD:/coding/bangkit/PROJECT/Bogareksa/app/src/main/java/com/bogareksa/ui/custom/EditText.kt_SELECTED": "EditText",
     "android-custom-viewD:/coding/bangkit/PROJECT/Bogareksa/app/src/main/java/com/bogareksa/ui/custom/EmailEditText.kt_SELECTED": "EmailEditText",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "F:/DICODING/jetpack-compose/konsep-dasar-compose/HelloJetpackCompose"
+    "last_opened_file_path": "F:/DICODING/jetpack-compose/konsep-dasar-compose/HelloJetpackCompose",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.17",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -184,5 +185,16 @@
       <updated>1701063769545</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
