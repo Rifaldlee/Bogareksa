@@ -10,9 +10,15 @@ import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.navigation.compose.rememberNavController
 import com.bogareksa.MainActivity
 import com.bogareksa.R
 import com.bogareksa.databinding.ActivityLoginBinding
+import com.bogareksa.ui.penjual.homePage.HomePageContent
+import com.bogareksa.ui.penjual.homePage.HomePageSeller
+import com.bogareksa.ui.penjual.homePage.HomePageSellerActivity
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -54,33 +60,41 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
         binding.signinButton.setOnClickListener{
-            val email = binding.emailEditText.text.toString()
-            val password = binding.passwordEditText.text.toString()
-
-            if (email.isBlank()) {
-                binding.emailEditText.error = getString(R.string.error_empty_email)
-            }
-            else if (password.isBlank()) {
-                binding.passwordEditText.error = getString(R.string.error_empty_password)
-            }
-            else if (password.length < 8){
-                binding.passwordEditText.error = getString(R.string.error_password_more_7)
-            }
-            else{
-                AlertDialog.Builder(this).apply {
-                    setTitle("Yeah!")
-                    setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
-                    setPositiveButton("Lanjut") { _, _ ->
-                        val intent = Intent(context, MainActivity::class.java)
-                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
-                        startActivity(intent)
-                        finish()
-                    }
-                    create()
-                    show()
-                }
-            }
+                val intent = Intent(this, HomePageSellerActivity::class.java)
+            startActivity(intent)
+//            val email = binding.emailEditText.text.toString()
+//            val password = binding.passwordEditText.text.toString()
+//
+//            if (email.isBlank()) {
+//                binding.emailEditText.error = getString(R.string.error_empty_email)
+//            }
+//            else if (password.isBlank()) {
+//                binding.passwordEditText.error = getString(R.string.error_empty_password)
+//            }
+//            else if (password.length < 8){
+//                binding.passwordEditText.error = getString(R.string.error_password_more_7)
+//            }
+//            else{
+//                AlertDialog.Builder(this).apply {
+//                    setTitle("Yeah!")
+//                    setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
+//                    setPositiveButton("Lanjut") { _, _ ->
+//                        val intent = Intent(context, MainActivity::class.java)
+//                        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_NEW_TASK
+//                        startActivity(intent)
+//                        finish()
+//                    }
+//                    create()
+//                    show()
+//                }
+//            }
         }
+    }
+
+    @Composable
+    fun OpenHomepage(intent: Intent) {
+        // Render the Jetpack Compose page
+        HomePageContent()
     }
 
     private fun playAnimation() {
@@ -128,4 +142,5 @@ class LoginActivity : AppCompatActivity() {
     private fun showLoading(isLoading: Boolean) {
         binding.progressBar.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
+
 }

@@ -18,6 +18,8 @@
         <activity
             android:name=".ui.auth.RegisterActivity"
             android:exported="false"></activity>
+        <activity android:name=".ui.penjual.homePage.HomePageSellerActivity"/>
+
         <activity
             android:name=".ui.auth.LoginActivity"
             android:exported="true">

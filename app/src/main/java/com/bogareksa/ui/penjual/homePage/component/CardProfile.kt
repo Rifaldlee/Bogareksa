@@ -4,6 +4,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
@@ -25,19 +26,21 @@ import com.bogareksa.R
 
 
 @Composable
-fun CardProfile(modifier: Modifier = Modifier){
+fun CardProfile(modifier: Modifier = Modifier,sellerName : String,sellerEmail:String){
     Row(
-        modifier.height(50.dp)
+        modifier
+            .height(70.dp)
+            .fillMaxWidth()
     ){
         Image( modifier = modifier
-            .size(50.dp)
+            .size(70.dp)
             .clip(CircleShape),painter = painterResource(id = R.drawable.food), contentDescription = "avatar")
         Column(modifier.padding(5.dp)){
-            Text(text = "Seller Name", style = MaterialTheme.typography.titleMedium.copy(fontSize = 12.sp))
-            Spacer(modifier = modifier.weight(1f))
-            Text(text = "Seller Email@gmail.com", style = MaterialTheme.typography.labelSmall.copy(fontSize = 10.sp, fontWeight = FontWeight.ExtraLight))
+            Text(text = sellerName, style = MaterialTheme.typography.titleMedium.copy(fontSize = 15.sp))
+            Spacer(modifier = modifier.height(10.dp))
+            Text(text = sellerEmail, style = MaterialTheme.typography.labelSmall.copy(fontSize = 13.sp, fontWeight = FontWeight.ExtraLight))
         }
-        Image(imageVector = Icons.Default.Notifications,modifier = modifier.size(15.dp),contentDescription = "notification")
+       
     }
 }
 
@@ -45,5 +48,5 @@ fun CardProfile(modifier: Modifier = Modifier){
 @Composable
 @Preview(showBackground = true)
 fun Preview(){
-    CardProfile()
+//    CardProfile()
 }
