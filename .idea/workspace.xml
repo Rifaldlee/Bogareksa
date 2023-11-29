@@ -10,34 +10,25 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="401ed795-77aa-4c57-8eaf-d15b3b26dee7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/homePage/component/CardProfile.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/components/AddressItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/components/AddressItem.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/components/BuyButton.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/components/BuyButton.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/components/CartItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/components/CartItem.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/components/ProductCounter.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/components/ProductCounter.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/components/ProductItem.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/components/ProductItem.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/components/SearchBar.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/components/SearchBar.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/custom/EditText.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/auth/custom/EditText.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/custom/EmailEditText.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/auth/custom/EmailEditText.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/custom/NameEditText.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/auth/custom/NameEditText.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/custom/PasswordEditText.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/auth/custom/PasswordEditText.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/screen/AddressActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/screen/AddressActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/screen/LoginActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/auth/LoginActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/screen/ProductDetail.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/screen/ProductDetail.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/screen/ProductList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/screen/ProductList.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/screen/RegisterActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/auth/RegisterActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_address.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_address.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_login.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_register.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/executionHistory/executionHistory.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/fileHashes.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/8.0/fileHashes/resourceHashesCache.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/file-system.probe" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/file-system.probe" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/BogareksaCustomerApp.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/BogareksaCustomerApp.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/screen/CartList.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/pembeli/screen/CartList.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\Administrator\.android\avd\Pixel_2_API_30.avd]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[C:\Users\RIFALDLEE\.android\avd\Pixel_3a_API_33_x86_64.avd]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -85,13 +76,23 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Kotlin Class" />
+        <option value="Kotlin File" />
       </list>
     </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2YkJi8edkBRH36tVUdzk22OOHCV" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="showLibraryContents" value="true" />
   </component>
@@ -103,7 +104,7 @@
     "android-custom-viewD:/coding/bangkit/PROJECT/Bogareksa/app/src/main/java/com/bogareksa/ui/custom/EditText.kt_SELECTED": "EditText",
     "android-custom-viewD:/coding/bangkit/PROJECT/Bogareksa/app/src/main/java/com/bogareksa/ui/custom/EmailEditText.kt_SELECTED": "EmailEditText",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "D:/coding/bangkit/PROJECT/Bogareksa"
+    "last_opened_file_path": "F:/DICODING/jetpack-compose/konsep-dasar-compose/HelloJetpackCompose"
   }
 }]]></component>
   <component name="RecentsManager">

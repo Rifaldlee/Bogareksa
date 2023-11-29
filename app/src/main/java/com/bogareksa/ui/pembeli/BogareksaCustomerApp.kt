@@ -52,7 +52,7 @@ fun BogareksaCustomerApp(
                 ProductList()
             }
             composable(Screen.CartList.route) {
-                CartList()
+                CartList(onBackClick = {})
             }
             composable(Screen.CustomerProfile.route) {
                 CustomerProfile()
