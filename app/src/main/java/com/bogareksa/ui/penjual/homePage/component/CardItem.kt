@@ -29,10 +29,10 @@ import com.bogareksa.R
 @Composable
 fun CardItem(modifier: Modifier = Modifier){
     Card(onClick = { /*TODO*/ }, modifier = modifier
-        .height(100.dp)
-        .fillMaxWidth().padding(10.dp).background(color = Color.White)) {
+        .height(90.dp)
+        .fillMaxWidth().padding(bottom = 10.dp).background(color = Color.White)) {
         Row(modifier.background(color = Color.White)){
-            Image(painter = painterResource(id = R.drawable.testing_image), modifier = Modifier.size(100.dp),contentDescription = "test")
+            Image(painter = painterResource(id = R.drawable.testing_image), modifier = Modifier.size(90.dp),contentDescription = "test")
 
             HorizontalSpace()
             Column {

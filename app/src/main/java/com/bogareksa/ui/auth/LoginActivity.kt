@@ -18,7 +18,7 @@ import com.bogareksa.R
 import com.bogareksa.databinding.ActivityLoginBinding
 import com.bogareksa.ui.penjual.homePage.HomePageContent
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
-import com.bogareksa.ui.penjual.homePage.HomePageSellerActivity
+
 
 class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
@@ -60,7 +60,7 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
         binding.signinButton.setOnClickListener{
-                val intent = Intent(this, HomePageSellerActivity::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
 //            val email = binding.emailEditText.text.toString()
 //            val password = binding.passwordEditText.text.toString()
@@ -91,11 +91,11 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
-    @Composable
-    fun OpenHomepage(intent: Intent) {
-        // Render the Jetpack Compose page
-        HomePageContent()
-    }
+//    @Composable
+//    fun OpenHomepage(intent: Intent) {
+//        // Render the Jetpack Compose page
+//        HomePageContent()
+//    }
 
     private fun playAnimation() {
         ObjectAnimator.ofFloat(binding.imageView, View.ALPHA, 0f, 1f).apply {

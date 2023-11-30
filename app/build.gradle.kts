@@ -77,4 +77,5 @@ dependencies {
     androidTestImplementation(platform("androidx.compose:compose-bom:2023.03.00"))
 
     implementation ("androidx.compose.material3:material3:1.2.0-alpha10")
+    implementation ("androidx.navigation:navigation-compose:2.6.0")
 }
