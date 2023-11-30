@@ -2,7 +2,6 @@ package com.bogareksa.ui.penjual.homePage.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -24,6 +23,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bogareksa.R
+import com.bogareksa.ui.penjual.mainSellerComponent.HorizontalSpace
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
