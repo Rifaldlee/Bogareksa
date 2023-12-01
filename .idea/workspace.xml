@@ -10,13 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="401ed795-77aa-4c57-8eaf-d15b3b26dee7" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/getImgPage/getImgPage.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/Bogareksa.app.iml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/editDetailProductSellerPage/EditDetailProductPage.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/editDetailProductSellerPage/component/InputEditForm.kt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/bgappbar.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/navigation/Screen.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/navigation/Screen.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/SellerMainPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/SellerMainPage.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/addProductPage/AddProductPageSeller.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/addProductPage/AddProductPageSeller.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/addProductPage/component/InputForm.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/addProductPage/component/InputForm.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/detailProductPage/DetailProductSellerPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/detailProductPage/DetailProductSellerPage.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/getImgPage/getImgPage.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/bogareksa/ui/penjual/getImgPage/getImgPage.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -90,19 +93,20 @@
     "android-custom-viewD:/coding/bangkit/PROJECT/Bogareksa/app/src/main/java/com/bogareksa/ui/custom/EditText.kt_SELECTED": "EditText",
     "android-custom-viewD:/coding/bangkit/PROJECT/Bogareksa/app/src/main/java/com/bogareksa/ui/custom/EmailEditText.kt_SELECTED": "EmailEditText",
     "cidr.known.project.marker": "true",
-    "last_opened_file_path": "D:/coding/bangkit/PROJECT/Bogareksa",
+    "last_opened_file_path": "D:/coding/bangkit/PROJECT/Bogareksa/app/src/main/java/com/bogareksa/ui/penjual/editDetailProductSellerPage/component",
     "settings.editor.selected.configurable": "preferences.pluginManager"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\coding\bangkit\PROJECT\Bogareksa\app\src\main\java\com\bogareksa\ui\penjual\editDetailProductSellerPage\component" />
       <recent name="D:\coding\bangkit\PROJECT\Bogareksa\app\src\main\java\com\bogareksa\ui\penjual\addProductPage\component" />
       <recent name="D:\coding\bangkit\PROJECT\Bogareksa\app\src\main\java\com\bogareksa\ui" />
       <recent name="D:\coding\bangkit\PROJECT\Bogareksa\app\src\main\java\com\bogareksa\ui\penjual\listProductPage" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\coding\bangkit\PROJECT\Bogareksa\app\src\main\java\com\bogareksa\ui\penjual\mainSellerComponent" />
       <recent name="D:\coding\bangkit\PROJECT\Bogareksa\app\src\main\res\drawable" />
+      <recent name="D:\coding\bangkit\PROJECT\Bogareksa\app\src\main\java\com\bogareksa\ui\penjual\mainSellerComponent" />
       <recent name="D:\coding\bangkit\PROJECT\Bogareksa\app\src\main\java\com\bogareksa\ui\penjual\homePage" />
     </key>
     <key name="MoveKotlinTopLevelDeclarationsDialog.RECENTS_KEY">

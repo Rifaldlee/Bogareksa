@@ -19,6 +19,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -52,7 +53,7 @@ fun AddProductPageSeller(navBack : () -> Unit,toTheGetImg : () -> Unit){
 @Composable
 fun AddProductSellerContent(getImgPage: () -> Unit,navBack: () -> Unit,modifier: Modifier = Modifier){
     val scrollState = rememberScrollState()
-    val imgExists = false
+    val imgExists = true
 
     Scaffold(
         topBar = {
@@ -67,7 +68,10 @@ fun AddProductSellerContent(getImgPage: () -> Unit,navBack: () -> Unit,modifier:
             )
         }
     ){
-        Column(modifier.padding(paddingValues = it).verticalScroll(scrollState), verticalArrangement = Arrangement.Top){
+        Column(
+            modifier
+                .padding(paddingValues = it)
+                .verticalScroll(scrollState), verticalArrangement = Arrangement.Top){
             if(imgExists){
                 Image(painter = painterResource(id = R.drawable.testing_image),modifier = modifier
                     .fillMaxWidth()
@@ -95,6 +99,17 @@ fun AddProductSellerContent(getImgPage: () -> Unit,navBack: () -> Unit,modifier:
                 InputAddForm(hint = "insert text", title = "Product Expired")
                 VerticalSpace()
                 InputAddForm(hint = "insert text", title = "Amout")
+                VerticalSpace()
+                Box(
+                    modifier = Modifier.fillMaxWidth().height(50.dp).background(color = Color.Gray)){
+
+                }
+
+                Button(onClick = {
+
+                },modifier = Modifier.fillMaxWidth()) {
+                    Text(text = "Access")
+                }
             }
 
 
