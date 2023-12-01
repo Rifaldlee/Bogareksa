@@ -41,8 +41,8 @@ import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 
 @Composable
-fun AddProductPageSeller(navBack : () -> Unit){
-    AddProductSellerContent(navBack = navBack)
+fun AddProductPageSeller(navBack : () -> Unit,toTheGetImg : () -> Unit){
+    AddProductSellerContent(navBack = navBack, getImgPage = toTheGetImg)
 }
 
 
@@ -50,7 +50,7 @@ fun AddProductPageSeller(navBack : () -> Unit){
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun AddProductSellerContent(navBack: () -> Unit,modifier: Modifier = Modifier){
+fun AddProductSellerContent(getImgPage: () -> Unit,navBack: () -> Unit,modifier: Modifier = Modifier){
     val scrollState = rememberScrollState()
     val imgExists = false
 
@@ -59,7 +59,9 @@ fun AddProductSellerContent(navBack: () -> Unit,modifier: Modifier = Modifier){
             TopAppBar(
                 title = { Text(text = "Add Product") },
                 navigationIcon = {
-                    Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "arrow back")
+                    Icon(modifier = Modifier.clickable {
+                        navBack()
+                    },imageVector = Icons.Default.ArrowBack, contentDescription = "arrow back")
                 }
 
             )
@@ -80,7 +82,7 @@ fun AddProductSellerContent(navBack: () -> Unit,modifier: Modifier = Modifier){
                         .size(50.dp)
                         .align(alignment = Alignment.Center)
                         .clickable {
-                            navBack()
+                            getImgPage()
                         }, contentDescription ="add image" )
                 }
             }
@@ -107,5 +109,5 @@ fun AddProductSellerContent(navBack: () -> Unit,modifier: Modifier = Modifier){
 @Preview(showBackground = true)
 fun preview(){
     val navController = rememberNavController()
-    AddProductSellerContent(navBack = {navController.navigateUp()})
+    AddProductSellerContent(navBack = {navController.navigateUp()}, getImgPage = {})
 }

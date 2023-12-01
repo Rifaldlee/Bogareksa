@@ -15,6 +15,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.bogareksa.ui.navigation.Screen
 import com.bogareksa.ui.penjual.addProductPage.AddProductPageSeller
+import com.bogareksa.ui.penjual.getImgPage.GetImgPage
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
 
 
@@ -41,8 +42,13 @@ fun SellerMainPage() {
 
             composable(Screen.AddProductSeller.route){
                 AddProductPageSeller(
-                    navBack = {navController.navigateUp()}
+                    navBack = {navController.navigateUp()},
+                    toTheGetImg = {navController.navigate(Screen.getImageSeller.route)}
                 )
+            }
+
+            composable(Screen.getImageSeller.route){
+                GetImgPage()
             }
 
     }
