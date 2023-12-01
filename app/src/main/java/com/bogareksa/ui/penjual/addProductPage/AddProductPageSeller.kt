@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
@@ -24,13 +26,17 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.compose.rememberNavController
 import com.bogareksa.R
+import com.bogareksa.ui.penjual.addProductPage.component.InputAddForm
 import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 
@@ -42,11 +48,12 @@ fun AddProductPageSeller(navBack : () -> Unit){
 
 
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
 fun AddProductSellerContent(navBack: () -> Unit,modifier: Modifier = Modifier){
-
+    val scrollState = rememberScrollState()
     val imgExists = false
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -58,7 +65,7 @@ fun AddProductSellerContent(navBack: () -> Unit,modifier: Modifier = Modifier){
             )
         }
     ){
-        Column(modifier.padding(paddingValues = it), verticalArrangement = Arrangement.Top){
+        Column(modifier.padding(paddingValues = it).verticalScroll(scrollState), verticalArrangement = Arrangement.Top){
             if(imgExists){
                 Image(painter = painterResource(id = R.drawable.testing_image),modifier = modifier
                     .fillMaxWidth()
@@ -71,12 +78,24 @@ fun AddProductSellerContent(navBack: () -> Unit,modifier: Modifier = Modifier){
                     .background(color = Color.Gray)){
                     Image(painter = painterResource(id = R.drawable.camera),modifier = Modifier
                         .size(50.dp)
-                        .align(alignment = Alignment.Center).clickable {
+                        .align(alignment = Alignment.Center)
+                        .clickable {
                             navBack()
                         }, contentDescription ="add image" )
                 }
             }
-            VerticalSpace()
+            Column (modifier.padding(start = 10.dp, end = 10.dp)){
+                VerticalSpace()
+                InputAddForm(hint = "insert text", title = "Product Name")
+                VerticalSpace()
+                InputAddForm(hint = "insert text", title = "Product Price")
+                VerticalSpace()
+                InputAddForm(hint = "insert text", title = "Product Expired")
+                VerticalSpace()
+                InputAddForm(hint = "insert text", title = "Amout")
+            }
+
+
 
         }
     }
