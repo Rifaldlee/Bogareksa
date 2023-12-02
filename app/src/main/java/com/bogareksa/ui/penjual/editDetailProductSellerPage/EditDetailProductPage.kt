@@ -66,8 +66,15 @@ fun EditDetailProduct(){
             Image(painter = painterResource(id = R.drawable.testing_image),modifier = Modifier
                 .fillMaxWidth()
                 .height(400.dp),contentDescription = "photo image")
+            
+            Column(Modifier.padding(10.dp)){
+                InputEditForm(hint = "insert product name", title = "Product Name")
+                InputEditForm(hint = "insert product name", title = "Product Name")
+                InputEditForm(hint = "insert product name", title = "Product Name")
+                InputEditForm(hint = "insert product name", title = "Product Name")
+                InputEditForm(hint = "insert product name", title = "Product Name")
+            }
 
-            InputEditForm(hint = "insert product name", title = "Product Name")
         }
 
     }

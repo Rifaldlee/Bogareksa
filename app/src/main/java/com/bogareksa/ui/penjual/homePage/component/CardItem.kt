@@ -1,5 +1,6 @@
 package com.bogareksa.ui.penjual.homePage.component
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -27,8 +28,11 @@ import com.bogareksa.ui.penjual.mainSellerComponent.HorizontalSpace
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardItem(modifier: Modifier = Modifier){
-    Card(onClick = { /*TODO*/ }, modifier = modifier
+fun CardItem(modifier: Modifier = Modifier,toDetail : () -> Unit){
+    Card(onClick = {
+        Log.d("msg","yes it's to the detail")
+        toDetail()
+    }, modifier = modifier
         .height(90.dp)
         .fillMaxWidth().padding(bottom = 10.dp).background(color = Color.White)) {
         Row(modifier.background(color = Color.White)){
@@ -52,5 +56,5 @@ fun CardItem(modifier: Modifier = Modifier){
 @Composable
 @Preview(showBackground = true)
 fun preview(){
-    CardItem()
+    CardItem(toDetail = {})
 }

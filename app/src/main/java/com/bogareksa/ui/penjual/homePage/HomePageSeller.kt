@@ -39,9 +39,9 @@ import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 
 @Composable
-fun HomePageSeller(getAddPageRoute : () -> Unit){
+fun HomePageSeller(getAddPageRoute : () -> Unit,toTheDetail : () -> Unit){
     Box(modifier = Modifier){
-        HomePageContent(getAddPageRoute = getAddPageRoute)
+        HomePageContent(getAddPageRoute = getAddPageRoute, toDetailPage = toTheDetail)
     }
 }
 
@@ -49,7 +49,7 @@ fun HomePageSeller(getAddPageRoute : () -> Unit){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePageContent(modifier: Modifier = Modifier,getAddPageRoute : () -> Unit){
+fun HomePageContent(modifier: Modifier = Modifier,toDetailPage : () -> Unit,getAddPageRoute : () -> Unit){
 
     val scrollState = rememberScrollState()
     Scaffold(
@@ -111,7 +111,7 @@ VerticalSpace()
             LazyColumn{
                 for (x in 1..5){
                     item {
-                        CardItem()
+                        CardItem(toDetail = toDetailPage)
                         HorizontalDivider()
                     }
                 }

@@ -15,11 +15,11 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.bogareksa.ui.navigation.Screen
 import com.bogareksa.ui.penjual.addProductPage.AddProductPageSeller
+import com.bogareksa.ui.penjual.detailProductPage.DetailProductSellerPage
+import com.bogareksa.ui.penjual.editDetailProductSellerPage.EditDetailProduct
 import com.bogareksa.ui.penjual.getImgPage.GetImgPage
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
-
-
-
+import com.bogareksa.ui.penjual.listProductPage.ListSellerProduct
 
 
 @SuppressLint("SuspiciousIndentation")
@@ -36,6 +36,9 @@ fun SellerMainPage() {
                 HomePageSeller(
                     getAddPageRoute = {
                         navController.navigate(Screen.AddProductSeller.route)
+                    },
+                    toTheDetail = {
+                        navController.navigate(Screen.DetailProductSeller.route)
                     }
                 )
             }
@@ -48,7 +51,24 @@ fun SellerMainPage() {
             }
 
             composable(Screen.getImageSeller.route){
-                GetImgPage()
+                GetImgPage(
+                    navBack = {navController.navigateUp()}
+                )
+            }
+
+
+            composable(Screen.DetailProductSeller.route){
+                DetailProductSellerPage(
+                    navBack = {navController.navigateUp()}
+                )
+            }
+
+            composable(Screen.EditDetailProduct.route){
+                EditDetailProduct()
+            }
+
+            composable(Screen.ListSellerProduct.route){
+                ListSellerProduct()
             }
 
     }

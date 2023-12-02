@@ -38,6 +38,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.compose.rememberNavController
 import com.bogareksa.R
 import com.bogareksa.ui.penjual.addProductPage.component.InputAddForm
+import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackground
 import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 
@@ -53,24 +54,17 @@ fun AddProductPageSeller(navBack : () -> Unit,toTheGetImg : () -> Unit){
 @Composable
 fun AddProductSellerContent(getImgPage: () -> Unit,navBack: () -> Unit,modifier: Modifier = Modifier){
     val scrollState = rememberScrollState()
-    val imgExists = true
+    val imgExists = false
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = { Text(text = "Add Product") },
-                navigationIcon = {
-                    Icon(modifier = Modifier.clickable {
-                        navBack()
-                    },imageVector = Icons.Default.ArrowBack, contentDescription = "arrow back")
-                }
+            AppbarImgBackground(navBack = { navBack() }, title ="Add Product" )
 
-            )
         }
     ){
         Column(
             modifier
-                .padding(paddingValues = it)
+                .padding(paddingValues = it).padding(top = 5.dp)
                 .verticalScroll(scrollState), verticalArrangement = Arrangement.Top){
             if(imgExists){
                 Image(painter = painterResource(id = R.drawable.testing_image),modifier = modifier
@@ -101,7 +95,10 @@ fun AddProductSellerContent(getImgPage: () -> Unit,navBack: () -> Unit,modifier:
                 InputAddForm(hint = "insert text", title = "Amout")
                 VerticalSpace()
                 Box(
-                    modifier = Modifier.fillMaxWidth().height(50.dp).background(color = Color.Gray)){
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(50.dp)
+                        .background(color = Color.Gray)){
 
                 }
 

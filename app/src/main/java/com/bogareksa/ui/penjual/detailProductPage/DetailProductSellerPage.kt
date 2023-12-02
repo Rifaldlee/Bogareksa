@@ -39,18 +39,19 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bogareksa.R
+import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackground
 
 
 @Composable
-fun DetailProductSellerPage(){
-
+fun DetailProductSellerPage(navBack : () -> Unit){
+    DetailProductSellerPageContent(navBack)
 }
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DetailProductSellerPageContent(
-//    navBack: () -> Unit,
+    navBack: () -> Unit,
 //    image : Int,
 //                                   title : String,
 //                                   price : Int,
@@ -67,19 +68,9 @@ fun DetailProductSellerPageContent(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                modifier = Modifier.padding(start = 5.dp, end = 5.dp),
-                title = { Text(text = "Detail Product") },
-                navigationIcon = {
-                    Icon(modifier = Modifier.clickable {
-//                        navBack()
-                    },imageVector = Icons.Default.ArrowBack, contentDescription = "arrow back")
-                },
-                actions = {
-                    Icon(imageVector = Icons.Default.Edit, contentDescription ="edit" )
-                }
-
-            )
+            AppbarImgBackground(navBack = {
+                                          navBack()
+            }, title = "Detail Product")
         }
     ){
         Column(
@@ -89,10 +80,10 @@ fun DetailProductSellerPageContent(
 
 
 
-            Image(painter = painterResource(id = R.drawable.food), contentDescription ="title", modifier = Modifier
-                .height(300.dp)
+            Image(painter = painterResource(id = R.drawable.testing_image), contentDescription ="title", modifier = Modifier
+                .height(400.dp)
                 .fillMaxWidth()
-                .clip(RoundedCornerShape(bottomStart = 20.dp, bottomEnd = 20.dp)) )
+                .clip(RoundedCornerShape(bottomStart = 40.dp, bottomEnd = 40.dp)) )
 
             Column(
                 modifier.padding(15.dp)
@@ -149,5 +140,5 @@ fun DetailProductSellerPageContent(
 @Composable
 @Preview(showBackground = true)
 fun Preview(){
-    DetailProductSellerPageContent()
+    DetailProductSellerPageContent({})
 }
