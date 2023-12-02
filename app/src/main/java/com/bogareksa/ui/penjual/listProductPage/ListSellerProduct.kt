@@ -68,7 +68,7 @@ fun ListSellerProductPageContent(navBack : () -> Unit){
                 },
                     navigationIcon = {
                         Icon(modifier = Modifier.clickable {
-
+                                navBack()
                         },imageVector = Icons.Default.ArrowBack, contentDescription = "back page"
                         )
                     },
@@ -80,7 +80,7 @@ fun ListSellerProductPageContent(navBack : () -> Unit){
             }
         }
     ){
-        Box(modifier = Modifier.padding(paddingValues = it)){
+        Box(modifier = Modifier.padding(paddingValues = it).background(color = Color(0xfff0eded))){
             ListSellerProduct()
         }
     }

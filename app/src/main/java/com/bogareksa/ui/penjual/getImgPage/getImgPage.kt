@@ -10,7 +10,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -19,18 +18,27 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bogareksa.R
+import com.bogareksa.ui.penjual.getImgPage.component.getPermissionDialog
+import com.bogareksa.ui.penjual.getImgPage.component.openCamera
 import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackground
+import com.google.accompanist.permissions.ExperimentalPermissionsApi
+import com.google.accompanist.permissions.PermissionState
+import com.google.accompanist.permissions.isGranted
+import com.google.accompanist.permissions.rememberPermissionState
 
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 fun GetImgPage(navBack: () -> Unit){
-    GetImgPageContent(navBack)
+    val cameraPermissionState: PermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
+    GetImgPageContent(navBack,cameraPermissionState::launchPermissionRequest,cameraPermissionState.status.isGranted)
 }
 
 
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
-fun GetImgPageContent(navBack : () -> Unit){
+fun GetImgPageContent(navBack : () -> Unit,onReqPermission : () -> Unit,camPermission : Boolean){
     var imgExists = false
 
    Scaffold (
@@ -38,6 +46,7 @@ fun GetImgPageContent(navBack : () -> Unit){
            AppbarImgBackground(navBack = { /*TODO*/ }, title = "Upload Image")
        }
    ){
+
        Column(modifier = Modifier
            .padding(paddingValues = it)
            .padding(top = 5.dp)){
@@ -59,12 +68,20 @@ fun GetImgPageContent(navBack : () -> Unit){
                        }, contentDescription ="add image" )
                }
            }
+
+           if(camPermission){
+               openCamera()
+           }else{
+               getPermissionDialog(onReqPermission)
+           }
        }
    }
 }
 
+@OptIn(ExperimentalPermissionsApi::class)
 @Composable
 @Preview(showBackground = true)
 fun preview(){
-    GetImgPageContent(navBack = {})
+    val cameraPermissionState: PermissionState = rememberPermissionState(android.Manifest.permission.CAMERA)
+    GetImgPageContent({ },{},false )
 }
