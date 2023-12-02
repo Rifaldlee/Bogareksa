@@ -39,9 +39,9 @@ import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 
 @Composable
-fun HomePageSeller(getAddPageRoute : () -> Unit,toTheDetail : () -> Unit){
+fun HomePageSeller(toTheListProduct: () -> Unit,getAddPageRoute : () -> Unit,toTheDetail : () -> Unit){
     Box(modifier = Modifier){
-        HomePageContent(getAddPageRoute = getAddPageRoute, toDetailPage = toTheDetail)
+        HomePageContent(getAddPageRoute = getAddPageRoute, toTheListProduct = toTheListProduct,toDetailPage = toTheDetail)
     }
 }
 
@@ -49,7 +49,7 @@ fun HomePageSeller(getAddPageRoute : () -> Unit,toTheDetail : () -> Unit){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePageContent(modifier: Modifier = Modifier,toDetailPage : () -> Unit,getAddPageRoute : () -> Unit){
+fun HomePageContent(modifier: Modifier = Modifier,toTheListProduct: () -> Unit,toDetailPage : () -> Unit,getAddPageRoute : () -> Unit){
 
     val scrollState = rememberScrollState()
     Scaffold(
@@ -118,7 +118,9 @@ VerticalSpace()
             }
 
             VerticalSpace()
-            Button( modifier =modifier.fillMaxWidth(),onClick = { /*TODO*/ }) {
+            Button( modifier =modifier.fillMaxWidth(),onClick = {
+                toTheListProduct()
+            }) {
                 Text(text = "See All Product")
             }
         }

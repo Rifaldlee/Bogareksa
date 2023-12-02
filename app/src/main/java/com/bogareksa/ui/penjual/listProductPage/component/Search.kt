@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun SearchItemSeller(modifier: Modifier = Modifier,deleteText : () -> Unit,query : String,onQueryChange : (String) -> Unit) {
     Row (
-        modifier.padding(16.dp)
+        modifier.padding(start = 16.dp, top = 16.dp, bottom = 16.dp, end = 0.dp)
         ,verticalAlignment = Alignment.CenterVertically){
 
         androidx.compose.material3.SearchBar(
@@ -51,15 +51,15 @@ fun SearchItemSeller(modifier: Modifier = Modifier,deleteText : () -> Unit,query
                 .heightIn(min = 48.dp)
         ) {
         }
-        Spacer(modifier = modifier.weight(1f))
-        IconButton(
-
-            onClick = {
-
-        },
-        ) {
-            Icon(imageVector = Icons.Default.Clear, contentDescription ="delete" )
-        }
+//        Spacer(modifier = modifier.weight(1f))
+//        IconButton(
+//
+//            onClick = {
+//
+//        },
+//        ) {
+//            Icon(imageVector = Icons.Default.Clear, contentDescription ="delete" )
+//        }
     }
 
 }

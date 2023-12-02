@@ -20,6 +20,7 @@ import com.bogareksa.ui.penjual.editDetailProductSellerPage.EditDetailProduct
 import com.bogareksa.ui.penjual.getImgPage.GetImgPage
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
 import com.bogareksa.ui.penjual.listProductPage.ListSellerProduct
+import com.bogareksa.ui.penjual.listProductPage.ListSellerProductPage
 
 
 @SuppressLint("SuspiciousIndentation")
@@ -39,6 +40,9 @@ fun SellerMainPage() {
                     },
                     toTheDetail = {
                         navController.navigate(Screen.DetailProductSeller.route)
+                    },
+                    toTheListProduct = {
+                        navController.navigate(Screen.ListSellerProduct.route)
                     }
                 )
             }
@@ -68,7 +72,9 @@ fun SellerMainPage() {
             }
 
             composable(Screen.ListSellerProduct.route){
-                ListSellerProduct()
+                ListSellerProductPage(
+                    navBack = {navController.navigateUp()}
+                )
             }
 
     }
