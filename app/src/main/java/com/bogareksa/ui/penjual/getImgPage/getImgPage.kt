@@ -3,12 +3,15 @@ package com.bogareksa.ui.penjual.getImgPage
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -47,27 +50,11 @@ fun GetImgPageContent(navBack : () -> Unit,onReqPermission : () -> Unit,camPermi
        }
    ){
 
+
+
        Column(modifier = Modifier
            .padding(paddingValues = it)
            .padding(top = 5.dp)){
-           if(imgExists){
-               Image(painter = painterResource(id = R.drawable.testing_image),modifier = Modifier
-                   .fillMaxWidth()
-                   .height(400.dp),contentDescription = "photo image")
-           }else{
-
-               Box(modifier = Modifier
-                   .fillMaxWidth()
-                   .height(400.dp)
-                   .background(color = Color.Gray)){
-                   Image(painter = painterResource(id = R.drawable.camera),modifier = Modifier
-                       .size(50.dp)
-                       .align(alignment = Alignment.Center)
-                       .clickable {
-//                        getImgPage()
-                       }, contentDescription ="add image" )
-               }
-           }
 
            if(camPermission){
                openCamera()
