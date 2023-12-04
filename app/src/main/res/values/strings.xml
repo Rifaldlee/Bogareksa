@@ -24,4 +24,6 @@
     <string name="error_empty_password">Please insert your password</string>
     <string name="error_invalid_email">Invalid email</string>
     <string name="error_password_more_7">Password must more than 7 character</string>
+    <string name="product_title">Product</string>
+
 </resources>
