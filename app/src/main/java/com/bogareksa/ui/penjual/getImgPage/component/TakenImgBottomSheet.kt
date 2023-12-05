@@ -11,6 +11,7 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberBottomSheetScaffoldState
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,25 +30,27 @@ import kotlinx.coroutines.launch
 @Composable
 fun TakeImgBottomSheet(
     getListImg : List<Bitmap>
-    ,modifier: Modifier = Modifier
+    ,modifier: Modifier = Modifier,
+    isDisplay : Boolean
 ){
 
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
     var showBottomSheet by remember { mutableStateOf(false)}
+    val scaffoldState = rememberBottomSheetScaffoldState()
 
 
-    if(getListImg.isEmpty()){
-        Text(text = "don't have any image")
-    }else{
+//    if(isDisplay){
         ModalBottomSheet(
             onDismissRequest = {
-                showBottomSheet = false
+                showBottomSheet = showBottomSheet
             },
             sheetState = sheetState
         ) {
             // Sheet content
-
+            if(getListImg.isEmpty()){
+                Text(text = "don't have any image")
+            }else{
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(140.dp),
                     contentPadding = PaddingValues(15.dp),
@@ -66,6 +69,8 @@ fun TakeImgBottomSheet(
                     }
                 )
 
+//            }
         }
     }
+
 }
