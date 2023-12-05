@@ -51,7 +51,5 @@ fun Search(modifier: Modifier = Modifier) {
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
 fun SearchPreview() {
-    MaterialTheme {
-        Search()
-    }
+    Search()
 }

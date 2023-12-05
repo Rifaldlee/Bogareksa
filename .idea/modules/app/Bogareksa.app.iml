@@ -19,4 +19,11 @@
       </configuration>
     </facet>
   </component>
+  <component name="ModuleClassLoaderOverlays">
+    <paths>
+      <option value="C:\Users\RIFALD~1\AppData\Local\Temp\overlay14563845322847098969" />
+      <option value="C:\Users\RIFALD~1\AppData\Local\Temp\overlay12402869810153187521" />
+      <option value="C:\Users\RIFALD~1\AppData\Local\Temp\overlay12909211007047920428" />
+    </paths>
+  </component>
 </module>

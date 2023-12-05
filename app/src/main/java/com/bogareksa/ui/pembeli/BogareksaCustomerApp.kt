@@ -21,6 +21,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.bogareksa.ui.pembeli.components.Search
 import com.bogareksa.ui.pembeli.navigation.NavigationItem
 import com.bogareksa.ui.pembeli.navigation.Screen
 import com.bogareksa.ui.pembeli.screen.CartList
@@ -111,7 +112,7 @@ private fun BottomBar(
 
 @Preview(showBackground = true)
 @Composable
-fun JetHeroesAppPreview() {
+fun BogareksaCustomerAppPreview() {
     MaterialTheme {
         BogareksaCustomerApp()
     }

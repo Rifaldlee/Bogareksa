@@ -2,6 +2,7 @@ package com.bogareksa.ui.pembeli.screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,6 +31,8 @@ import androidx.compose.ui.unit.sp
 import com.bogareksa.R
 import com.bogareksa.ui.pembeli.components.BuyButton
 import com.bogareksa.ui.pembeli.components.CartItem
+import com.bogareksa.ui.pembeli.components.CheckOutPrice
+import com.bogareksa.ui.pembeli.components.ProductItem
 
 @Composable
 fun CartList(
@@ -61,35 +64,19 @@ fun CartList(
             }
             Spacer(modifier = Modifier.height(32.dp))
             LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(16.dp),
                 modifier = Modifier
                     .weight(1f)
                     .padding(horizontal = 8.dp)
             ) {
-                item {
-                    CartItem()
+                repeat(10) { index ->
+                    item {
+                        CartItem()
+                    }
                 }
             }
             Spacer(modifier = Modifier.height(32.dp))
-            Text(
-                text = "Total Price",
-                fontSize = 24.sp,
-                modifier = modifier
-                    .padding(start = 12.dp,)
-            )
-            Spacer(modifier = Modifier.height(12.dp))
-            Text(
-                text = "90000",
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Bold,
-                modifier = modifier
-                    .padding(start = 12.dp,)
-            )
-            Spacer(modifier = Modifier.height(32.dp))
-            BuyButton(
-                text = "buy",
-                modifier = modifier
-                    .padding(horizontal = 12.dp)
-            ) {}
+            CheckOutPrice()
             Spacer(modifier = Modifier.height(24.dp))
         }
     }

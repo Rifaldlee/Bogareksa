@@ -28,10 +28,8 @@ fun ProductCounter(
     modifier: Modifier = Modifier
 ) {
     Row(
-        horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .fillMaxWidth()
     ) {
         Image(
             painter = painterResource(id = R.drawable.plus),
