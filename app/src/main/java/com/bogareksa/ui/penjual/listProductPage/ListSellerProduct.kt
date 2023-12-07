@@ -1,5 +1,6 @@
 package com.bogareksa.ui.penjual.listProductPage
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -10,8 +11,10 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
@@ -22,6 +25,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -30,20 +36,25 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bogareksa.R
+import com.bogareksa.io.response.MyProductsItem
 import com.bogareksa.ui.pembeli.components.Search
 import com.bogareksa.ui.penjual.listProductPage.component.ItemCard
+import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
 import com.bogareksa.ui.penjual.listProductPage.component.SearchItemSeller
 
 @Composable
 fun ListSellerProductPage(navBack: () -> Unit){
-    ListSellerProductPageContent(navBack = navBack)
+    val viewModel: ProductSellerViewModel = ProductSellerViewModel()
+    ListSellerProductPageContent(navBack = navBack, vm = viewModel)
 }
 
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListSellerProductPageContent(navBack : () -> Unit){
+fun ListSellerProductPageContent(navBack : () -> Unit,vm : ProductSellerViewModel){
+
+    val listData by vm.listProducts.observeAsState()
     Scaffold(
 
         topBar = {
@@ -80,32 +91,39 @@ fun ListSellerProductPageContent(navBack : () -> Unit){
             }
         }
     ){
-        Box(modifier = Modifier.padding(paddingValues = it).background(color = Color(0xfff0eded))){
-            ListSellerProduct()
+        Box(modifier = Modifier
+            .padding(paddingValues = it)
+            .background(color = Color(0xfff0eded))){
+            ListSellerProduct(dataList = listData)
         }
     }
 }
 
 
 @Composable
-fun ListSellerProduct(){
-    LazyVerticalGrid(
-        columns = GridCells.Adaptive(140.dp),
-        contentPadding = PaddingValues(15.dp),
-        horizontalArrangement = Arrangement.spacedBy(20.dp),
-        verticalArrangement = Arrangement.spacedBy(17.dp)
+fun ListSellerProduct(dataList : List<MyProductsItem>?){
+
+    if(dataList != null){
+        LazyVerticalGrid(
+            columns = GridCells.Adaptive(140.dp),
+            contentPadding = PaddingValues(15.dp),
+            horizontalArrangement = Arrangement.spacedBy(20.dp),
+            verticalArrangement = Arrangement.spacedBy(17.dp)
         ){
-        for (i in 1..10){
-            item {
-                ItemCard(image = R.drawable.food, title = "testing items ,with default text from another source", price = 20000, rate = 5)
+            items(dataList){
+                    productData ->
+                ItemCard(image = R.drawable.food, title = productData.name.toString(), price = productData.price!!.toInt(), rate = 5)
             }
         }
+    }else{
+        Log.d("msg","data is null!!!")
     }
+
 }
 
 
 @Composable
 @Preview(showBackground = true)
 fun Preview(){
-    ListSellerProductPageContent({})
+//    ListSellerProductPageContent({})
 }
