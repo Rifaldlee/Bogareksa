@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,13 +26,15 @@ import com.bogareksa.R
 
 @Composable
 fun ProductCounter(
+    orderId: Long,
+    amount: Int,
+    increased: (Long) -> Unit,
+    decreased: (Long) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
-        horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .fillMaxWidth()
     ) {
         Image(
             painter = painterResource(id = R.drawable.plus),
@@ -39,10 +42,12 @@ fun ProductCounter(
             contentScale = ContentScale.Crop,
             modifier = modifier
                 .height(24.dp)
-                .clickable{}
+                .clickable{
+                    increased(orderId)
+                }
         )
         Text(
-            text = "10",
+            text = stringResource(amount),
             fontSize = 20.sp,
             color = Color.White,
             textAlign = TextAlign.Center,
@@ -55,7 +60,9 @@ fun ProductCounter(
             contentScale = ContentScale.Crop,
             modifier = modifier
                 .height(24.dp)
-                .clickable{}
+                .clickable{
+                    decreased(orderId)
+                }
         )
     }
 }
@@ -64,6 +71,10 @@ fun ProductCounter(
 @Composable
 fun ProductCounterPreview() {
     MaterialTheme{
-        ProductCounter()
+        ProductCounter(
+            orderId = 1,
+            amount = 1,
+            increased = {},
+            decreased = {})
     }
 }

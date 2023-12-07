@@ -17,12 +17,17 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bogareksa.R
 
 @Composable
 fun ProductItem(
+    image: Int,
+    name: String,
+    desc: String,
+    price: Int,
     modifier: Modifier = Modifier
 ){
     Column(
@@ -30,12 +35,14 @@ fun ProductItem(
         modifier = modifier
             .background(Color.White)
             .width(160.dp)
-            .border(width = 1.dp,
-                    color = Color(0x26000000),
-                    shape = RoundedCornerShape(size = 10.dp)),
+            .border(
+                width = 1.dp,
+                color = Color(0x26000000),
+                shape = RoundedCornerShape(size = 10.dp)
+            ),
     ){
         Image(
-            painter = painterResource(id = R.drawable.food),
+            painter = painterResource(image),
             contentDescription = "image description",
             contentScale = ContentScale.Crop,
             modifier = modifier
@@ -43,21 +50,21 @@ fun ProductItem(
                 .fillMaxWidth()
         )
         Text(
-            text = "Fast Food",
+            text = name,
             color = Color.Black,
             modifier = modifier
                 .fillMaxWidth()
                 .padding(4.dp)
         )
         Text(
-            text = "Deskripsi",
+            text = desc,
             color = Color.Black,
             modifier = modifier
                 .fillMaxWidth()
                 .padding(4.dp)
         )
         Text(
-            text = "Rp90000",
+            text = stringResource(R.string.rupiah, price),
             color = Color.Black,
             modifier = modifier
                 .fillMaxWidth()
@@ -69,6 +76,6 @@ fun ProductItem(
 @Preview(showBackground = true)
 fun ProductItemPreview() {
     MaterialTheme {
-        ProductItem()
+        ProductItem(R.drawable.food, "Fast Food", "Deskripsi", 90000)
     }
 }

@@ -18,6 +18,8 @@
     <string name="save">Save</string>
     <string name="google_button">login google </string>
 
+    <string name="rupiah">Rp%d</string>
+
     <string name="error_empty_data">Data cannot be empty</string>
     <string name="error_empty_name">Please insert your name</string>
     <string name="error_empty_email">Please insert your email</string>
