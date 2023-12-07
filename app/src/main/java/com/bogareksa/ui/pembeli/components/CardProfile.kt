@@ -24,8 +24,8 @@ import com.bogareksa.R
 
 @Composable
 fun CardUserProfile(
-    sellerName : String,
-    sellerEmail:String,
+    customerName : String,
+    customerEmail:String,
     modifier: Modifier = Modifier
 ){
     Row(
@@ -46,12 +46,12 @@ fun CardUserProfile(
                 .padding(5.dp)
         ){
             Text(
-                text = sellerName,
+                text = customerName,
                 style = MaterialTheme.typography.titleMedium.copy(fontSize = 16.sp)
             )
             Spacer(modifier = modifier.height(10.dp))
             Text(
-                text = sellerEmail,
+                text = customerEmail,
                 style = MaterialTheme.typography.labelSmall.copy(
                     fontSize = 15.sp,
                     fontWeight = FontWeight.ExtraLight

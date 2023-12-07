@@ -71,7 +71,10 @@ fun CartList(
             ) {
                 repeat(10) { index ->
                     item {
-                        CartItem()
+                        CartItem(
+                            1, R.drawable.food, "Fast Food", 90000, 0,
+                            amountChanged = {productId,count ->}
+                        )
                     }
                 }
             }

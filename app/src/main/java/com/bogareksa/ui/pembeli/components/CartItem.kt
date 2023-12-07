@@ -2,7 +2,6 @@ package com.bogareksa.ui.pembeli.components
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -10,7 +9,6 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -20,6 +18,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +26,12 @@ import com.bogareksa.R
 
 @Composable
 fun CartItem (
+    productId: Long,
+    image: Int,
+    name: String,
+    price: Int,
+    count: Int,
+    amountChanged: (id: Long, count: Int) -> Unit,
     modifier: Modifier = Modifier
 ){
     Row(
@@ -35,7 +40,7 @@ fun CartItem (
             .fillMaxWidth()
     ){
         Image(
-            painter = painterResource(id = R.drawable.food),
+            painter = painterResource(image),
             contentDescription = "image description",
             contentScale = ContentScale.Crop,
             modifier = modifier
@@ -47,11 +52,12 @@ fun CartItem (
                 .height(75.dp)
                 .background(
                     color = Color(0xFF3B8197),
-                    shape = RoundedCornerShape(8.dp))
+                    shape = RoundedCornerShape(8.dp)
+                )
                 .padding(8.dp),
         ) {
             Text(
-                text = "Fast Food",
+                text = name,
                 color = Color.White,
                 fontSize = 20.sp,
                 maxLines = 1,
@@ -65,12 +71,17 @@ fun CartItem (
                     .fillMaxHeight()
             ){
                 Text(
-                    text = "Rp90000",
+                    text = stringResource(R.string.rupiah, price),
                     color = Color.White,
                     fontSize = 20.sp,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                ProductCounter()
+                ProductCounter(
+                    orderId = productId,
+                    amount = count,
+                    increased = {amountChanged(productId, count + 1)},
+                    decreased = {amountChanged(productId, count - 1)},
+                )
             }
         }
     }
@@ -79,6 +90,9 @@ fun CartItem (
 @Preview(showBackground = true)
 fun CartItemPreview() {
     MaterialTheme {
-        CartItem()
+        CartItem(
+            1, R.drawable.food, "Fast Food", 90000, 0,
+            amountChanged = {productId,count ->}
+        )
     }
 }
