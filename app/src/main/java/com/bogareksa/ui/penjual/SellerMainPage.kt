@@ -1,14 +1,14 @@
 package com.bogareksa.ui.penjual
 
 import android.annotation.SuppressLint
-import android.os.Bundle
-import androidx.activity.ComponentActivity
-import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Scaffold
+import android.app.Activity
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -19,17 +19,28 @@ import com.bogareksa.ui.penjual.detailProductPage.DetailProductSellerPage
 import com.bogareksa.ui.penjual.editDetailProductSellerPage.EditDetailProduct
 import com.bogareksa.ui.penjual.getImgPage.GetImgPage
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
-import com.bogareksa.ui.penjual.listProductPage.ListSellerProduct
 import com.bogareksa.ui.penjual.listProductPage.ListSellerProductPage
+import com.bogareksa.ui.penjual.uploadImage.UploadImageActivity
 
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
 fun SellerMainPage() {
     val navController = rememberNavController()
-
+    val context = LocalContext.current
     val navBackStakEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStakEntry?.destination?.route
+
+
+    val activityResultLauncher =
+        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            // Handle the result if needed
+            if (result.resultCode == Activity.RESULT_OK) {
+                // Handle success
+            } else {
+                // Handle failure or canceled
+            }
+        }
 
 
         NavHost(navController = navController, startDestination = Screen.HomePageSeller.route ){
@@ -50,7 +61,11 @@ fun SellerMainPage() {
             composable(Screen.AddProductSeller.route){
                 AddProductPageSeller(
                     navBack = {navController.navigateUp()},
-                    toTheGetImg = {navController.navigate(Screen.getImageSeller.route)}
+                    toTheGetImg = {
+                        activityResultLauncher.launch(
+                            Intent(context, UploadImageActivity::class.java)
+                        )
+                    }
                 )
             }
 
@@ -77,5 +92,14 @@ fun SellerMainPage() {
                 )
             }
 
+            activity(Screen.UploadImage.route){
+//                UploadImageActivity()
+            }
+
     }
 }
+
+
+
+
+

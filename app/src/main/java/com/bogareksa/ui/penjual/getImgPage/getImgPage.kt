@@ -46,7 +46,9 @@ fun GetImgPageContent(navBack : () -> Unit,onReqPermission : () -> Unit,camPermi
 
    Scaffold (
        topBar = {
-           AppbarImgBackground(navBack = { /*TODO*/ }, title = "Upload Image")
+           AppbarImgBackground(navBack = {
+                                         navBack()
+           }, title = "Upload Image")
        }
    ){
 

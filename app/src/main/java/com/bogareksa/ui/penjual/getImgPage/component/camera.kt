@@ -27,6 +27,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
@@ -58,65 +59,45 @@ fun openCamera(
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            Row{
-                if (imgTaken == null){
-                    Box(modifier = Modifier
-                        .width(100.dp)
-                        .height(100.dp)
-                        .background(color = Color.Gray))
-                }else{
-                    PreviewImage(img = imgTaken!!, listImg = imgBitmap)
-                }
-                Spacer(modifier = Modifier.weight(1f))
-                ExtendedFloatingActionButton(
-                    onClick = {
-                        val execute = ContextCompat.getMainExecutor(context)
-                        cameraControll.takePicture(execute,object : ImageCapture.OnImageCapturedCallback(){
-                            override fun onCaptureSuccess(image: ImageProxy) {
-                                val correctedBitmap: Bitmap = image
-                                    .toBitmap()
-                                    .rotateBitmap(image.imageInfo.rotationDegrees)
-
-                                getViewmodel.getPhoto(correctedBitmap)
-                                imgTaken = correctedBitmap
-                                getViewmodel.getPhoto(correctedBitmap)
-                                image.close()
-                            }
-
-                            override fun onError(exception: ImageCaptureException) {
-                                Log.e("CameraContent", "Error capturing image", exception)
-                            }
-                        })
-                    }) {
-                    Text(text = "Take Image")
-                }
-            }
-           
-        },
-        floatingActionButton = {
-//            ExtendedFloatingActionButton(
-//                onClick = {
-//                    val execute = ContextCompat.getMainExecutor(context)
-//                    cameraControll.takePicture(execute,object : ImageCapture.OnImageCapturedCallback(){
-//                        override fun onCaptureSuccess(image: ImageProxy) {
-//                            val correctedBitmap: Bitmap = image
-//                                .toBitmap()
-//                                .rotateBitmap(image.imageInfo.rotationDegrees)
+//        bottomBar = {
+//            Row(
+//                verticalAlignment = Alignment.CenterVertically
+//            ){
+//                if (imgTaken == null){
+//                    Box(modifier = Modifier
+//                        .width(100.dp)
+//                        .height(100.dp)
+//                        .background(color = Color.Gray))
+//                }else{
+//                    PreviewImage(img = imgTaken!!, listImg = imgBitmap)
+//                }
+//                Spacer(modifier = Modifier.weight(1f))
+//                ExtendedFloatingActionButton(
+//                    onClick = {
+//                        val execute = ContextCompat.getMainExecutor(context)
+//                        cameraControll.takePicture(execute,object : ImageCapture.OnImageCapturedCallback(){
+//                            override fun onCaptureSuccess(image: ImageProxy) {
+//                                val correctedBitmap: Bitmap = image
+//                                    .toBitmap()
+//                                    .rotateBitmap(image.imageInfo.rotationDegrees)
 //
-//                            getViewmodel.getPhoto(correctedBitmap)
-//                            imgTaken = correctedBitmap
-//                            image.close()
-//                        }
 //
-//                        override fun onError(exception: ImageCaptureException) {
-//                            Log.e("CameraContent", "Error capturing image", exception)
-//                        }
-//                    })
-//                }) {
-//                Text(text = "Take Image")
+//                                imgTaken = correctedBitmap
+//                                getViewmodel.getPhoto(correctedBitmap)
+//                                image.close()
+//                            }
+//
+//                            override fun onError(exception: ImageCaptureException) {
+//                                Log.e("CameraContent", "Error capturing image", exception)
+//                            }
+//                        })
+//                    }) {
+//                    Text(text = "Take Image")
+//                }
 //            }
-        }
+//
+//        },
+
 
         ){
         Box {
@@ -135,14 +116,6 @@ fun openCamera(
                         cameraControll.bindToLifecycle(lifecycleOwner)
                     }
                 })
-//            if (imgTaken == null){
-//                Box(modifier = Modifier
-//                    .width(100.dp)
-//                    .height(100.dp)
-//                    .background(color = Color.Gray))
-//            }else{
-//                PreviewImage(img = imgTaken!!)
-//            }
         }
 
 
