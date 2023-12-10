@@ -31,12 +31,13 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.bogareksa.R
 
 
 @Composable
 fun ItemCard(
-    image :Int,
+    image :String,
     title : String,
     price : Int,
     rate : Int,
@@ -46,10 +47,12 @@ fun ItemCard(
             .height(265.dp)
             .background(color = Color.White)
             .width(180.dp)
-            .padding(10.dp).clip(RoundedCornerShape(8.dp))
+            .padding(10.dp)
+            .clip(RoundedCornerShape(8.dp))
         ){
         Column{
-            Image(painter = painterResource(id = image), contentDescription = title, modifier = modifier.size(150.dp),contentScale = ContentScale.Crop,)
+            AsyncImage(model = image,  contentDescription = title, modifier = modifier.size(150.dp),contentScale = ContentScale.Crop,)
+//            Image(painter = painterResource(id = image), contentDescription = title, modifier = modifier.size(150.dp),contentScale = ContentScale.Crop,)
             Column(modifier.padding(5.dp)){
                 Spacer(modifier = modifier.height(7.dp))
                 Text(text = title, overflow = TextOverflow.Ellipsis, maxLines = 2, fontSize = 15.sp)
@@ -77,6 +80,6 @@ fun ItemCard(
 @Preview(showBackground = true)
 fun preview(){
 
-        ItemCard(image = R.drawable.food, title = "AISURIX VGA Card RX 560XT 8GB AMD DDR5 256Bit GPU Radeon Video Card - RX550-DK", price = 2000, rate = 2)
+//        ItemCard(image = R.drawable.food, title = "AISURIX VGA Card RX 560XT 8GB AMD DDR5 256Bit GPU Radeon Video Card - RX550-DK", price = 2000, rate = 2)
 
 }

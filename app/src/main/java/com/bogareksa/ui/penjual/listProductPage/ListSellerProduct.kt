@@ -23,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
@@ -44,6 +45,9 @@ import com.bogareksa.ui.penjual.listProductPage.component.SearchItemSeller
 fun ListSellerProductPage(navBack: () -> Unit){
     val viewModel = ProductSellerViewModel()
     ListSellerProductPageContent(navBack = navBack, vm = viewModel)
+
+
+
 }
 
 
@@ -53,6 +57,9 @@ fun ListSellerProductPage(navBack: () -> Unit){
 fun ListSellerProductPageContent(navBack : () -> Unit,vm : ProductSellerViewModel){
 
     val listData by rememberUpdatedState(newValue = vm.listProducts.observeAsState())
+
+
+
     Scaffold(
 
         topBar = {
@@ -124,7 +131,7 @@ fun ListSellerProduct(dataList : State<List<MyProductsItem>?>){
             items(theData){
                     productData ->
                 Log.d("data from listsellerproduct","the data list is not null")
-                ItemCard(image = R.drawable.food, title = productData.name.toString(), price = productData.price!!.toInt(), rate = 5)
+                ItemCard(image = productData.imageUrl.toString(), title = productData.name.toString(), price = productData.price!!.toInt(), rate = 5)
             }
         }
     }else{

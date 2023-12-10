@@ -14,7 +14,11 @@ class LoginViewModel : ViewModel() {
     private val _authData = MutableLiveData<ResponseAuth>()
     val authData : LiveData<ResponseAuth> get() = _authData
 
+    private val _isLogin = MutableLiveData<Boolean>()
+    val islogin :LiveData<Boolean> = _isLogin
+
     fun getAuthLogin(email : String,pass : String){
+        _isLogin.value = true
         val client =ApiConfig.getApiService().postLogin(email,pass)
         client.enqueue(object :retrofit2.Callback<ResponseAuth> {
             override fun onResponse(
@@ -23,13 +27,16 @@ class LoginViewModel : ViewModel() {
             ) {
                 if (response.isSuccessful) {
                     _authData.value = response.body()
+                    _isLogin.value = false
                 } else {
                     Log.e("AuthLoginViewModel", "onFailure: ${response.message()}")
+                    _isLogin.value = false
                 }
             }
 
             override fun onFailure(call: Call<ResponseAuth>, t: Throwable) {
                 Log.e("AuthLoginViewModel Error", "onFailure: ${t.message.toString()}")
+                _isLogin.value = false
             }
 
         })
