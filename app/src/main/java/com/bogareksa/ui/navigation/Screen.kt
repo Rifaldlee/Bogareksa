@@ -10,4 +10,6 @@ sealed class Screen(val route: String){
 
     object UploadImage : Screen("UploadImageActivity")
 
+    object ListProduct : Screen("ListProducts")
+
 }

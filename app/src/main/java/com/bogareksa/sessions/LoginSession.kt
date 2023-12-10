@@ -31,13 +31,15 @@ class LoginSession {
         val IS_LOGIN = "isLoggedin"
         val KEY_PASSWORD = "password"
         val KEY_EMAIL = "email"
+        val TOKEN = "token"
 
     }
 
-    fun createLoginSession(email: String,pass:String){
-        editor.putBoolean(IS_LOGIN,true)
-        editor.putString(KEY_EMAIL,email)
-        editor.putString(KEY_PASSWORD,pass)
+    fun createLoginSession(token: String){
+        editor.putString(TOKEN,token)
+//        editor.putBoolean(IS_LOGIN,true)
+//        editor.putString(KEY_EMAIL,email)
+//        editor.putString(KEY_PASSWORD,pass)
         editor.commit()
     }
 
@@ -52,8 +54,7 @@ class LoginSession {
 
     fun getUserProduct():HashMap<String,String>{
         var user : Map<String,String> = HashMap<String,String>()
-        (user as HashMap).put(KEY_EMAIL,pref.getString(KEY_EMAIL,null)!!)
-        (user as HashMap).put(KEY_PASSWORD,pref.getString(KEY_PASSWORD,null)!!)
+        (user as HashMap).put(TOKEN,pref.getString(TOKEN,null)!!)
         return  user
     }
 

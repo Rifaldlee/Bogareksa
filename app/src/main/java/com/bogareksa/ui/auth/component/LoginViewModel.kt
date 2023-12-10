@@ -12,7 +12,7 @@ import javax.security.auth.callback.Callback
 
 class LoginViewModel : ViewModel() {
     private val _authData = MutableLiveData<ResponseAuth>()
-    val authData : LiveData<ResponseAuth> = _authData
+    val authData : LiveData<ResponseAuth> get() = _authData
 
     fun getAuthLogin(email : String,pass : String){
         val client =ApiConfig.getApiService().postLogin(email,pass)

@@ -20,6 +20,7 @@ import com.bogareksa.ui.penjual.editDetailProductSellerPage.EditDetailProduct
 import com.bogareksa.ui.penjual.getImgPage.GetImgPage
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
 import com.bogareksa.ui.penjual.listProductPage.ListSellerProductPage
+import com.bogareksa.ui.penjual.listProductPage.ProductListActivity
 import com.bogareksa.ui.penjual.uploadImage.UploadImageActivity
 
 
@@ -53,7 +54,10 @@ fun SellerMainPage() {
                         navController.navigate(Screen.DetailProductSeller.route)
                     },
                     toTheListProduct = {
-                        navController.navigate(Screen.ListSellerProduct.route)
+//                        navController.navigate(Screen.ListSellerProduct.route)
+                        activityResultLauncher.launch(
+                            Intent(context, ProductListActivity::class.java)
+                        )
                     }
                 )
             }
@@ -95,6 +99,12 @@ fun SellerMainPage() {
             activity(Screen.UploadImage.route){
 //                UploadImageActivity()
             }
+
+            activity(Screen.ListProduct.route){
+                ProductListActivity()
+            }
+
+
 
     }
 }

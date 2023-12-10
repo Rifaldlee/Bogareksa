@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.grid.LazyGridItemScope
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -39,7 +40,7 @@ fun ItemCard(
     title : String,
     price : Int,
     rate : Int,
-    modifier: Modifier = Modifier){
+    modifier: Modifier = Modifier) {
     Box(
         modifier
             .height(265.dp)

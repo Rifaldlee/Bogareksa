@@ -54,6 +54,7 @@ class LoginActivity : AppCompatActivity() {
 //                val call: Call<ResponseProducts> = apiService.getUserData(authToken)
                 val token = "Bearer ${it.apiToken.toString()}"
                 viewmodelProduct.findProducts(token)
+                session.createLoginSession(token)
                 Log.d("Result Auth",it.desc.toString())
                 Log.d("Result Auth Token",it.apiToken.toString())
                 val intent = Intent(this, MainActivity::class.java)
@@ -111,7 +112,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.passwordEditText.error = getString(R.string.error_password_more_7)
             }
             else{
-                session.createLoginSession(email,password)
+
                 viewModel.getAuthLogin(email,password)
 
 //                AlertDialog.Builder(this).apply {
