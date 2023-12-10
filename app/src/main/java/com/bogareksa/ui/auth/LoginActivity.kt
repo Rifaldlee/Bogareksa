@@ -19,10 +19,14 @@ import com.bogareksa.CustomerMainActivity
 import com.bogareksa.MainActivity
 import com.bogareksa.R
 import com.bogareksa.databinding.ActivityLoginBinding
+import com.bogareksa.io.response.ResponseProducts
 import com.bogareksa.io.retrofit.ApiService
+import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.penjual.homePage.HomePageContent
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
+import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
+import retrofit2.Call
 
 
 class LoginActivity : AppCompatActivity() {
@@ -31,18 +35,29 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LoginViewModel
 
+    private lateinit var viewmodelProduct: ProductSellerViewModel
+
+    lateinit var session : LoginSession
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        session = LoginSession(this)
 
+        viewmodelProduct = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[ProductSellerViewModel::class.java]
         viewModel =ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[LoginViewModel::class.java]
 
         viewModel.authData.observe(this){
             if(it.desc == "Successfully signed in!"){
+//                val call: Call<ResponseProducts> = apiService.getUserData(authToken)
+                val token = "Bearer ${it.apiToken.toString()}"
+                viewmodelProduct.findProducts(token)
                 Log.d("Result Auth",it.desc.toString())
+                Log.d("Result Auth Token",it.apiToken.toString())
                 val intent = Intent(this, MainActivity::class.java)
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 startActivity(intent)
             }else{
                 Log.d("Result Auth fail",it.desc.toString())
@@ -96,7 +111,7 @@ class LoginActivity : AppCompatActivity() {
                 binding.passwordEditText.error = getString(R.string.error_password_more_7)
             }
             else{
-
+                session.createLoginSession(email,password)
                 viewModel.getAuthLogin(email,password)
 
 //                AlertDialog.Builder(this).apply {

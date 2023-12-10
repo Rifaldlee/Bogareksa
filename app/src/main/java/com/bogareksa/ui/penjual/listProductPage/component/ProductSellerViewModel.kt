@@ -9,8 +9,6 @@ import androidx.lifecycle.ViewModel
 import com.bogareksa.io.response.MyProductsItem
 import com.bogareksa.io.response.ResponseProducts
 import com.bogareksa.io.retrofit.ApiConfig
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -19,12 +17,9 @@ class ProductSellerViewModel : ViewModel(){
     private val _listProduct = MutableLiveData<List<MyProductsItem>>()
     val listProducts: LiveData<List<MyProductsItem>> = _listProduct
 
-    init {
-        findRestaurant()
-    }
-
-    private fun findRestaurant() {
-        val client = ApiConfig.getApiService().getUserData()
+    fun findProducts(token : String) {
+        Log.d("mulai cari product","cari product cuy")
+        val client = ApiConfig.getApiService().getUserData(token)
         client.enqueue(object : Callback<ResponseProducts> {
             override fun onResponse(
                 call: Call<ResponseProducts>,
@@ -33,6 +28,7 @@ class ProductSellerViewModel : ViewModel(){
 
                 if (response.isSuccessful) {
                     _listProduct.value = response.body()?.myProducts
+                    Log.d("berhasil respons product","success product cuy")
 
                 } else {
                     Log.e(TAG, "onFailure: ${response.message()}")

@@ -35,6 +35,7 @@ import com.bogareksa.R
 import com.bogareksa.ui.penjual.homePage.component.BoxData
 import com.bogareksa.ui.penjual.homePage.component.CardItem
 import com.bogareksa.ui.penjual.homePage.component.CardProfile
+import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
 import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 
