@@ -14,6 +14,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
+import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -65,9 +67,9 @@ fun HomePageSeller(email:String,vmUser: LoginViewModel,vm: ProductSellerViewMode
 fun HomePageContent(email:String,vmUser : LoginViewModel, token: String,vm: ProductSellerViewModel,modifier: Modifier = Modifier,toTheListProduct: () -> Unit,toDetailPage : () -> Unit,getAddPageRoute : () -> Unit){
 
     vm.findProducts(token)
-    val userData by rememberUpdatedState(newValue = vmUser.authData.observeAsState())
+    val listProuctData by rememberUpdatedState(newValue = vm.listProducts.observeAsState())
 
-//    val data = userData.value?.loginDetail
+    val theData = listProuctData.value ?: emptyList()
 
     val scrollState = rememberScrollState()
     Scaffold(
@@ -97,6 +99,7 @@ fun HomePageContent(email:String,vmUser : LoginViewModel, token: String,vm: Prod
 VerticalSpace()
             HorizontalDivider()
             VerticalSpace()
+
             LazyVerticalGrid(
 
 
@@ -105,6 +108,7 @@ VerticalSpace()
                 horizontalArrangement = Arrangement.spacedBy(20.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ){
+
                 for (i in 1..4){
                     item {
                        BoxData()
@@ -127,11 +131,9 @@ VerticalSpace()
             VerticalSpace()
 
             LazyColumn{
-                for (x in 1..5){
-                    item {
-                        CardItem(toDetail = toDetailPage)
-                        HorizontalDivider()
-                    }
+                items(theData){productItem ->
+                    CardItem(data = productItem,toDetail = toDetailPage)
+                    HorizontalDivider()
                 }
             }
 
