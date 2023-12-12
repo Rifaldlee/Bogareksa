@@ -14,7 +14,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProductSellerViewModel : ViewModel(){
-    private var _listProduct = MutableLiveData<List<MyProductsItem>>()
+    private var _listProduct = MutableLiveData<List<MyProductsItem>>(emptyList())
     var listProducts: LiveData<List<MyProductsItem>> = _listProduct
 
     fun findProducts(token : String) {

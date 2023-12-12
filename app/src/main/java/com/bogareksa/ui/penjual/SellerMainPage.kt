@@ -21,6 +21,7 @@ import com.bogareksa.ui.penjual.getImgPage.GetImgPage
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
 import com.bogareksa.ui.penjual.listProductPage.ListSellerProductPage
 import com.bogareksa.ui.penjual.listProductPage.ProductListActivity
+import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
 import com.bogareksa.ui.penjual.uploadImage.UploadImageActivity
 
 
@@ -28,6 +29,7 @@ import com.bogareksa.ui.penjual.uploadImage.UploadImageActivity
 @Composable
 fun SellerMainPage() {
     val navController = rememberNavController()
+    val productViewModel = ProductSellerViewModel()
     val context = LocalContext.current
     val navBackStakEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStakEntry?.destination?.route
@@ -54,11 +56,12 @@ fun SellerMainPage() {
                         navController.navigate(Screen.DetailProductSeller.route)
                     },
                     toTheListProduct = {
-//                        navController.navigate(Screen.ListSellerProduct.route)
-                        activityResultLauncher.launch(
-                            Intent(context, ProductListActivity::class.java)
-                        )
-                    }
+                        navController.navigate(Screen.ListSellerProduct.route)
+//                        activityResultLauncher.launch(
+//                            Intent(context, ProductListActivity::class.java)
+//                        )
+                    },
+                    vm = productViewModel
                 )
             }
 
@@ -92,7 +95,8 @@ fun SellerMainPage() {
 
             composable(Screen.ListSellerProduct.route){
                 ListSellerProductPage(
-                    navBack = {navController.navigateUp()}
+                    navBack = {navController.navigateUp()},
+                    vm = productViewModel
                 )
             }
 

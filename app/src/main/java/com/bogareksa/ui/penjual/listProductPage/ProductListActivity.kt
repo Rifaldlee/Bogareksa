@@ -6,20 +6,34 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
@@ -30,6 +44,9 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -40,6 +57,7 @@ import com.bogareksa.ui.auth.LoginActivity
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.penjual.listProductPage.component.ItemCard
 import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
+import com.bogareksa.ui.penjual.listProductPage.component.SearchItemSeller
 import com.bogareksa.ui.theme.MyJetpackAppsTheme
 
 class ProductListActivity : AppCompatActivity() {
@@ -65,8 +83,18 @@ class ProductListActivity : AppCompatActivity() {
 
         runOnUiThread{
             viewModel.listProducts.observe(this, Observer {
+
+                if(it.isEmpty()){
+                    val token = user.toString()
+
+                    val result = token.substringAfter("{token=").substringBefore("}")
+
+                    viewModel.findProducts(result)
+                }
+
+
                 setContent {
-                    ProductList(products = it)
+                    ListPageWithAppbar(navBack = { /*TODO*/ }, products = it )
                 }
 
             })
@@ -79,15 +107,6 @@ class ProductListActivity : AppCompatActivity() {
                     }
                 }
         }
-
-
-
-//        Log.d("session string" , "Bearer ${user.toString()}")
-        val token = user.toString()
-
-        val result = token.substringAfter("{token=").substringBefore("}")
-        viewModel.findProducts(result)
-
     }
 }
 
@@ -108,6 +127,55 @@ fun ProductList(products: List<MyProductsItem>) {
         }
     }
 
+}
+
+
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun ListPageWithAppbar(navBack : () -> Unit,products: List<MyProductsItem>,){
+    Scaffold(
+
+        topBar = {
+            Box(modifier = Modifier){
+                Image(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(75.dp),
+                    painter = painterResource(id = R.drawable.bgappbar),
+                    contentDescription = "Background image"
+                    , contentScale = ContentScale.Crop
+
+                )
+
+                TopAppBar(
+                    colors = TopAppBarColors(containerColor = Color.Transparent, actionIconContentColor = Color.White, navigationIconContentColor = Color.White, scrolledContainerColor = Color.Transparent, titleContentColor = Color.White) ,
+                    modifier = Modifier
+                        .background(color = Color.Transparent)
+                        .padding(start = 5.dp, end = 10.dp),
+                    title = {
+                        SearchItemSeller(deleteText = { /*TODO*/ }, query = "", onQueryChange = {})
+                    },
+                    navigationIcon = {
+                        Icon(modifier = Modifier.clickable {
+                            navBack()
+                        },imageVector = Icons.Default.ArrowBack, contentDescription = "back page"
+                        )
+                    },
+                    actions = {
+                        Icon(imageVector = Icons.Default.Clear, contentDescription ="delete" )
+                    }
+
+
+                )
+            }
+        }
+
+    ){
+        Surface(modifier = Modifier.padding(it)){
+            ProductList(products = products )
+        }
+    }
 }
 
 

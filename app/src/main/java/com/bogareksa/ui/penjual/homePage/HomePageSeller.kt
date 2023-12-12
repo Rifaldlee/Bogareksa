@@ -28,10 +28,12 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bogareksa.R
+import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.penjual.homePage.component.BoxData
 import com.bogareksa.ui.penjual.homePage.component.CardItem
 import com.bogareksa.ui.penjual.homePage.component.CardProfile
@@ -40,9 +42,15 @@ import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 
 @Composable
-fun HomePageSeller(toTheListProduct: () -> Unit,getAddPageRoute : () -> Unit,toTheDetail : () -> Unit){
+fun HomePageSeller(vm: ProductSellerViewModel,toTheListProduct: () -> Unit,getAddPageRoute : () -> Unit,toTheDetail : () -> Unit){
+
+    val session = LoginSession(ctx = LocalContext.current)
+    var user: HashMap<String,String> = session.getUserProduct()
+    val castToTxt = user.toString()
+    val theToken = castToTxt.substringAfter("{token=").substringBefore("}")
+
     Box(modifier = Modifier){
-        HomePageContent(getAddPageRoute = getAddPageRoute, toTheListProduct = toTheListProduct,toDetailPage = toTheDetail)
+        HomePageContent(token = theToken,vm = vm,getAddPageRoute = getAddPageRoute, toTheListProduct = toTheListProduct,toDetailPage = toTheDetail)
     }
 }
 
@@ -50,7 +58,9 @@ fun HomePageSeller(toTheListProduct: () -> Unit,getAddPageRoute : () -> Unit,toT
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePageContent(modifier: Modifier = Modifier,toTheListProduct: () -> Unit,toDetailPage : () -> Unit,getAddPageRoute : () -> Unit){
+fun HomePageContent(token: String,vm: ProductSellerViewModel,modifier: Modifier = Modifier,toTheListProduct: () -> Unit,toDetailPage : () -> Unit,getAddPageRoute : () -> Unit){
+
+    vm.findProducts(token)
 
     val scrollState = rememberScrollState()
     Scaffold(

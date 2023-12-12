@@ -31,22 +31,26 @@ import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bogareksa.R
 import com.bogareksa.io.response.MyProductsItem
+import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.pembeli.components.Search
 import com.bogareksa.ui.penjual.listProductPage.component.ItemCard
 import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
 import com.bogareksa.ui.penjual.listProductPage.component.SearchItemSeller
 
 @Composable
-fun ListSellerProductPage(navBack: () -> Unit){
-    val viewModel = ProductSellerViewModel()
-    ListSellerProductPageContent(navBack = navBack, vm = viewModel)
-
-
+fun ListSellerProductPage(navBack: () -> Unit,vm: ProductSellerViewModel){
+//    val viewModel = ProductSellerViewModel()
+//    val session = LoginSession(ctx = LocalContext.current)
+//    var user: HashMap<String,String> = session.getUserProduct()
+//    val castToTxt = user.toString()
+//    val theToken = castToTxt.substringAfter("{token=").substringBefore("}")
+    ListSellerProductPageContent(navBack = navBack, vm = vm)
 
 }
 
@@ -57,8 +61,6 @@ fun ListSellerProductPage(navBack: () -> Unit){
 fun ListSellerProductPageContent(navBack : () -> Unit,vm : ProductSellerViewModel){
 
     val listData by rememberUpdatedState(newValue = vm.listProducts.observeAsState())
-
-
 
     Scaffold(
 
