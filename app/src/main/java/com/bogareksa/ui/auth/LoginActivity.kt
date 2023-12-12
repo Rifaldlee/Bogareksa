@@ -50,17 +50,19 @@ class LoginActivity : AppCompatActivity() {
         viewModel =ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[LoginViewModel::class.java]
 
         viewModel.authData.observe(this){
-
+            val detailUser = it.loginDetail
             if(it.desc == "Successfully signed in!"){
 //                val call: Call<ResponseProducts> = apiService.getUserData(authToken)
                 val token = "Bearer ${it.apiToken.toString()}"
 //                viewmodelProduct.findProducts(token)
                 session.createLoginSession(token)
-                Log.d("Result Auth",it.desc.toString())
-                Log.d("Result Auth Token",it.apiToken.toString())
-                val intent = Intent(this, MainActivity::class.java)
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                startActivity(intent)
+                if (detailUser != null){
+                    val intent = Intent(this, MainActivity::class.java)
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    intent.putExtra("email",detailUser.email)
+                    startActivity(intent)
+                }
+
             }else{
                 Log.d("Result Auth fail",it.desc.toString())
             }

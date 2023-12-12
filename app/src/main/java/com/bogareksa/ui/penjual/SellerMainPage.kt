@@ -13,6 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.navigation.Screen
 import com.bogareksa.ui.penjual.addProductPage.AddProductPageSeller
 import com.bogareksa.ui.penjual.detailProductPage.DetailProductSellerPage
@@ -27,9 +28,10 @@ import com.bogareksa.ui.penjual.uploadImage.UploadImageActivity
 
 @SuppressLint("SuspiciousIndentation")
 @Composable
-fun SellerMainPage() {
+fun SellerMainPage(email : String) {
     val navController = rememberNavController()
     val productViewModel = ProductSellerViewModel()
+    val loginViewModel = LoginViewModel()
     val context = LocalContext.current
     val navBackStakEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStakEntry?.destination?.route
@@ -49,6 +51,7 @@ fun SellerMainPage() {
         NavHost(navController = navController, startDestination = Screen.HomePageSeller.route ){
             composable(Screen.HomePageSeller.route){
                 HomePageSeller(
+                    email = email,
                     getAddPageRoute = {
                         navController.navigate(Screen.AddProductSeller.route)
                     },
@@ -61,7 +64,8 @@ fun SellerMainPage() {
 //                            Intent(context, ProductListActivity::class.java)
 //                        )
                     },
-                    vm = productViewModel
+                    vm = productViewModel,
+                    vmUser = loginViewModel
                 )
             }
 

@@ -20,15 +20,16 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val email = intent.getStringExtra("email")
         setContent {
 
-            session = LoginSession(this)
-
-            var user: HashMap<String,String> = session.getUserProduct()
-
-
-
-            Log.d("session string" , user.toString())
+//            session = LoginSession(this)
+//
+//            var user: HashMap<String,String> = session.getUserProduct()
+//
+//
+//            Log.d("session string" , user.toString())
 
 
 
@@ -37,7 +38,7 @@ class MainActivity : AppCompatActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    SellerMainPage()
+                    SellerMainPage(email = email.toString())
                 }
             }
 
