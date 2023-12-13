@@ -1,5 +1,6 @@
 package com.bogareksa.ui.penjual.homePage.component
 
+import android.net.Uri
 import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -24,17 +25,28 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.bogareksa.R
 import com.bogareksa.io.response.MyProductsItem
+import com.bogareksa.ui.navigation.Screen
 import com.bogareksa.ui.penjual.mainSellerComponent.HorizontalSpace
+import java.net.URLEncoder
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CardItem(data: MyProductsItem,modifier: Modifier = Modifier,toDetail : () -> Unit){
+fun CardItem(data: MyProductsItem,modifier: Modifier = Modifier,toDetail : NavHostController){
     Card(onClick = {
-        Log.d("msg","yes it's to the detail")
-        toDetail()
+
+        val encodedUrl = URLEncoder.encode(data.imageUrl,"UTF-8")
+        Log.d("msg url",data.imageUrl.toString())
+        toDetail.navigate(Screen.DetailProductSeller.createRoute(
+            productId = data.productId.toString(),
+            productName = data.name.toString(),
+            productPrice =data.price.toString(),
+//            productDetail = data.desc.toString(),
+            productImage = encodedUrl
+            ))
     }, modifier = modifier
         .height(90.dp)
         .fillMaxWidth().padding(bottom = 10.dp).background(color = Color.White)) {

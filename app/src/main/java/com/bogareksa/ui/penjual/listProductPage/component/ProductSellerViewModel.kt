@@ -14,8 +14,24 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class ProductSellerViewModel : ViewModel(){
-    private var _listProduct = MutableLiveData<List<MyProductsItem>>(emptyList())
+    private var _listProduct = MutableLiveData<List<MyProductsItem>>()
     var listProducts: LiveData<List<MyProductsItem>> = _listProduct
+
+    private var _detailProduct = MutableLiveData<MyProductsItem>()
+    var detailProducts: LiveData<MyProductsItem> = _detailProduct
+
+    private var _isFetch = MutableLiveData<Boolean>(false)
+    var isFetch: LiveData<Boolean> = _isFetch
+
+
+    fun findProductById(id : String){
+        Log.d("dataList seller",_listProduct.value.toString())
+        _detailProduct.value =  _listProduct.value!!.find { items ->
+            items.productId == id
+        }
+    }
+
+
 
     fun findProducts(token : String) {
         Log.d("mulai cari product","cari product cuy")
@@ -28,6 +44,7 @@ class ProductSellerViewModel : ViewModel(){
 
                 if (response.isSuccessful) {
                     _listProduct.value = response.body()?.myProducts
+                    _isFetch.value = true
                     Log.d("berhasil respons product","success product cuy ${listProducts.value!![0].name}")
                     Log.d("print all the fetched product", response.body()?.myProducts.toString())
 

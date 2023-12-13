@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 @Composable
-fun BoxData(modifier : Modifier = Modifier){
+fun BoxData(title:String,amount:String,modifier : Modifier = Modifier){
     Box(modifier = modifier
         .width(90.dp)
         .height(90.dp)
@@ -29,10 +29,10 @@ fun BoxData(modifier : Modifier = Modifier){
 
     ){
         Column {
-            Text(text = "Product", style = MaterialTheme.typography.titleSmall)
+            Text(text = title, style = MaterialTheme.typography.titleSmall)
             HorizontalDivider()
             VerticalSpace()
-            Text(text = "10", style = MaterialTheme.typography.titleLarge.copy(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold))
+            Text(text = amount, style = MaterialTheme.typography.titleLarge.copy(color = MaterialTheme.colorScheme.primary, fontWeight = FontWeight.Bold))
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.bogareksa.ui.penjual.mainSellerComponent
+package com.bogareksa.ui.penjual.detailProductPage.component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -22,10 +22,11 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.bogareksa.R
+import com.bogareksa.ui.penjual.detailProductPage.component.DetaiProductSellerlViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AppbarImgBackground(navBack : () -> Unit,title: String){
+fun AppbarDetailImgBackground(navBack : () -> Unit,vmDetail:DetaiProductSellerlViewModel,id:String,token:String,title: String){
     Box {
         Image(
             modifier = Modifier
@@ -49,7 +50,11 @@ fun AppbarImgBackground(navBack : () -> Unit,title: String){
                 },imageVector = Icons.Default.ArrowBack, contentDescription = title
                 )
             },
-
+            actions = {
+                Icon(modifier = Modifier.padding(end = 10.dp).clickable {
+                    vmDetail.deletedProduct(token,id)
+                },imageVector = Icons.Default.Delete, contentDescription ="delete" )
+            }
         )
     }
 }

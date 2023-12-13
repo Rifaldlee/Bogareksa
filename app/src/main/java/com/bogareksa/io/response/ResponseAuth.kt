@@ -63,5 +63,8 @@ data class LoginDetail(
 	val email: String? = null,
 
 	@field:SerializedName("passwordHash")
-	val passwordHash: String? = null
+	val passwordHash: String? = null,
+
+	@field:SerializedName("role")
+	val role: Int? = null
 )

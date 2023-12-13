@@ -10,6 +10,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
@@ -49,22 +50,28 @@ class LoginActivity : AppCompatActivity() {
         viewmodelProduct = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[ProductSellerViewModel::class.java]
         viewModel =ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[LoginViewModel::class.java]
 
-        viewModel.authData.observe(this){
-            val detailUser = it.loginDetail
-            if(it.desc == "Successfully signed in!"){
-//                val call: Call<ResponseProducts> = apiService.getUserData(authToken)
-                val token = "Bearer ${it.apiToken.toString()}"
-//                viewmodelProduct.findProducts(token)
+        viewModel.authData.observe(this){auth ->
+            val detailUser = auth.loginDetail
+            if(auth.desc == "Successfully signed in!"){
+                val token = "Bearer ${auth.apiToken.toString()}"
                 session.createLoginSession(token)
-                if (detailUser != null){
-                    val intent = Intent(this, MainActivity::class.java)
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    intent.putExtra("email",detailUser.email)
-                    startActivity(intent)
-                }
+                viewmodelProduct.findProducts(token)
+
+
+                    if (detailUser != null && auth.loginDetail.role == 2){
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.putExtra("email",detailUser.email)
+                        startActivity(intent)
+                    }else{
+                        Toast.makeText(this,"",Toast.LENGTH_SHORT).show()
+                    }
+
+
+
 
             }else{
-                Log.d("Result Auth fail",it.desc.toString())
+                Log.d("Result Auth fail",auth.desc.toString())
             }
 
         }

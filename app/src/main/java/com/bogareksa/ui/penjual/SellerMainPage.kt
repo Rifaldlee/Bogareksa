@@ -8,15 +8,19 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavType
 import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.navigation.Screen
 import com.bogareksa.ui.penjual.addProductPage.AddProductPageSeller
 import com.bogareksa.ui.penjual.detailProductPage.DetailProductSellerPage
+import com.bogareksa.ui.penjual.detailProductPage.component.DetaiProductSellerlViewModel
 import com.bogareksa.ui.penjual.editDetailProductSellerPage.EditDetailProduct
 import com.bogareksa.ui.penjual.getImgPage.GetImgPage
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
@@ -30,11 +34,23 @@ import com.bogareksa.ui.penjual.uploadImage.UploadImageActivity
 @Composable
 fun SellerMainPage(email : String) {
     val navController = rememberNavController()
+
+    //VIEWMODEL
     val productViewModel = ProductSellerViewModel()
     val loginViewModel = LoginViewModel()
+    val detailViewModel = DetaiProductSellerlViewModel()
+
+
     val context = LocalContext.current
     val navBackStakEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStakEntry?.destination?.route
+
+
+    //TOKEN
+    val session = LoginSession(ctx = LocalContext.current)
+    var user: HashMap<String,String> = session.getUserProduct()
+    val castToTxt = user.toString()
+    val theToken = castToTxt.substringAfter("{token=").substringBefore("}")
 
 
     val activityResultLauncher =
@@ -55,9 +71,9 @@ fun SellerMainPage(email : String) {
                     getAddPageRoute = {
                         navController.navigate(Screen.AddProductSeller.route)
                     },
-                    toTheDetail = {
-                        navController.navigate(Screen.DetailProductSeller.route)
-                    },
+//                    toTheDetail = {
+//                        navController.navigate(Screen.DetailProductSeller.route)
+//                    },
                     toTheListProduct = {
                         navController.navigate(Screen.ListSellerProduct.route)
 //                        activityResultLauncher.launch(
@@ -65,7 +81,10 @@ fun SellerMainPage(email : String) {
 //                        )
                     },
                     vm = productViewModel,
-                    vmUser = loginViewModel
+                    navCrontroller = navController,
+//                    toTheDetail = {
+//
+//                    }
                 )
             }
 
@@ -87,9 +106,32 @@ fun SellerMainPage(email : String) {
             }
 
 
-            composable(Screen.DetailProductSeller.route){
+            composable(
+                route = Screen.DetailProductSeller.route,
+                arguments = listOf(
+                    navArgument("productId"){type = NavType.StringType},
+                    navArgument("productName"){type = NavType.StringType},
+                    navArgument("productPrice"){type = NavType.StringType},
+                    navArgument("productImage"){type = NavType.StringType},
+//                    navArgument("productDetail"){type = NavType.StringType},
+
+                )
+            ){
+                val id = it.arguments?.getString("productId") ?: ""
+                val name = it.arguments?.getString("productName") ?: ""
+                val price = it.arguments?.getString("productPrice") ?: ""
+                val img = it.arguments?.getString("productImage") ?: ""
+//                val detail = it.arguments?.getString("productDetail") ?: ""
                 DetailProductSellerPage(
-                    navBack = {navController.navigateUp()}
+                    token = theToken,
+                    id = id,
+                    navBack = {navController.navigateUp()},
+                    vm = productViewModel,
+                    price = price,
+                    name = name,
+                    img = img,
+                    vmDetail = detailViewModel
+//                    detail = detail
                 )
             }
 

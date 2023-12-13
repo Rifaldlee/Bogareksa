@@ -21,6 +21,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
@@ -28,8 +29,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -37,9 +41,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
 import com.bogareksa.R
 import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
+import com.bogareksa.ui.navigation.Screen
 import com.bogareksa.ui.penjual.homePage.component.BoxData
 import com.bogareksa.ui.penjual.homePage.component.CardItem
 import com.bogareksa.ui.penjual.homePage.component.CardProfile
@@ -48,7 +54,13 @@ import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 
 @Composable
-fun HomePageSeller(email:String,vmUser: LoginViewModel,vm: ProductSellerViewModel,toTheListProduct: () -> Unit,getAddPageRoute : () -> Unit,toTheDetail : () -> Unit){
+fun HomePageSeller(
+    navCrontroller: NavHostController,
+    email:String,vm: ProductSellerViewModel,
+    toTheListProduct: () -> Unit,
+    getAddPageRoute : () -> Unit,
+//    toTheDetail : () -> Unit
+){
 
     val session = LoginSession(ctx = LocalContext.current)
     var user: HashMap<String,String> = session.getUserProduct()
@@ -56,7 +68,15 @@ fun HomePageSeller(email:String,vmUser: LoginViewModel,vm: ProductSellerViewMode
     val theToken = castToTxt.substringAfter("{token=").substringBefore("}")
 
     Box(modifier = Modifier){
-        HomePageContent(email= email,vmUser = vmUser,token = theToken,vm = vm,getAddPageRoute = getAddPageRoute, toTheListProduct = toTheListProduct,toDetailPage = toTheDetail)
+        HomePageContent(
+            navControl = navCrontroller,
+            email= email,
+            token = theToken,
+            vm = vm,
+            getAddPageRoute = getAddPageRoute,
+            toTheListProduct = toTheListProduct,
+//            toDetailPage = toTheDetail
+        )
     }
 }
 
@@ -64,14 +84,33 @@ fun HomePageSeller(email:String,vmUser: LoginViewModel,vm: ProductSellerViewMode
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomePageContent(email:String,vmUser : LoginViewModel, token: String,vm: ProductSellerViewModel,modifier: Modifier = Modifier,toTheListProduct: () -> Unit,toDetailPage : () -> Unit,getAddPageRoute : () -> Unit){
+fun HomePageContent(
+    navControl:NavHostController,
+    email:String, token: String,
+    vm: ProductSellerViewModel,
+    modifier: Modifier = Modifier,
+    toTheListProduct: () -> Unit,
+//    toDetailPage : () -> Unit,
+    getAddPageRoute : () -> Unit){
 
-    vm.findProducts(token)
-    val listProuctData by rememberUpdatedState(newValue = vm.listProducts.observeAsState())
 
-    val theData = listProuctData.value ?: emptyList()
+
+    val listProuctData by  vm.listProducts.observeAsState()
+    val isFetch by rememberUpdatedState(newValue = vm.isFetch.observeAsState())
+//    val theData = listProuctData.value ?: emptyList()
 
     val scrollState = rememberScrollState()
+
+
+
+//        if(isFetch.value == false){
+//
+            vm.findProducts(token)
+//        }
+
+
+
+
     Scaffold(
        topBar = {
            TopAppBar(
@@ -93,7 +132,7 @@ fun HomePageContent(email:String,vmUser : LoginViewModel, token: String,vm: Prod
                 .padding(paddingValues = it)
                 .padding(15.dp)
                 .verticalScroll(state = scrollState)
-                .height(950.dp)
+                .height(820.dp)
                 ){
             CardProfile(sellerName = email, sellerEmail = "wudd404@gmail.com")
 VerticalSpace()
@@ -108,11 +147,14 @@ VerticalSpace()
                 horizontalArrangement = Arrangement.spacedBy(20.dp),
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ){
-
-                for (i in 1..4){
-                    item {
-                       BoxData()
-                    }
+                item {
+                    BoxData(title = "Products Amount",
+                        amount = "10"
+//                        amount = if(theData.isEmpty()) "-" else theData.size.toString()
+                    )
+                }
+                item {
+                    BoxData(title = "Proudcts Exp", amount = "3")
                 }
             }
             VerticalSpace()
@@ -130,12 +172,18 @@ VerticalSpace()
 
             VerticalSpace()
 
-            LazyColumn{
-                items(theData){productItem ->
-                    CardItem(data = productItem,toDetail = toDetailPage)
-                    HorizontalDivider()
+            if(listProuctData == null){
+                CircularProgressIndicator()
+            }else{
+                LazyColumn{
+                    items(listProuctData!!.take(5)){productItem ->
+                        CardItem(data = productItem,toDetail = navControl)
+                        HorizontalDivider()
+                    }
                 }
             }
+
+
 
             VerticalSpace()
             Button( modifier =modifier.fillMaxWidth(),onClick = {
