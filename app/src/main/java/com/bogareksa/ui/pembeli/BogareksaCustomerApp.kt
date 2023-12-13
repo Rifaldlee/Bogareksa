@@ -2,6 +2,7 @@ package com.bogareksa.ui.pembeli
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
@@ -23,13 +24,13 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.bogareksa.ui.pembeli.components.Search
 import com.bogareksa.ui.pembeli.navigation.NavigationItem
 import com.bogareksa.ui.pembeli.navigation.Screen
 import com.bogareksa.ui.pembeli.screen.CartList
 import com.bogareksa.ui.pembeli.screen.CustomerProfile
 import com.bogareksa.ui.pembeli.screen.ProductDetail
 import com.bogareksa.ui.pembeli.screen.ProductList
+import com.bogareksa.ui.pembeli.screen.TransactionContent
 
 @Composable
 fun BogareksaCustomerApp(
@@ -62,7 +63,10 @@ fun BogareksaCustomerApp(
             composable(Screen.CartList.route) {
                 CartList(onOrderButtonClicked = {})
             }
-            composable(Screen.CustomerProfile.route) {
+            composable(Screen.Transaction.route) {
+                TransactionContent()
+            }
+            composable(Screen.Profile.route) {
                 CustomerProfile(onBackClick = {})
             }
             composable(
@@ -109,8 +113,12 @@ private fun BottomBar(
                 screen = Screen.CartList
             ),
             NavigationItem(
+                icon = Icons.Default.Email,
+                screen = Screen.Transaction
+            ),
+            NavigationItem(
                 icon = Icons.Default.Person,
-                screen = Screen.CustomerProfile
+                screen = Screen.Profile
             ),
         )
         navigationItems.map { item ->

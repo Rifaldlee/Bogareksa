@@ -1,6 +1,5 @@
 package com.bogareksa.ui.pembeli.screen
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,7 +15,6 @@ import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.bogareksa.R
 import com.bogareksa.ui.pembeli.BogareksaCustomerApp
 import com.bogareksa.ui.pembeli.components.Search
 import com.bogareksa.ui.pembeli.data.OrderProduct
