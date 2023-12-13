@@ -45,7 +45,6 @@ fun CartList(
             Injection.provideRepository()
         )
     ),
-    navigateBack: () -> Unit,
     onOrderButtonClicked: (String) -> Unit,
 ){
     viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
@@ -60,7 +59,7 @@ fun CartList(
                         viewModel.updateOrderProduct(productid, count)
                     },
                     onOrderButtonClicked = onOrderButtonClicked,
-                    onBackClick = navigateBack,)
+                    )
             }
             is UiState.Error -> {}
         }
@@ -71,32 +70,12 @@ fun CartListContent(
     state: CartState,
     onProductAmountChanged: (id: Long, count: Int) -> Unit,
     onOrderButtonClicked: (String) -> Unit,
-    onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ){
     Surface(
         modifier = modifier.fillMaxSize()
     ) {
         Column{
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .padding(start = 12.dp, top = 12.dp)
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.back),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable { onBackClick() }
-                )
-                Spacer(modifier = Modifier.width(24.dp))
-                Text(
-                    text = "Cart List",
-                    fontSize = 16.sp,
-                )
-            }
             Spacer(modifier = Modifier.height(32.dp))
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(16.dp),
@@ -146,7 +125,6 @@ fun CartListContent(
 fun CartListPreview() {
     MaterialTheme {
         CartList(
-            navigateBack = {},
             onOrderButtonClicked = {})
     }
 }
