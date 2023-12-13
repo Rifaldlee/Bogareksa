@@ -1,5 +1,4 @@
 package com.bogareksa.ui.penjual.addProductPage.component
-
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
@@ -14,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,17 +25,20 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputAddForm(hint:String,title:String){
-    var txt by remember{ mutableStateOf("") }
+fun InputAddForm(txt: String,hint:String,title:String,onChage: (String) -> Unit){
+//    var txt by remember{ txt}
     var valid by remember{ mutableStateOf(true) }
 
 
     Column {
         Text(text = title, style = MaterialTheme.typography.bodyLarge)
         VerticalSpace()
-        Box(modifier = Modifier.background(color = Color.White).clip(RoundedCornerShape(10.dp))
+        Box(modifier = Modifier
+            .background(color = Color.White)
+            .clip(RoundedCornerShape(10.dp))
             .border(width = 3.dp, color = Color(0xff00698C))
 
 
@@ -44,8 +47,9 @@ fun InputAddForm(hint:String,title:String){
                 modifier = Modifier.fillMaxWidth()
                 ,value = txt,
                 onValueChange ={
-                    txt = it
-                    valid = it.isNotEmpty()
+                               onChage(it)
+//                    txt.value = it
+//                    valid = it.isNotEmpty()
                 } ,
                 label = { Text(text = "enter text")},
                 colors = TextFieldDefaults.textFieldColors(
@@ -67,5 +71,5 @@ fun InputAddForm(hint:String,title:String){
 @Composable
 @Preview(showBackground = true)
 fun preview(){
-    InputAddForm(hint = "insert text", title = "test")
+//    InputAddForm(hint = "insert text", title = "test")
 }

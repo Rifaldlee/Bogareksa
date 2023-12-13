@@ -155,8 +155,6 @@ fun DetailProductSellerPageContent(
                 Spacer(modifier = modifier.height(10.dp))
 
 
-
-
                 Spacer(modifier = modifier.height(10.dp))
                 if (true){
                     Button(onClick = {
