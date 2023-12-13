@@ -19,10 +19,13 @@ import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Search(modifier: Modifier = Modifier) {
+fun Search(
+    query: String,
+    onQueryChange: (String) -> Unit,
+    modifier: Modifier = Modifier) {
     SearchBar(
-        query = "",
-        onQueryChange = {},
+        query = query,
+        onQueryChange = onQueryChange,
         onSearch = {},
         active = false,
         onActiveChange = {},
@@ -51,5 +54,5 @@ fun Search(modifier: Modifier = Modifier) {
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
 fun SearchPreview() {
-    Search()
+    Search(query = "", onQueryChange = {})
 }

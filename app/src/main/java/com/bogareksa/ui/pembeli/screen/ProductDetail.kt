@@ -14,22 +14,71 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bogareksa.R
 import com.bogareksa.ui.pembeli.components.BuyButton
+import com.bogareksa.ui.pembeli.di.Injection
+import com.bogareksa.ui.pembeli.state.UiState
+import com.bogareksa.ui.pembeli.viewmodel.ProductDetailViewModel
+import com.bogareksa.ui.pembeli.viewmodel.ViewModelFactory
 
 @Composable
 fun ProductDetail(
+    productId: Long,
+    viewModel: ProductDetailViewModel = viewModel(
+        factory = ViewModelFactory(
+            Injection.provideRepository()
+        )
+    ),
     onBackClick: () -> Unit,
+    navigateToCart: () -> Unit,
+){
+    viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
+        when(uiState){
+            is UiState.Loading -> {
+                viewModel.getProductById(productId)
+            }
+            is UiState.Success -> {
+                val data = uiState.data
+                DetailContent(
+                    data.product.image,
+                    data.product.name,
+                    data.product.price,
+                    data.product.expired,
+                    data.product.desc,
+                    onBackClick = onBackClick,
+                    addToCart = {
+                        viewModel.addToCart(data.product)
+                        navigateToCart()
+                    }
+                )
+            }
+            else -> {}
+        }
+    }
+}
+
+@Composable
+fun DetailContent(
+    image: Int,
+    name: String,
+    price: Int,
+    expired: String,
+    desc: String,
+    onBackClick: () -> Unit,
+    addToCart: () ->Unit,
     modifier: Modifier = Modifier,
 ){
     Column(modifier = modifier) {
@@ -44,7 +93,7 @@ fun ProductDetail(
                     .padding(bottom = 12.dp,),
             ){
                 Image(
-                    painter = painterResource(R.drawable.food),
+                    painter = painterResource(image),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = modifier
@@ -57,7 +106,7 @@ fun ProductDetail(
                     contentScale = ContentScale.Crop,
                     modifier = modifier
                         .padding(start = 12.dp, top = 12.dp)
-                        .size(48.dp)
+                        .size(32.dp)
                         .clickable { onBackClick() }
                 )
             }
@@ -66,7 +115,7 @@ fun ProductDetail(
                     .padding(start = 12.dp, end = 12.dp, bottom = 24.dp),
             ) {
                 Text(
-                    text = "Fast Food",
+                    text = name,
                     color = Color.Black,
                     fontSize = 20.sp,
                     modifier = modifier
@@ -77,13 +126,13 @@ fun ProductDetail(
                         .padding(top = 12.dp, bottom = 36.dp),
                 ) {
                     Text(
-                        text = "Rp90000",
+                        text = stringResource(R.string.rupiah, price),
                         color = Color.Black,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.ExtraBold,
                     )
                     Text(
-                        text = "12-12-9999",
+                        text = expired,
                         color = Color.Black,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.ExtraBold,
@@ -98,7 +147,7 @@ fun ProductDetail(
                     fontSize = 20.sp,
                 )
                 Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                    text = desc,
                     color = Color.Black,
                     fontSize = 20.sp,
                     modifier = modifier
@@ -109,8 +158,9 @@ fun ProductDetail(
             BuyButton(
                 text = "buy",
                 modifier = modifier
-                    .padding(start = 12.dp, end = 12.dp,)
-            ) {}
+                    .padding(start = 12.dp, end = 12.dp,),
+                onClick = {addToCart()}
+            )
         }
     }
 }
@@ -118,6 +168,10 @@ fun ProductDetail(
 @Composable
 fun DetailCinemateAppPreview() {
     MaterialTheme {
-        ProductDetail(onBackClick = {})
+        ProductDetail(
+            productId = 1,
+            onBackClick = {},
+            navigateToCart = {}
+        )
     }
 }

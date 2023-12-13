@@ -37,24 +37,6 @@ fun ProductCounter(
         modifier = modifier
     ) {
         Image(
-            painter = painterResource(id = R.drawable.plus),
-            contentDescription = "increase",
-            contentScale = ContentScale.Crop,
-            modifier = modifier
-                .height(24.dp)
-                .clickable{
-                    increased(orderId)
-                }
-        )
-        Text(
-            text = stringResource(amount),
-            fontSize = 20.sp,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = modifier
-                .width(64.dp)
-        )
-        Image(
             painter = painterResource(id = R.drawable.minus),
             contentDescription = "increase",
             contentScale = ContentScale.Crop,
@@ -62,6 +44,24 @@ fun ProductCounter(
                 .height(24.dp)
                 .clickable{
                     decreased(orderId)
+                }
+        )
+        Text(
+            text = amount.toString(),
+            fontSize = 20.sp,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            modifier = modifier
+                .width(64.dp)
+        )
+        Image(
+            painter = painterResource(id = R.drawable.plus),
+            contentDescription = "increase",
+            contentScale = ContentScale.Crop,
+            modifier = modifier
+                .height(24.dp)
+                .clickable{
+                    increased(orderId)
                 }
         )
     }

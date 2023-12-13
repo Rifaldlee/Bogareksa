@@ -3,6 +3,7 @@ package com.bogareksa.ui.pembeli.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -24,11 +25,13 @@ import com.bogareksa.R
 
 @Composable
 fun ProductItem(
+    id: Long,
     image: Int,
     name: String,
     desc: String,
     price: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    navigateToDetail: (Long) -> Unit
 ){
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -39,7 +42,10 @@ fun ProductItem(
                 width = 1.dp,
                 color = Color(0x26000000),
                 shape = RoundedCornerShape(size = 10.dp)
-            ),
+            )
+            .clickable {
+                navigateToDetail(id)
+            },
     ){
         Image(
             painter = painterResource(image),
@@ -76,6 +82,6 @@ fun ProductItem(
 @Preview(showBackground = true)
 fun ProductItemPreview() {
     MaterialTheme {
-        ProductItem(R.drawable.food, "Fast Food", "Deskripsi", 90000)
+        ProductItem(1, R.drawable.food, "Fast Food", "Deskripsi", 90000, modifier = Modifier, {})
     }
 }

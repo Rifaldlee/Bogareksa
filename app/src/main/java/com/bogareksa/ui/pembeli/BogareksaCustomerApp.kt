@@ -17,15 +17,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.bogareksa.ui.pembeli.components.Search
 import com.bogareksa.ui.pembeli.navigation.NavigationItem
 import com.bogareksa.ui.pembeli.navigation.Screen
 import com.bogareksa.ui.pembeli.screen.CartList
 import com.bogareksa.ui.pembeli.screen.CustomerProfile
+import com.bogareksa.ui.pembeli.screen.ProductDetail
 import com.bogareksa.ui.pembeli.screen.ProductList
 
 @Composable
@@ -50,13 +53,37 @@ fun BogareksaCustomerApp(
             modifier = Modifier.padding(innerPadding)
         ) {
             composable(Screen.ProductList.route) {
-                ProductList()
+                ProductList(
+                    navigateToDetail = {productId ->
+                        navController.navigate(Screen.ProductDetail.createRoute(productId))
+                    }
+                )
             }
             composable(Screen.CartList.route) {
-                CartList(onBackClick = {})
+                CartList(navigateBack = {}, onOrderButtonClicked = {})
             }
             composable(Screen.CustomerProfile.route) {
                 CustomerProfile(onBackClick = {})
+            }
+            composable(
+                route = Screen.ProductDetail.route,
+                arguments = listOf(navArgument("productId") { type = NavType.LongType }),
+            ){
+                val id = it.arguments?.getLong("productId")?: -1L
+                ProductDetail(
+                    productId = id,
+                    onBackClick = { navController.navigateUp() },
+                    navigateToCart = {
+                        navController.popBackStack()
+                        navController.navigate(Screen.CartList.route){
+                            popUpTo(navController.graph.findStartDestination().id){
+                                saveState = true
+                            }
+                            launchSingleTop = true
+                            restoreState = true
+                        }
+                    }
+                )
             }
         }
     }
