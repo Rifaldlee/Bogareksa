@@ -39,7 +39,10 @@ interface ApiService {
 
 
     @POST("products")
-    fun addProduct(
+    fun
+
+            addProduct(
+        @Header("Authorization") token: String,
         @Field("uploadedFile") uploadedFile: File,
         @Field("price") price: Int,
         @Field("name") name: String

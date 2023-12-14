@@ -30,6 +30,9 @@
             android:name=".CustomerMainActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.penjual.addProductPage.AddProductActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.penjual.uploadImage.component.CameraActivity"
             android:exported="false" />
         <activity

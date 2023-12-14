@@ -18,7 +18,9 @@ import androidx.navigation.navArgument
 import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.navigation.Screen
+import com.bogareksa.ui.penjual.addProductPage.AddProductActivity
 import com.bogareksa.ui.penjual.addProductPage.AddProductPageSeller
+import com.bogareksa.ui.penjual.addProductPage.component.AddProductViewModel
 import com.bogareksa.ui.penjual.detailProductPage.DetailProductSellerPage
 import com.bogareksa.ui.penjual.detailProductPage.component.DetaiProductSellerlViewModel
 import com.bogareksa.ui.penjual.editDetailProductSellerPage.EditDetailProduct
@@ -39,6 +41,7 @@ fun SellerMainPage(email : String) {
     val productViewModel = ProductSellerViewModel()
     val loginViewModel = LoginViewModel()
     val detailViewModel = DetaiProductSellerlViewModel()
+    val productAddViewModel = AddProductViewModel()
 
 
     val context = LocalContext.current
@@ -53,8 +56,7 @@ fun SellerMainPage(email : String) {
     val theToken = castToTxt.substringAfter("{token=").substringBefore("}")
 
 
-    val activityResultLauncher =
-        rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+    val activityResultLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
             // Handle the result if needed
             if (result.resultCode == Activity.RESULT_OK) {
                 // Handle success
@@ -69,7 +71,10 @@ fun SellerMainPage(email : String) {
                 HomePageSeller(
                     email = email,
                     getAddPageRoute = {
-                        navController.navigate(Screen.AddProductSeller.route)
+//                        navController.navigate(Screen.AddProductSeller.route)
+                        activityResultLauncher.launch(
+                            Intent(context, AddProductActivity::class.java)
+                        )
                     },
 //                    toTheDetail = {
 //                        navController.navigate(Screen.DetailProductSeller.route)
@@ -95,7 +100,9 @@ fun SellerMainPage(email : String) {
                         activityResultLauncher.launch(
                             Intent(context, UploadImageActivity::class.java)
                         )
-                    }
+                    },
+                    token = theToken,
+                    vm = productAddViewModel
                 )
             }
 
@@ -147,6 +154,7 @@ fun SellerMainPage(email : String) {
             }
 
             activity(Screen.UploadImage.route){
+
 //                UploadImageActivity()
             }
 

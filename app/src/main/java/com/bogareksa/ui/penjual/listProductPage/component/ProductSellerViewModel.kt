@@ -31,8 +31,6 @@ class ProductSellerViewModel : ViewModel(){
         }
     }
 
-
-
     fun findProducts(token : String) {
         Log.d("mulai cari product","cari product cuy")
         val client = ApiConfig.getApiService().getUserData(token)

@@ -16,6 +16,7 @@ import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import com.bogareksa.databinding.ActivityUploadImageBinding
+import com.bogareksa.ui.penjual.addProductPage.AddProductActivity
 import com.bogareksa.ui.penjual.uploadImage.component.CameraActivity
 import com.bogareksa.ui.penjual.uploadImage.component.CameraActivity.Companion.CAMERAX_RESULT
 
@@ -78,6 +79,8 @@ class UploadImageActivity : AppCompatActivity() {
             onBackPressed()
         }
 
+
+
     }
 
 
@@ -106,9 +109,13 @@ class UploadImageActivity : AppCompatActivity() {
 
 
     private fun showImage() {
-        currentImageUri?.let {
-            Log.d("Image URI", "showImage: $it")
-            binding.prevImage.setImageURI(it)
+        currentImageUri?.let {uri ->
+            Log.d("Image URI", "showImage: $uri")
+            binding.prevImage.setImageURI(uri)
+            binding.btnScan.setOnClickListener {
+                val itn = Intent(this,AddProductActivity::class.java)
+                itn.putExtra("img",uri)
+            }
         }
     }
 

@@ -1,8 +1,12 @@
 package com.bogareksa.ui.penjual.addProductPage
 
+import android.content.Intent
+import android.os.Bundle
 import android.provider.MediaStore.Images
 import android.util.Log
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -45,27 +49,58 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.bogareksa.R
+import com.bogareksa.ui.penjual.addProductPage.component.AddProductViewModel
 import com.bogareksa.ui.penjual.addProductPage.component.InputAddForm
 import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackground
 import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
+import com.bogareksa.ui.penjual.uploadImage.UploadImageActivity
+import java.io.File
 
 
-@Composable
-fun AddProductPageSeller(navBack : () -> Unit,toTheGetImg : () -> Unit){
-    AddProductSellerContent(navBack = navBack, getImgPage = toTheGetImg)
+class AddProductActivity : ComponentActivity() {
+
+
+
+
+    private lateinit var viewModel :AddProductViewModel
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[AddProductViewModel::class.java]
+        val img = intent.getStringExtra("img")
+        Log.d("recive img from upload",img.toString())
+        setContent {
+            AddProductSellerContent(
+                token = "",
+                vm = viewModel,
+                getImgPage = {
+                        val int =Intent(this,UploadImageActivity::class.java)
+                    startActivity(int)
+                },
+                navBack = {
+                    onBackPressed()
+                })
+        }
+    }
 }
 
 
+@Composable
+fun AddProductPageSeller(token: String,vm:AddProductViewModel,navBack : () -> Unit,toTheGetImg : () -> Unit){
+    AddProductSellerContent(token = token,vm = vm, navBack = navBack, getImgPage = toTheGetImg)
+}
 
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun AddProductSellerContent(getImgPage: () -> Unit,navBack: () -> Unit,modifier: Modifier = Modifier){
+fun AddProductSellerContent(token: String,vm: AddProductViewModel,getImgPage: () -> Unit,navBack: () -> Unit,modifier: Modifier = Modifier){
     val scrollState = rememberScrollState()
     val imgExists = false
     val ctx = LocalContext.current
+
     var txt by remember {
       mutableStateOf("")
     }
@@ -126,8 +161,14 @@ fun AddProductSellerContent(getImgPage: () -> Unit,navBack: () -> Unit,modifier:
                         )
                         .background(color = Color(0xff00698C))
                         .clickable {
+                            vm.uploadProduct(
+                                token = token,
+                                name = txt,
+                                price = txtPrice.toInt(),
+                                uploaded = File("")
+                            )
 //                            Log.d(this,"")
-                            Toast.makeText(ctx,"name : $txt ,Price : $txtPrice",Toast.LENGTH_SHORT).show()
+//                            Toast.makeText(ctx,"name : $txt ,Price : $txtPrice",Toast.LENGTH_SHORT).show()
                         }
                         .padding(bottom = 10.dp)
                 ){
@@ -143,10 +184,9 @@ fun AddProductSellerContent(getImgPage: () -> Unit,navBack: () -> Unit,modifier:
 }
 
 
-
 @Composable
 @Preview(showBackground = true)
 fun preview(){
     val navController = rememberNavController()
-    AddProductSellerContent(navBack = {navController.navigateUp()}, getImgPage = {})
+//    AddProductSellerContent(navBack = {navController.navigateUp()}, getImgPage = {})
 }
