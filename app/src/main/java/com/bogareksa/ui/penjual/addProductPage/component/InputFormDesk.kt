@@ -28,7 +28,7 @@ import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun InputAddForm(txt: String,hint:String,title:String,onChage: (String) -> Unit){
+fun InputAddFormDesk(txt: String,hint:String,title:String,onChage: (String) -> Unit){
 //    var txt by remember{ txt}
     var valid by remember{ mutableStateOf(true) }
 
@@ -44,11 +44,13 @@ fun InputAddForm(txt: String,hint:String,title:String,onChage: (String) -> Unit)
 
         ){
             TextField(
+                minLines = 3,
                 modifier = Modifier.fillMaxWidth()
                 ,value = txt,
                 onValueChange ={
-                               onChage(it)
+                    onChage(it)
                     valid = it.isNotEmpty()
+//                    txt.value = it
 //                    valid = it.isNotEmpty()
                 } ,
                 label = { Text(text = hint)},
@@ -70,6 +72,6 @@ fun InputAddForm(txt: String,hint:String,title:String,onChage: (String) -> Unit)
 
 @Composable
 @Preview(showBackground = true)
-fun preview(){
-//    InputAddForm(hint = "insert text", title = "test")
+fun previewDesk(){
+//    InputAddForm(hint = "insert text", title = "test", onChage = "")
 }

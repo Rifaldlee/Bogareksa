@@ -8,6 +8,10 @@ import androidx.lifecycle.ViewModel
 import com.bogareksa.io.response.ResponseAddProduct
 import com.bogareksa.io.response.ResponseDeleteProduct
 import com.bogareksa.io.retrofit.ApiConfig
+import okhttp3.MediaType
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -20,7 +24,23 @@ class AddProductViewModel : ViewModel(){
 
     fun uploadProduct(token:String,name:String,price:Int,uploaded:File){
 
-        val client = ApiConfig.getApiService().addProduct(token,uploaded,price,name)
+        val builder = MultipartBody.Builder()
+            .setType(MultipartBody.FORM)
+            .addFormDataPart("price", price.toString())
+            .addFormDataPart("name", name)
+            .addPart(MultipartBody.Part.createFormData("uploadedFile", uploaded.name, RequestBody.create(
+                "multipart/form-data".toMediaTypeOrNull(), uploaded)))
+
+        val requestBody = builder.build()
+//
+//        val filePart = MultipartBody.Part.createFormData(
+//            "uploadedFile",
+//            uploaded.name,
+//            RequestBody.create("image/png".toMediaTypeOrNull(), uploaded)
+//        )
+
+//        val client = ApiConfig.getApiService().addProduct(token,filePart,price,name)
+        val client = ApiConfig.getApiService().addProduct(token,requestBody)
         client.enqueue(object : Callback<ResponseAddProduct> {
 
             override fun onResponse(

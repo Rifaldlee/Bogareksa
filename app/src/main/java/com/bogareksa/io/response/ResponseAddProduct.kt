@@ -13,9 +13,6 @@ data class ResponseAddProduct(
 
 data class Data(
 
-	@field:SerializedName("productId")
-	val productId: String? = null,
-
 	@field:SerializedName("imagePath")
 	val imagePath: String? = null,
 
@@ -28,8 +25,6 @@ data class Data(
 	@field:SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("ownedBy")
-	val ownedBy: String? = null,
 
 	@field:SerializedName("desc")
 	val desc: String? = null

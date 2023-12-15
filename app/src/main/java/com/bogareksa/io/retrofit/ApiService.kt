@@ -4,7 +4,10 @@ import com.bogareksa.io.response.ResponseAddProduct
 import com.bogareksa.io.response.ResponseAuth
 import com.bogareksa.io.response.ResponseDeleteProduct
 import com.bogareksa.io.response.ResponseProducts
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 import retrofit2.Call
+import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.Field
 import retrofit2.http.POST
@@ -12,6 +15,8 @@ import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Headers
+import retrofit2.http.Multipart
+import retrofit2.http.Part
 import retrofit2.http.Query
 import java.io.File
 
@@ -37,15 +42,24 @@ interface ApiService {
         @Query("id") id: String
     ): Call<ResponseDeleteProduct>
 
+//    @Multipart
+//    @FormUrlEncoded
+//    @POST("products")
+//    fun
+//
+//            addProduct(
+//        @Header("Authorization") token: String,
+//        @Part uploadedFile: MultipartBody.Part,
+//        @Field("price") price: Int,
+//        @Field("name") name:  String
+//    ): Call<ResponseAddProduct>
+
 
     @POST("products")
     fun
-
             addProduct(
         @Header("Authorization") token: String,
-        @Field("uploadedFile") uploadedFile: File,
-        @Field("price") price: Int,
-        @Field("name") name: String
+        @Body requestBody: RequestBody
     ): Call<ResponseAddProduct>
 
 

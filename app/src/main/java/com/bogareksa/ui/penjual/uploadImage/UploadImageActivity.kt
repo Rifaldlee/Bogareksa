@@ -59,12 +59,9 @@ class UploadImageActivity : AppCompatActivity() {
 
         supportActionBar?.elevation = 0f
 
-
-
         if(!allPermissionsGranted()){
             requestPermissionLauncher.launch(REQUIRED_PERMISSION)
         }
-
 
 
         binding.galleryCam.setOnClickListener {
@@ -80,10 +77,15 @@ class UploadImageActivity : AppCompatActivity() {
         }
 
 
-
+        binding.btnScan.setOnClickListener {
+            if(currentImageUri != null){
+                Log.d("uir img from upload", currentImageUri.toString())
+                val itn = Intent(this,AddProductActivity::class.java)
+                itn.putExtra("img",currentImageUri.toString())
+                startActivity(itn)
+            }
+        }
     }
-
-
 
 
     private fun startCamera() {
@@ -112,10 +114,7 @@ class UploadImageActivity : AppCompatActivity() {
         currentImageUri?.let {uri ->
             Log.d("Image URI", "showImage: $uri")
             binding.prevImage.setImageURI(uri)
-            binding.btnScan.setOnClickListener {
-                val itn = Intent(this,AddProductActivity::class.java)
-                itn.putExtra("img",uri)
-            }
+
         }
     }
 

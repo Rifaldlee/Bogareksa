@@ -19,7 +19,7 @@ import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.navigation.Screen
 import com.bogareksa.ui.penjual.addProductPage.AddProductActivity
-import com.bogareksa.ui.penjual.addProductPage.AddProductPageSeller
+//import com.bogareksa.ui.penjual.addProductPage.AddProductPageSeller
 import com.bogareksa.ui.penjual.addProductPage.component.AddProductViewModel
 import com.bogareksa.ui.penjual.detailProductPage.DetailProductSellerPage
 import com.bogareksa.ui.penjual.detailProductPage.component.DetaiProductSellerlViewModel
@@ -93,18 +93,18 @@ fun SellerMainPage(email : String) {
                 )
             }
 
-            composable(Screen.AddProductSeller.route){
-                AddProductPageSeller(
-                    navBack = {navController.navigateUp()},
-                    toTheGetImg = {
-                        activityResultLauncher.launch(
-                            Intent(context, UploadImageActivity::class.java)
-                        )
-                    },
-                    token = theToken,
-                    vm = productAddViewModel
-                )
-            }
+//            composable(Screen.AddProductSeller.route){
+//                AddProductPageSeller(
+//                    navBack = {navController.navigateUp()},
+//                    toTheGetImg = {
+//                        activityResultLauncher.launch(
+//                            Intent(context, UploadImageActivity::class.java)
+//                        )
+//                    },
+//                    token = theToken,
+//                    vm = productAddViewModel
+//                )
+//            }
 
             composable(Screen.getImageSeller.route){
                 GetImgPage(
