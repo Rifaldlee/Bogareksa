@@ -44,6 +44,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.focus.FocusRequester.Companion.createRefs
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,6 +52,7 @@ import androidx.compose.ui.unit.dp
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.bogareksa.R
 import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.penjual.addProductPage.component.AddProductViewModel
@@ -104,7 +106,7 @@ class AddProductActivity : ComponentActivity() {
 @Composable
 fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel,getImgPage: () -> Unit,navBack: () -> Unit,modifier: Modifier = Modifier){
     val scrollState = rememberScrollState()
-    val imgExists = false
+//    val imgExists = false
     val ctx = LocalContext.current
 
     val fixImgPath = imgPath.removePrefix("file://")
@@ -132,12 +134,7 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
                 .padding(paddingValues = it)
                 .padding(top = 5.dp)
                 .verticalScroll(scrollState), verticalArrangement = Arrangement.Top){
-            if(imgExists){
-                Image(painter = painterResource(id = R.drawable.testing_image),modifier = modifier
-                    .fillMaxWidth()
-                    .height(400.dp),contentDescription = "photo image")
-            }else{
-
+            if(imgPath == "null"){
                 Box(modifier = Modifier
                     .fillMaxWidth()
                     .height(400.dp)
@@ -149,6 +146,17 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
                             getImgPage()
                         }, contentDescription ="add image" )
                 }
+            }else{
+                Log.d("ngecek apakah img nya null",imgPath.toString())
+//                Image(painter = painterResource(id = R.drawable.testing_image),modifier = modifier
+//                    .fillMaxWidth()
+//                    .height(400.dp),contentDescription = "photo image")
+
+                AsyncImage(model = imgPath,  contentDescription = "review image", modifier = modifier.fillMaxWidth().height(400.dp),contentScale = ContentScale.Crop,)
+
+
+
+
             }
             Column (modifier.padding(start = 10.dp, end = 10.dp)){
                 VerticalSpace()
