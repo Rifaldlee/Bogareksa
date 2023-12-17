@@ -8,7 +8,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
@@ -16,7 +15,6 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import com.bogareksa.io.response.MyProductsItem
 import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.navigation.Screen
@@ -30,9 +28,9 @@ import com.bogareksa.ui.penjual.editDetailProductSellerPage.EditDetailProduct
 import com.bogareksa.ui.penjual.getImgPage.GetImgPage
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
 import com.bogareksa.ui.penjual.listProductPage.ListSellerProductPage
-import com.bogareksa.ui.penjual.listProductPage.ProductListActivity
+import com.bogareksa.ui.penjual.listProductPage.component.ProductListActivity
 import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
-import com.bogareksa.ui.penjual.uploadImage.UploadImageActivity
+import com.bogareksa.ui.penjual.order.NotificationSellerActivity
 
 
 @SuppressLint("SuspiciousIndentation")
@@ -90,6 +88,11 @@ fun SellerMainPage(email : String) {
                     },
                     vm = productViewModel,
                     navCrontroller = navController,
+                    toTheNotification = {
+                        activityResultLauncher.launch(
+                            Intent(context, NotificationSellerActivity::class.java)
+                        )
+                    }
 //                    toTheDetail = {
 //
 //                    }

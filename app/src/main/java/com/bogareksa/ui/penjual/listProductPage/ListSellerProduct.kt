@@ -52,16 +52,10 @@ import com.bogareksa.ui.penjual.listProductPage.component.SearchItemSeller
 
 @Composable
 fun ListSellerProductPage(navControll:NavController,toDetail: (MyProductsItem) -> Unit,navBack: () -> Unit,vm: ProductSellerViewModel){
-//    val viewModel = ProductSellerViewModel()
-//    val session = LoginSession(ctx = LocalContext.current)
-//    var user: HashMap<String,String> = session.getUserProduct()
-//    val castToTxt = user.toString()
-//    val theToken = castToTxt.substringAfter("{token=").substringBefore("}")
     ListSellerProductPageContent(navControll =navControll,toDetail ={data ->
         toDetail(data)} ,navBack = navBack, vm = vm)
 
 }
-
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -123,18 +117,13 @@ fun ListSellerProductPageContent(navControll: NavController,toDetail:(MyProducts
 }
 
 
-
-
-
-
-
 @Composable
 fun ListSellerProduct(navControll: NavController,toDetail: (MyProductsItem) -> Unit,dataList : State<List<MyProductsItem>?>){
 
     val theData = dataList.value ?: emptyList()
 
     if(theData.isNotEmpty()){
-        Log.d("data from listsellerproduct","the data list is not null")
+
         LazyVerticalGrid(
             columns = GridCells.Adaptive(140.dp),
             contentPadding = PaddingValues(15.dp),
@@ -143,7 +132,7 @@ fun ListSellerProduct(navControll: NavController,toDetail: (MyProductsItem) -> U
         ){
             items(theData){
                     productData ->
-                Log.d("data from listsellerproduct","the data list is not null")
+
                 ItemCard(product = productData,toDetail = {
                     product ->
                     toDetail(product)},image = productData.imageUrl.toString(), title = productData.name.toString(), price = productData.price!!.toInt(), rate = 5)

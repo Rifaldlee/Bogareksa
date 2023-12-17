@@ -55,9 +55,9 @@ class DetailFromListActivity : AppCompatActivity() {
         val myProductItem: MyProductsItem? = intent.getSerializableExtra("data") as? MyProductsItem
         if(myProductItem != null){
             setContent {
-                val navController = rememberNavController()
+
                 detailActivityContent(
-                    onBack = navController
+                    onBack = {onBackPressed()}
                     ,product = myProductItem, vmDetail = viewmodelDetail)
             }
         }else{
@@ -70,13 +70,13 @@ class DetailFromListActivity : AppCompatActivity() {
 }
 
             @Composable
-            fun detailActivityContent(onBack:NavController,product:MyProductsItem,modifier: Modifier = Modifier,vmDetail:DetaiProductSellerlViewModel){
+            fun detailActivityContent(onBack:() -> Unit,product:MyProductsItem,modifier: Modifier = Modifier,vmDetail:DetaiProductSellerlViewModel){
                 Scaffold(
                     topBar = {
                         AppbarDetailImgBackground(
                             navBack = {
                                 //run popBackStage
-                                      onBack.popBackStack()
+                                      onBack()
                             }, title = "Detail Product", id = product.productId.toString(), token = "", vmDetail = vmDetail)
 
                     }

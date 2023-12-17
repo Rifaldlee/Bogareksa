@@ -68,6 +68,7 @@ fun HomePageSeller(
     email:String,vm: ProductSellerViewModel,
     toTheListProduct: () -> Unit,
     getAddPageRoute : () -> Unit,
+    toTheNotification: () -> Unit
 //    toTheDetail : () -> Unit
 ){
 
@@ -84,6 +85,7 @@ fun HomePageSeller(
             vm = vm,
             getAddPageRoute = getAddPageRoute,
             toTheListProduct = toTheListProduct,
+            toTheNotification = toTheNotification
 //            toDetailPage = toTheDetail
         )
     }
@@ -101,6 +103,7 @@ fun HomePageContent(
     modifier: Modifier = Modifier,
     toTheListProduct: () -> Unit,
 //    toDetailPage : () -> Unit,
+    toTheNotification: () -> Unit,
     getAddPageRoute : () -> Unit){
 
 
@@ -112,20 +115,16 @@ fun HomePageContent(
     val scrollState = rememberScrollState()
 
 
-
-//        if(isFetch.value == false){
-//
             vm.findProducts(token)
-//        }
-
-
 
 
     Scaffold(
        topBar = {
            TopAppBar(
                actions = {
-                   Image(imageVector = Icons.Default.Notifications,modifier = modifier.size(25.dp),contentDescription = "notification")
+                   Image(imageVector = Icons.Default.Notifications,modifier = modifier.size(25.dp).clickable {
+                       toTheNotification()
+                   },contentDescription = "notification")
                },
                navigationIcon = {
                   
