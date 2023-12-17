@@ -8,6 +8,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
+import androidx.navigation.NavController
 import androidx.navigation.NavType
 import androidx.navigation.activity
 import androidx.navigation.compose.NavHost
@@ -15,12 +16,14 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.bogareksa.io.response.MyProductsItem
 import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.navigation.Screen
 import com.bogareksa.ui.penjual.addProductPage.AddProductActivity
 //import com.bogareksa.ui.penjual.addProductPage.AddProductPageSeller
 import com.bogareksa.ui.penjual.addProductPage.component.AddProductViewModel
+import com.bogareksa.ui.penjual.detailProductFromList.DetailFromListActivity
 import com.bogareksa.ui.penjual.detailProductPage.DetailProductSellerPage
 import com.bogareksa.ui.penjual.detailProductPage.component.DetaiProductSellerlViewModel
 import com.bogareksa.ui.penjual.editDetailProductSellerPage.EditDetailProduct
@@ -108,7 +111,7 @@ fun SellerMainPage(email : String) {
 
             composable(Screen.getImageSeller.route){
                 GetImgPage(
-                    navBack = {navController.navigateUp()}
+                    navBack = {navController.popBackStack()}
                 )
             }
 
@@ -132,7 +135,7 @@ fun SellerMainPage(email : String) {
                 DetailProductSellerPage(
                     token = theToken,
                     id = id,
-                    navBack = {navController.navigateUp()},
+                    navBack = {navController.popBackStack()},
                     vm = productViewModel,
                     price = price,
                     name = name,
@@ -148,8 +151,18 @@ fun SellerMainPage(email : String) {
 
             composable(Screen.ListSellerProduct.route){
                 ListSellerProductPage(
-                    navBack = {navController.navigateUp()},
-                    vm = productViewModel
+                    navBack = {
+                        navController.popBackStack()
+                              },
+                    vm = productViewModel,
+                    toDetail = {product->
+                        activityResultLauncher.launch(
+                            Intent(context, DetailFromListActivity::class.java)
+                                .putExtra("data",product)
+                        )
+                    },
+                    navControll = navController
+
                 )
             }
 

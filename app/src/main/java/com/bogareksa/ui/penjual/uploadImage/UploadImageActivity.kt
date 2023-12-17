@@ -82,6 +82,7 @@ class UploadImageActivity : AppCompatActivity() {
                 Log.d("uir img from upload", currentImageUri.toString())
                 val itn = Intent(this,AddProductActivity::class.java)
                 itn.putExtra("img",currentImageUri.toString())
+                itn.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(itn)
             }
         }

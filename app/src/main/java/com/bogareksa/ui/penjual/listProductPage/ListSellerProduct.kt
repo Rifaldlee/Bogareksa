@@ -6,7 +6,9 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -16,6 +18,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
@@ -28,6 +31,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.rememberUpdatedState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -35,22 +39,26 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import com.bogareksa.R
 import com.bogareksa.io.response.MyProductsItem
+import com.bogareksa.io.response.MyProductsItemModel
 import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.pembeli.components.Search
+import com.bogareksa.ui.penjual.detailProductPage.component.DetaiProductSellerlViewModel
 import com.bogareksa.ui.penjual.listProductPage.component.ItemCard
 import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
 import com.bogareksa.ui.penjual.listProductPage.component.SearchItemSeller
 
 @Composable
-fun ListSellerProductPage(navBack: () -> Unit,vm: ProductSellerViewModel){
+fun ListSellerProductPage(navControll:NavController,toDetail: (MyProductsItem) -> Unit,navBack: () -> Unit,vm: ProductSellerViewModel){
 //    val viewModel = ProductSellerViewModel()
 //    val session = LoginSession(ctx = LocalContext.current)
 //    var user: HashMap<String,String> = session.getUserProduct()
 //    val castToTxt = user.toString()
 //    val theToken = castToTxt.substringAfter("{token=").substringBefore("}")
-    ListSellerProductPageContent(navBack = navBack, vm = vm)
+    ListSellerProductPageContent(navControll =navControll,toDetail ={data ->
+        toDetail(data)} ,navBack = navBack, vm = vm)
 
 }
 
@@ -58,7 +66,7 @@ fun ListSellerProductPage(navBack: () -> Unit,vm: ProductSellerViewModel){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ListSellerProductPageContent(navBack : () -> Unit,vm : ProductSellerViewModel){
+fun ListSellerProductPageContent(navControll: NavController,toDetail:(MyProductsItem) -> Unit,navBack : () -> Unit,vm : ProductSellerViewModel){
 
     val listData by rememberUpdatedState(newValue = vm.listProducts.observeAsState())
 
@@ -98,13 +106,16 @@ fun ListSellerProductPageContent(navBack : () -> Unit,vm : ProductSellerViewMode
             }
         }
     ){
+
         Box(modifier = Modifier
             .padding(paddingValues = it)
             .background(color = Color(0xfff0eded))){
-            ListSellerProduct(dataList = listData)
+            ListSellerProduct(navControll = navControll,toDetail ={productitem ->
+                toDetail(productitem)
+            } ,dataList = listData)
         }
         if(listData == null){
-            Text(text = "Data is null")
+            CircularProgressIndicator()
         }else{
             Log.d("msg","data is okay")
         }
@@ -118,7 +129,7 @@ fun ListSellerProductPageContent(navBack : () -> Unit,vm : ProductSellerViewMode
 
 
 @Composable
-fun ListSellerProduct(dataList : State<List<MyProductsItem>?>){
+fun ListSellerProduct(navControll: NavController,toDetail: (MyProductsItem) -> Unit,dataList : State<List<MyProductsItem>?>){
 
     val theData = dataList.value ?: emptyList()
 
@@ -133,10 +144,20 @@ fun ListSellerProduct(dataList : State<List<MyProductsItem>?>){
             items(theData){
                     productData ->
                 Log.d("data from listsellerproduct","the data list is not null")
-                ItemCard(image = productData.imageUrl.toString(), title = productData.name.toString(), price = productData.price!!.toInt(), rate = 5)
+                ItemCard(product = productData,toDetail = {
+                    product ->
+                    toDetail(product)},image = productData.imageUrl.toString(), title = productData.name.toString(), price = productData.price!!.toInt(), rate = 5)
             }
         }
     }else{
+        Column(
+            modifier = Modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ){
+            CircularProgressIndicator()
+        }
+
         Log.d("msg","data is null!!!")
     }
 

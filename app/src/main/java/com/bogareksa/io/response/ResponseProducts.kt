@@ -1,6 +1,7 @@
 package com.bogareksa.io.response
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ResponseProducts(
 
@@ -30,4 +31,4 @@ data class MyProductsItem(
 
 	@field:SerializedName("desc")
 	val desc: String? = null
-)
+):Serializable

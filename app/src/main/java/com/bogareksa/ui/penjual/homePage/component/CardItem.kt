@@ -23,6 +23,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
@@ -55,10 +56,12 @@ fun CardItem(data: MyProductsItem,modifier: Modifier = Modifier,toDetail : NavHo
             AsyncImage(model = data.imageUrl,  contentDescription = data.name.toString(), modifier = modifier.size(90.dp),contentScale = ContentScale.Crop,)
 
             HorizontalSpace()
-            Column {
-                Text(text = data.name.toString(), style = MaterialTheme.typography.bodySmall)
+            Column(modifier = Modifier.padding(start = 10.dp)){
+                Text(text = data.name.toString(), style = MaterialTheme.typography.bodyLarge)
 //                Text(text = data..toString(), style = MaterialTheme.typography.bodyLarge)
-                Text(text = data.price.toString(), style = MaterialTheme.typography.bodyLarge)
+                Text(text = data.price.toString(), style = MaterialTheme.typography.bodyLarge.copy(
+                    fontWeight = FontWeight.Bold
+                ))
             }
             Spacer(modifier = modifier.weight(1f))
             Icon(imageVector = Icons.Default.Edit, contentDescription = "edit product" )
@@ -72,5 +75,5 @@ fun CardItem(data: MyProductsItem,modifier: Modifier = Modifier,toDetail : NavHo
 @Composable
 @Preview(showBackground = true)
 fun preview(){
-//    CardItem(toDetail = {})
+//    CardItem(toDetail = NavHostController(context = ), data = MyProductsItem(price = "100", productId = "uid", name = "testing image product", desc = "this is a product ,i think this desk must have long char for good testing", imagePath = "", imageUrl = "", ownedBy = "me"))
 }

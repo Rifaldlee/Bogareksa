@@ -123,7 +123,7 @@ fun ProductList(products: List<MyProductsItem>) {
         items(products){
                 productData ->
             Log.d("data from listsellerproduct","the data list is not null")
-            ItemCard(image = productData.imageUrl.toString(), title = productData.name.toString(), price = productData.price!!.toInt(), rate = 5)
+//            ItemCard(image = productData.imageUrl.toString(), title = productData.name.toString(), price = productData.price!!.toInt(), rate = 5)
         }
     }
 

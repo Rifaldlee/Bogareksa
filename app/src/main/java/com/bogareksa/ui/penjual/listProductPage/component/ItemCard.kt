@@ -1,8 +1,10 @@
 package com.bogareksa.ui.penjual.listProductPage.component
 
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -31,8 +33,11 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import coil.compose.AsyncImage
 import com.bogareksa.R
+import com.bogareksa.io.response.MyProductsItem
+import com.bogareksa.io.response.MyProductsItemModel
 
 
 @Composable
@@ -41,14 +46,21 @@ fun ItemCard(
     title : String,
     price : Int,
     rate : Int,
-    modifier: Modifier = Modifier) {
+    product : MyProductsItem,
+    modifier: Modifier = Modifier,
+    toDetail : (MyProductsItem) -> Unit,
+    ) {
     Box(
         modifier
             .height(265.dp)
             .background(color = Color.White)
             .width(180.dp)
             .padding(10.dp)
-            .clip(RoundedCornerShape(8.dp))
+            .clip(RoundedCornerShape(8.dp)).clickable {
+                Log.d("product detail",product.name.toString())
+                Log.d("product detail",product.price.toString())
+                toDetail(product)
+            }
         ){
         Column{
             AsyncImage(model = image,  contentDescription = title, modifier = modifier.size(150.dp),contentScale = ContentScale.Crop,)

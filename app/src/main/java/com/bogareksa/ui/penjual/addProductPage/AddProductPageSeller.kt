@@ -148,9 +148,6 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
                 }
             }else{
                 Log.d("ngecek apakah img nya null",imgPath.toString())
-//                Image(painter = painterResource(id = R.drawable.testing_image),modifier = modifier
-//                    .fillMaxWidth()
-//                    .height(400.dp),contentDescription = "photo image")
 
                 AsyncImage(model = imgPath,  contentDescription = "review image", modifier = modifier.fillMaxWidth().height(400.dp),contentScale = ContentScale.Crop,)
 

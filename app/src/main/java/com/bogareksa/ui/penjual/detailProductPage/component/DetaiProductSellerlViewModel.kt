@@ -4,6 +4,7 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.bogareksa.io.response.MyProductsItem
 import com.bogareksa.io.response.ResponseDeleteProduct
 import com.bogareksa.io.response.ResponseProducts
@@ -12,7 +13,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class DetaiProductSellerlViewModel {
+class DetaiProductSellerlViewModel : ViewModel(){
     private var _detailProduct = MutableLiveData<MyProductsItem>()
     var detailProducts: LiveData<MyProductsItem> = _detailProduct
 

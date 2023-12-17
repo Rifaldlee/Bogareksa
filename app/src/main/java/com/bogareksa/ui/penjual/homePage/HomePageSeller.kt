@@ -2,6 +2,8 @@ package com.bogareksa.ui.penjual.homePage
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,6 +20,7 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notifications
@@ -38,6 +41,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,8 +55,11 @@ import com.bogareksa.ui.navigation.Screen
 import com.bogareksa.ui.penjual.homePage.component.BoxData
 import com.bogareksa.ui.penjual.homePage.component.CardItem
 import com.bogareksa.ui.penjual.homePage.component.CardProfile
+import com.bogareksa.ui.penjual.homePage.component.CustomButton
+import com.bogareksa.ui.penjual.homePage.component.CustomButtonFillWidth
 import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
 import com.bogareksa.ui.penjual.mainSellerComponent.VerticalSpace
+import java.io.File
 
 
 @Composable
@@ -165,11 +173,26 @@ VerticalSpace()
             Row(modifier = modifier.padding(10.dp), verticalAlignment = Alignment.CenterVertically){
                 Text(text = stringResource(id = R.string.product_title), style = MaterialTheme.typography.titleLarge)
                 Spacer(modifier = Modifier.weight(1f))
-                Button(onClick =
-                    getAddPageRoute
-                ) {
-                    Text(text = "Add")
-                }
+//                Button(onClick =
+//                    getAddPageRoute
+//                ) {
+//                    Text(text = "Add")
+//                }
+                CustomButton(title = "Add Product", onClick = getAddPageRoute)
+//                Box(
+//                    modifier = Modifier
+//                        .height(35.dp)
+//                        .clip(
+//                            RoundedCornerShape(10.dp)
+//                        )
+//                        .background(color = Color(0xff00698C))
+//                        .clickable {
+//
+//                        }
+//                        .padding(bottom = 10.dp)
+//                ){
+//                    Text(text = "Add Product", modifier = Modifier.padding(10.dp).align(Alignment.Center), style = MaterialTheme.typography.bodyLarge.copy(color = Color.White))
+//                }
             }
 
             VerticalSpace()
@@ -188,11 +211,7 @@ VerticalSpace()
 
 
             VerticalSpace()
-            Button( modifier =modifier.fillMaxWidth(),onClick = {
-                toTheListProduct()
-            }) {
-                Text(text = "See All Product")
-            }
+            CustomButtonFillWidth(title = "See All Products", onClick = toTheListProduct)
         }
     }
 }
