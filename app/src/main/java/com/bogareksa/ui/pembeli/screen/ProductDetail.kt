@@ -1,5 +1,6 @@
 package com.bogareksa.ui.pembeli.screen
 
+import android.app.Application
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -18,6 +19,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -27,6 +29,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberAsyncImagePainter
 import com.bogareksa.R
 import com.bogareksa.ui.pembeli.components.BuyButton
 import com.bogareksa.ui.pembeli.di.Injection
@@ -36,49 +39,35 @@ import com.bogareksa.ui.pembeli.viewmodel.ViewModelFactory
 
 @Composable
 fun ProductDetail(
-    productId: Long,
-    viewModel: ProductDetailViewModel = viewModel(
-        factory = ViewModelFactory(
-            Injection.provideRepository()
-        )
-    ),
     onBackClick: () -> Unit,
+    id: String,
+    image: String,
+    name: String,
+    price: Int,
+    desc: String,
     navigateToCart: () -> Unit,
 ){
-    viewModel.uiState.collectAsState(initial = UiState.Loading).value.let { uiState ->
-        when(uiState){
-            is UiState.Loading -> {
-                viewModel.getProductById(productId)
-            }
-            is UiState.Success -> {
-                val data = uiState.data
-                DetailContent(
-                    data.product.image,
-                    data.product.name,
-                    data.product.price,
-                    data.product.expired,
-                    data.product.desc,
-                    onBackClick = onBackClick,
-                    addToCart = {
-                        viewModel.addToCart(data.product)
-                        navigateToCart()
-                    }
-                )
-            }
-            else -> {}
-        }
-    }
+    DetailContent(
+        image = image,
+        name = name,
+        price = price,
+        desc = desc,
+        onBackClick = onBackClick,
+//        addToCart = {
+//            viewModel.addToCart(data.product)
+//            navigateToCart()
+//        }
+    )
 }
 
 @Composable
 fun DetailContent(
-    image: Int,
+    image: String,
     name: String,
     price: Int,
-    expired: String,
     desc: String,
     onBackClick: () -> Unit,
-    addToCart: () ->Unit,
+//    addToCart: () ->Unit,
     modifier: Modifier = Modifier,
 ){
     Column(modifier = modifier) {
@@ -93,7 +82,7 @@ fun DetailContent(
                     .padding(bottom = 12.dp,),
             ){
                 Image(
-                    painter = painterResource(image),
+                    painter = rememberAsyncImagePainter(image),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = modifier
@@ -131,15 +120,15 @@ fun DetailContent(
                         fontSize = 24.sp,
                         fontWeight = FontWeight.ExtraBold,
                     )
-                    Text(
-                        text = expired,
-                        color = Color.Black,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        textAlign = TextAlign.End,
-                        modifier = modifier
-                            .fillMaxWidth()
-                    )
+//                    Text(
+//                        text = expired,
+//                        color = Color.Black,
+//                        fontSize = 24.sp,
+//                        fontWeight = FontWeight.ExtraBold,
+//                        textAlign = TextAlign.End,
+//                        modifier = modifier
+//                            .fillMaxWidth()
+//                    )
                 }
                 Text(
                     text = "Product Description",
@@ -159,19 +148,19 @@ fun DetailContent(
                 text = "buy",
                 modifier = modifier
                     .padding(start = 12.dp, end = 12.dp,),
-                onClick = {addToCart()}
+                onClick = {}
             )
         }
     }
 }
-@Preview(showBackground = true, device = Devices.PIXEL_4)
-@Composable
-fun DetailCinemateAppPreview() {
-    MaterialTheme {
-        ProductDetail(
-            productId = 1,
-            onBackClick = {},
-            navigateToCart = {}
-        )
-    }
-}
+//@Preview(showBackground = true, device = Devices.PIXEL_4)
+//@Composable
+//fun DetailCinemateAppPreview() {
+//    MaterialTheme {
+//        ProductDetail(
+//            productId = 1,
+//            onBackClick = {},
+//            navigateToCart = {}
+//        )
+//    }
+//}

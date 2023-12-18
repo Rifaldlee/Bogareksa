@@ -1,9 +1,11 @@
 package com.bogareksa.ui.pembeli
 
+import android.app.Application
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
@@ -13,8 +15,10 @@ import androidx.compose.material3.NavigationBarItem
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
@@ -26,11 +30,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.bogareksa.ui.pembeli.navigation.NavigationItem
 import com.bogareksa.ui.pembeli.navigation.Screen
-import com.bogareksa.ui.pembeli.screen.CartList
+//import com.bogareksa.ui.pembeli.screen.CartList
 import com.bogareksa.ui.pembeli.screen.CustomerProfile
 import com.bogareksa.ui.pembeli.screen.ProductDetail
 import com.bogareksa.ui.pembeli.screen.ProductList
 import com.bogareksa.ui.pembeli.screen.TransactionContent
+import com.bogareksa.ui.pembeli.viewmodel.ProductListViewModel
 
 @Composable
 fun BogareksaCustomerApp(
@@ -39,6 +44,13 @@ fun BogareksaCustomerApp(
 ){
     val navBackStackEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStackEntry?.destination?.route
+    val context = LocalContext.current
+    val customerRepository = remember {
+        CustomerRepository.getInstance(context.applicationContext as Application)
+    }
+    val productListViewModel = remember {
+        ProductListViewModel(customerRepository)
+    }
 
     Scaffold(
         bottomBar = {
@@ -55,14 +67,14 @@ fun BogareksaCustomerApp(
         ) {
             composable(Screen.ProductList.route) {
                 ProductList(
-                    navigateToDetail = {productId ->
-                        navController.navigate(Screen.ProductDetail.createRoute(productId))
-                    }
+                    viewModel = productListViewModel,
+                    modifier = modifier,
+                    navigateToDetail = navController
                 )
             }
-            composable(Screen.CartList.route) {
-                CartList(onOrderButtonClicked = {})
-            }
+//            composable(Screen.CartList.route) {
+//                CartList(onOrderButtonClicked = {})
+//            }
             composable(Screen.Transaction.route) {
                 TransactionContent()
             }
@@ -71,11 +83,25 @@ fun BogareksaCustomerApp(
             }
             composable(
                 route = Screen.ProductDetail.route,
-                arguments = listOf(navArgument("productId") { type = NavType.LongType }),
+                arguments = listOf(
+                    navArgument("productId") { type = NavType.StringType },
+                    navArgument("productImage"){type = NavType.StringType},
+                    navArgument("productName"){type = NavType.StringType},
+                    navArgument("productPrice"){type = NavType.IntType},
+                    navArgument("productDesc"){type = NavType.StringType},
+                    ),
             ){
-                val id = it.arguments?.getLong("productId")?: -1L
+                val id = it.arguments?.getString("productId")?: ""
+                val image = it.arguments?.getString("productImage") ?: ""
+                val name = it.arguments?.getString("productName") ?: ""
+                val price = it.arguments?.getInt("productPrice") ?: 0
+                val desc = it.arguments?.getString("productDesc")?: ""
                 ProductDetail(
-                    productId = id,
+                    id = id,
+                    image = image,
+                    name = name,
+                    price = price,
+                    desc = desc,
                     onBackClick = { navController.navigateUp() },
                     navigateToCart = {
                         navController.popBackStack()
@@ -113,7 +139,7 @@ private fun BottomBar(
                 screen = Screen.CartList
             ),
             NavigationItem(
-                icon = Icons.Default.Email,
+                icon = Icons.Default.List,
                 screen = Screen.Transaction
             ),
             NavigationItem(

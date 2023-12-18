@@ -1,5 +1,7 @@
 package com.bogareksa.ui.pembeli.data
 
+import java.io.Serializable
+
 data class Product(
     val id: Long,
     val image: Int,
@@ -7,4 +9,4 @@ data class Product(
     val desc: String,
     val price: Int,
     val expired: String
-)
+) : Serializable
