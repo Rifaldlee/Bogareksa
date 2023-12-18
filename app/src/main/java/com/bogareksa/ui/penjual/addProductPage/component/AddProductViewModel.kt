@@ -22,7 +22,14 @@ class AddProductViewModel : ViewModel(){
     private var _upResponse =  MutableLiveData<ResponseAddProduct>()
     var upResponse : LiveData<ResponseAddProduct> = _upResponse
 
+
+    private var _isLogin = MutableLiveData<Boolean>(false)
+    var isLogin : LiveData<Boolean> = _isLogin
+
+
+
     fun uploadProduct(token:String,name:String,price:Int,uploaded:File){
+        _isLogin.value = true
 
         val builder = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
@@ -48,15 +55,18 @@ class AddProductViewModel : ViewModel(){
                 response: Response<ResponseAddProduct>
             ) {
                 if (response.isSuccessful) {
-                    Log.d("berhasil add product product","success add new product cuy")
-
+                    _upResponse.value = response.body()
+                    Log.d("berhasil add product product","success add new product cuy ${_upResponse.value?.data?.}")
+                    _isLogin.value =  false
                 } else {
                     Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
+                    _isLogin.value =  false
                 }
             }
 
             override fun onFailure(call: Call<ResponseAddProduct>, t: Throwable) {
                 Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
+                _isLogin.value =  false
             }
         })
     }

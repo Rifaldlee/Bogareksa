@@ -27,6 +27,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -35,8 +36,10 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberUpdatedState
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
@@ -109,6 +112,9 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
 //    val imgExists = false
     val ctx = LocalContext.current
 
+    val resultData by rememberUpdatedState(newValue = vm.upResponse.observeAsState())
+    val loading by rememberUpdatedState(newValue = vm.isLogin.observeAsState())
+
     val fixImgPath = imgPath.removePrefix("file://")
 
     var txt by remember {
@@ -123,74 +129,84 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
         mutableStateOf("")
     }
 
+
     Scaffold(
         topBar = {
             AppbarImgBackground(navBack = { navBack() }, title ="Add Product" )
 
         }
     ){
-        Column(
-            modifier
-                .padding(paddingValues = it)
-                .padding(top = 5.dp)
-                .verticalScroll(scrollState), verticalArrangement = Arrangement.Top){
-            if(imgPath == "null"){
-                Box(modifier = Modifier
-                    .fillMaxWidth()
-                    .height(400.dp)
-                    .background(color = Color.Gray)){
-                    Image(painter = painterResource(id = R.drawable.camera),modifier = Modifier
-                        .size(50.dp)
-                        .align(alignment = Alignment.Center)
-                        .clickable {
-                            getImgPage()
-                        }, contentDescription ="add image" )
-                }
-            }else{
-                Log.d("ngecek apakah img nya null",imgPath.toString())
+        Box {
 
-                AsyncImage(model = imgPath,  contentDescription = "review image", modifier = modifier.fillMaxWidth().height(400.dp),contentScale = ContentScale.Crop,)
-
-
-
-
-            }
-            Column (modifier.padding(start = 10.dp, end = 10.dp)){
-                VerticalSpace()
-                InputAddForm(hint = "insert text", title = "Product Name", txt = txt, onChage = {value ->
-                    txt =value
-                })
-                VerticalSpace()
-                InputAddForm(hint = "insert text", title = "Product Price", txt = txtPrice, onChage = {value ->
-                    txtPrice = value
-                })
-                VerticalSpace()
-                InputAddFormDesk(txt = txtDesk, hint = "masukkan Deskripsi", title = "Product Detail", onChage = {value ->
-                    txtDesk = value
-                })
-                VerticalSpace()
-                Box(
-                    modifier = Modifier
+            Column(
+                modifier
+                    .padding(paddingValues = it)
+                    .padding(top = 5.dp)
+                    .verticalScroll(scrollState), verticalArrangement = Arrangement.Top){
+                if(imgPath == "null"){
+                    Box(modifier = Modifier
                         .fillMaxWidth()
-                        .height(50.dp)
-                        .clip(
-                            RoundedCornerShape(10.dp)
-                        )
-                        .background(color = Color(0xff00698C))
-                        .clickable {
-                            vm.uploadProduct(
-                                token = token,
-                                name = txt,
-                                price = txtPrice.toInt(),
-                                uploaded = File(fixImgPath)
+                        .height(400.dp)
+                        .background(color = Color.Gray)){
+                        Image(painter = painterResource(id = R.drawable.camera),modifier = Modifier
+                            .size(50.dp)
+                            .align(alignment = Alignment.Center)
+                            .clickable {
+                                getImgPage()
+                            }, contentDescription ="add image" )
+                    }
+                }else{
+                    Log.d("ngecek apakah img nya null",imgPath.toString())
+
+                    AsyncImage(model = imgPath,  contentDescription = "review image", modifier = modifier
+                        .fillMaxWidth()
+                        .height(400.dp),contentScale = ContentScale.Crop,)
+
+
+
+
+                }
+                Column (modifier.padding(start = 10.dp, end = 10.dp)){
+                    if(loading.value == true){
+                        CircularProgressIndicator()
+                    }
+                    VerticalSpace()
+                    InputAddForm(hint = "insert text", title = "Product Name", txt = txt, onChage = {value ->
+                        txt =value
+                    })
+                    VerticalSpace()
+                    InputAddForm(hint = "insert text", title = "Product Price", txt = txtPrice, onChage = {value ->
+                        txtPrice = value
+                    })
+                    VerticalSpace()
+                    InputAddFormDesk(txt = txtDesk, hint = "masukkan Deskripsi", title = "Product Detail", onChage = {value ->
+                        txtDesk = value
+                    })
+                    VerticalSpace()
+                    Box(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(50.dp)
+                            .clip(
+                                RoundedCornerShape(10.dp)
                             )
-                        }
-                        .padding(bottom = 10.dp)
-                ){
-                    Text(text = "Upload", modifier = Modifier.align(Alignment.Center), style = MaterialTheme.typography.bodyLarge.copy(color = Color.White))
+                            .background(color = Color(0xff00698C))
+                            .clickable {
+                                vm.uploadProduct(
+                                    token = token,
+                                    name = txt,
+                                    price = txtPrice.toInt(),
+                                    uploaded = File(fixImgPath)
+                                )
+                            }
+                            .padding(bottom = 10.dp)
+                    ){
+                        Text(text = "Upload", modifier = Modifier.align(Alignment.Center), style = MaterialTheme.typography.bodyLarge.copy(color = Color.White))
+                    }
                 }
             }
         }
+
     }
 }
 
