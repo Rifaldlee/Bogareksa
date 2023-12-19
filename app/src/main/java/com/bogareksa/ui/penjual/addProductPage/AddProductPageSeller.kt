@@ -115,6 +115,7 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
     val resultData by rememberUpdatedState(newValue = vm.upResponse.observeAsState())
     val loading by rememberUpdatedState(newValue = vm.isLogin.observeAsState())
 
+
     val fixImgPath = imgPath.removePrefix("file://")
 
     var txt by remember {
@@ -157,12 +158,17 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
                     }
                 }else{
                     Log.d("ngecek apakah img nya null",imgPath.toString())
-
-                    AsyncImage(model = imgPath,  contentDescription = "review image", modifier = modifier
-                        .fillMaxWidth()
-                        .height(400.dp),contentScale = ContentScale.Crop,)
-
-
+                    Box {
+                        AsyncImage(model = imgPath,  contentDescription = "review image", modifier = modifier
+                            .fillMaxWidth()
+                            .height(400.dp),contentScale = ContentScale.Crop,)
+                        Image(painter = painterResource(id = R.drawable.camera),modifier = Modifier
+                            .size(50.dp)
+                            .align(alignment = Alignment.Center)
+                            .clickable {
+                                getImgPage()
+                            }, contentDescription ="add image" )
+                    }
 
 
                 }
@@ -203,6 +209,7 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
                     ){
                         Text(text = "Upload", modifier = Modifier.align(Alignment.Center), style = MaterialTheme.typography.bodyLarge.copy(color = Color.White))
                     }
+                    VerticalSpace()
                 }
             }
         }

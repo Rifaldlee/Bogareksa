@@ -64,12 +64,8 @@ class LoginActivity : AppCompatActivity() {
                         intent.putExtra("email",detailUser.email)
                         startActivity(intent)
                     }else{
-                        Toast.makeText(this,"",Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,"masuk ke halaman pembeli",Toast.LENGTH_SHORT).show()
                     }
-
-
-
-
             }else{
                 Log.d("Result Auth fail",auth.desc.toString())
             }

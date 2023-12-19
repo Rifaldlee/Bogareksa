@@ -2,7 +2,7 @@ package com.bogareksa.io.response
 
 import com.google.gson.annotations.SerializedName
 
-data class ResponseAddProduct(
+data class ResponseAddProductWithMl(
 
 	@field:SerializedName("data")
 	val data: Data? = null,
@@ -11,8 +11,7 @@ data class ResponseAddProduct(
 	val status: Status? = null
 )
 
-data class Data(
-
+data class DataProduct(
 
 	@field:SerializedName("productId")
 	val productId: String? = null,
@@ -39,7 +38,7 @@ data class Data(
 	val desc: String? = null
 )
 
-data class Status(
+data class StatusProduct(
 
 	@field:SerializedName("msg")
 	val msg: String? = null,
@@ -48,7 +47,7 @@ data class Status(
 	val code: Int? = null
 )
 
-data class PredictedData(
+data class PredictedDataN(
 
 	@field:SerializedName("data")
 	val data: Any? = null,

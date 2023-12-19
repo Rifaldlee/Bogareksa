@@ -33,9 +33,9 @@
 
     <ImageView
         android:id="@+id/prevImage"
-        android:layout_width="330dp"
-        android:layout_height="351dp"
-        android:src="@drawable/testing_image"
+        android:layout_width="0dp"
+        android:layout_height="380dp"
+        android:src="@drawable/noimage"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.493"

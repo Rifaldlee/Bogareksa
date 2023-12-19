@@ -143,7 +143,7 @@ fun HomePageContent(
                 .verticalScroll(state = scrollState)
                 .height(820.dp)
                 ){
-            CardProfile(sellerName = email, sellerEmail = "wudd404@gmail.com")
+            CardProfile(sellerName = email, sellerEmail = email)
 VerticalSpace()
             HorizontalDivider()
             VerticalSpace()

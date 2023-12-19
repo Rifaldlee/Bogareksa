@@ -26,6 +26,7 @@ class AddProductViewModel : ViewModel(){
     private var _isLogin = MutableLiveData<Boolean>(false)
     var isLogin : LiveData<Boolean> = _isLogin
 
+    var hasImage : Boolean = false
 
 
     fun uploadProduct(token:String,name:String,price:Int,uploaded:File){
@@ -56,7 +57,7 @@ class AddProductViewModel : ViewModel(){
             ) {
                 if (response.isSuccessful) {
                     _upResponse.value = response.body()
-                    Log.d("berhasil add product product","success add new product cuy ${_upResponse.value?.data?.}")
+                    Log.d("berhasil add product product","success add new product cuy ${_upResponse.value?.data?.name}")
                     _isLogin.value =  false
                 } else {
                     Log.e(ContentValues.TAG, "onFailure: ${response.message()}")

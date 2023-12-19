@@ -12,11 +12,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackground
 
+
+
 class NotificationSellerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
        setContent {
-
             NotificationSellerContent(navBack = {onBackPressed()})
        }
     }
