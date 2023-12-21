@@ -30,6 +30,7 @@ import com.bogareksa.ui.pembeli.BogareksaCustomerApp
 import com.bogareksa.ui.pembeli.components.Search
 import com.bogareksa.ui.pembeli.data.remote.ProductItem
 import com.bogareksa.ui.pembeli.viewmodel.ProductListViewModel
+import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackgroundNoBack
 import com.bogareksa.ui.pembeli.components.ProductItem as ProductItem
 
 @Composable
@@ -59,19 +60,20 @@ fun ProductListContent(
 ){
     val data by viewModel.productList.observeAsState()
     viewModel.getProducts()
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color(0xFF00698C))
-    ){
-        Text(
-            text = "Product List",
-            fontSize = 24.sp,
-            color = Color.White,
-            modifier = Modifier
-                .padding(start = 16.dp, top = 10.dp, bottom = 10.dp)
-        )
-    }
+    AppbarImgBackgroundNoBack( title = "Product List")
+//    Row(
+//        modifier = Modifier
+//            .fillMaxWidth()
+//            .background(Color(0xFF00698C))
+//    ){
+//        Text(
+//            text = "Product List",
+//            fontSize = 24.sp,
+//            color = Color.White,
+//            modifier = Modifier
+//                .padding(start = 16.dp, top = 10.dp, bottom = 10.dp)
+//        )
+//    }
     Spacer(modifier = Modifier.height(12.dp))
     LazyVerticalGrid(
         columns = GridCells.Adaptive(160.dp),

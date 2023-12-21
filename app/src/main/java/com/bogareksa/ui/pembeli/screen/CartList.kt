@@ -29,6 +29,7 @@ import com.bogareksa.ui.pembeli.components.CartItem
 import com.bogareksa.ui.pembeli.components.TransactionItem
 import com.bogareksa.ui.pembeli.viewmodel.CartViewModel
 import com.bogareksa.ui.pembeli.viewmodel.ProductDetailViewModel
+import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackgroundNoBack
 
 @Composable
 fun CartList(
@@ -51,19 +52,20 @@ fun CartListContent(
         modifier = modifier.fillMaxSize()
     ) {
         Column{
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFF00698C))
-            ){
-                Text(
-                    text = "Order List",
-                    fontSize = 24.sp,
-                    color = Color.White,
-                    modifier = Modifier
-                        .padding(start = 16.dp, top = 10.dp, bottom = 10.dp)
-                )
-            }
+            AppbarImgBackgroundNoBack( title = "Order List")
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .background(Color(0xFF00698C))
+//            ){
+//                Text(
+//                    text = "Order List",
+//                    fontSize = 24.sp,
+//                    color = Color.White,
+//                    modifier = Modifier
+//                        .padding(start = 16.dp, top = 10.dp, bottom = 10.dp)
+//                )
+//            }
             Spacer(modifier = Modifier.height(24.dp))
             LazyColumn(
                 verticalArrangement = Arrangement.spacedBy(16.dp),

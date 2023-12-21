@@ -22,17 +22,18 @@ fun BuyButton(
           onClick: () -> Unit,
 ) {
     Button(
+        shape = MaterialTheme.shapes.medium,
         onClick = onClick,
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
             containerColor = (Color(0xFF00698C))),
         modifier = modifier
             .fillMaxWidth()
-            .height(52.dp)
+            .height(50.dp)
     ) {
         Text(
             text = text,
-            fontSize = 24.sp,
+            fontSize = 22.sp,
             modifier = Modifier
                 .align(Alignment.CenterVertically)
         )

@@ -1,5 +1,9 @@
 package com.bogareksa.ui.pembeli.screen
 
+import android.app.Activity
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,38 +24,52 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bogareksa.R
+import com.bogareksa.ui.auth.LoginActivity
 import com.bogareksa.ui.pembeli.components.BuyButton
 import com.bogareksa.ui.pembeli.components.CardUserProfile
+import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackground
+import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackgroundNoBack
 
 @Composable
 fun CustomerProfile(
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier
 ){
+    val activityResultLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        // Handle the result if needed
+        if (result.resultCode == Activity.RESULT_OK) {
+            // Handle success
+        } else {
+            // Handle failure or canceled
+        }
+    }
+    val ctx = LocalContext.current
     Surface(
         modifier = modifier
             .fillMaxSize()
     ) {
         Column{
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color(0xFF00698C))
-            ){
-                Text(
-                    text = "Profile",
-                    fontSize = 24.sp,
-                    color = Color.White,
-                    modifier = Modifier
-                        .padding(start = 16.dp, top = 10.dp, bottom = 10.dp)
-                )
-            }
+            AppbarImgBackgroundNoBack( title = "Profile")
+//            Row(
+//                modifier = Modifier
+//                    .fillMaxWidth()
+//                    .background(Color(0xFF00698C))
+//            ){
+//                Text(
+//                    text = "Profile",
+//                    fontSize = 24.sp,
+//                    color = Color.White,
+//                    modifier = Modifier
+//                        .padding(start = 16.dp, top = 10.dp, bottom = 10.dp)
+//                )
+//            }
             Column(
                 modifier = modifier
                     .padding(horizontal = 16.dp)
@@ -74,7 +92,9 @@ fun CustomerProfile(
                 Spacer(modifier = Modifier.height(64.dp))
                 BuyButton(
                     onClick = {
-
+                        activityResultLauncher.launch(
+                            Intent(ctx, LoginActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        )
                     },
                     text = "Log Out",
                     modifier = modifier

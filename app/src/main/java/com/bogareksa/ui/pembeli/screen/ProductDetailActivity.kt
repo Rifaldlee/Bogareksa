@@ -19,6 +19,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -44,6 +45,8 @@ import com.bogareksa.ui.pembeli.components.BuyButton
 import com.bogareksa.ui.pembeli.components.ProductCounter
 import com.bogareksa.ui.pembeli.data.remote.ProductItem
 import com.bogareksa.ui.pembeli.viewmodel.ProductDetailViewModel
+import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackground
+import com.bogareksa.ui.penjual.mainSellerComponent.AppbarImgBackgroundNoBack
 
 class ProductDetailActivity : AppCompatActivity() {
 
@@ -73,7 +76,10 @@ class ProductDetailActivity : AppCompatActivity() {
                     date = date,
                     viewModel = viewModel,
                     product = ProductItem(),
-                    count = 1
+                    count = 1,
+                    back = {
+                        onBackPressed()
+                    }
                 )
             }
         }
@@ -81,6 +87,7 @@ class ProductDetailActivity : AppCompatActivity() {
 
 @Composable
 fun DetailActivity(
+    back: () -> Unit,
     image: String,
     name: String,
     price: Int,
@@ -96,6 +103,7 @@ fun DetailActivity(
     var orderCount by rememberSaveable { mutableStateOf(count) }
 
     Column(modifier = modifier) {
+        AppbarImgBackground(navBack = back, title = "Detail Product")
         Column(
             modifier
                 .verticalScroll(rememberScrollState())
@@ -104,7 +112,7 @@ fun DetailActivity(
         ) {
             Box(
                 modifier
-                    .padding(bottom = 12.dp),
+                    .padding(bottom = 12.dp, top = 10.dp),
             ){
                 Image(
                     painter = rememberAsyncImagePainter(image),
@@ -122,7 +130,7 @@ fun DetailActivity(
                 Text(
                     text = name,
                     color = Color.Black,
-                    fontSize = 24.sp,
+                    fontSize = 22.sp,
                     modifier = modifier
                         .fillMaxWidth()
                 )
@@ -133,11 +141,12 @@ fun DetailActivity(
                     fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier.padding(top = 24.dp)
                 )
+                HorizontalDivider()
                 Text(
                     text = stringResource(R.string.exp, date),
                     color = Color.Black,
-                    fontSize = 24.sp,
-                    fontWeight = FontWeight.ExtraBold,
+//                    fontSize = 24.sp,
+//                    fontWeight = FontWeight.ExtraBold,
                     modifier = Modifier.padding(vertical = 16.dp)
                 )
 //                Text(
@@ -148,7 +157,7 @@ fun DetailActivity(
 //                        .padding(bottom = 12.dp)
 //                )
                 Text(
-                    text = "Deskripsi produk",
+                    text = "Detail produk",
                     color = Color.Black,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold
