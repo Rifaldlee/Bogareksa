@@ -1,5 +1,6 @@
 package com.bogareksa.ui.pembeli.components
 
+import android.app.Application
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
@@ -12,17 +13,31 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.bogareksa.ui.pembeli.CustomerRepository
+import com.bogareksa.ui.pembeli.viewmodel.ProductListViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun Search(modifier: Modifier = Modifier) {
+fun Search(
+    viewModel: ProductListViewModel,
+    modifier: Modifier = Modifier
+) {
+    var query by remember { mutableStateOf("") }
+
     SearchBar(
-        query = "",
-        onQueryChange = {},
+        query = query,
+        onQueryChange = {
+            query = it
+            viewModel.search(it)
+        },
         onSearch = {},
         active = false,
         onActiveChange = {},
@@ -34,7 +49,7 @@ fun Search(modifier: Modifier = Modifier) {
             )
         },
         placeholder = {
-            Text("search")
+            Text("Search")
         },
         shape = MaterialTheme.shapes.large,
         colors = SearchBarDefaults.colors(
@@ -51,7 +66,6 @@ fun Search(modifier: Modifier = Modifier) {
 @Preview(showBackground = true, device = Devices.PIXEL_4)
 @Composable
 fun SearchPreview() {
-    MaterialTheme {
-        Search()
-    }
+    val viewModel = ProductListViewModel(repository = CustomerRepository(Application()))
+    Search(viewModel = viewModel)
 }

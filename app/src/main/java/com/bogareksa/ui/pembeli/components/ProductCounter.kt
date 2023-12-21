@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -25,24 +26,28 @@ import com.bogareksa.R
 
 @Composable
 fun ProductCounter(
+    orderId: Int,
+    amount: Int,
+    increased: (Int) -> Unit,
+    decreased: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
-        horizontalArrangement = Arrangement.End,
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
-            .fillMaxWidth()
     ) {
         Image(
-            painter = painterResource(id = R.drawable.plus),
+            painter = painterResource(id = R.drawable.minus),
             contentDescription = "increase",
             contentScale = ContentScale.Crop,
             modifier = modifier
                 .height(24.dp)
-                .clickable{}
+                .clickable{
+                    decreased(orderId)
+                }
         )
         Text(
-            text = "10",
+            text = amount.toString(),
             fontSize = 20.sp,
             color = Color.White,
             textAlign = TextAlign.Center,
@@ -50,12 +55,14 @@ fun ProductCounter(
                 .width(64.dp)
         )
         Image(
-            painter = painterResource(id = R.drawable.minus),
+            painter = painterResource(id = R.drawable.plus),
             contentDescription = "increase",
             contentScale = ContentScale.Crop,
             modifier = modifier
                 .height(24.dp)
-                .clickable{}
+                .clickable{
+                    increased(orderId)
+                }
         )
     }
 }
@@ -64,6 +71,10 @@ fun ProductCounter(
 @Composable
 fun ProductCounterPreview() {
     MaterialTheme{
-        ProductCounter()
+        ProductCounter(
+            orderId = 1,
+            amount = 1,
+            increased = {},
+            decreased = {})
     }
 }

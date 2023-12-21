@@ -3,9 +3,9 @@ package com.bogareksa.ui.pembeli.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -43,12 +43,12 @@ fun AddressItem (
                 color = Color.White,
                 modifier = modifier
             )
+            Spacer(modifier = Modifier.weight(1f))
             Image(
                 painter = painterResource(id = R.drawable.cancel),
                 contentDescription = "close",
                 contentScale = ContentScale.FillHeight,
                 modifier = modifier
-                    .fillMaxWidth()
                     .height(24.dp)
                     .clickable {}
             )
