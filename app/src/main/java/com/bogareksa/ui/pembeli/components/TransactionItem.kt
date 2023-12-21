@@ -34,7 +34,7 @@ import com.bogareksa.ui.pembeli.viewmodel.CartViewModel
 
 @Composable
 fun TransactionItem (
-    vm : CartViewModel,
+//    vm : CartViewModel,
     data: CartEntity,
     index : Int
 ){

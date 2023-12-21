@@ -9,7 +9,7 @@ import com.bogareksa.ui.pembeli.data.local.CartEntity
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class CartViewModel (private val repository: CustomerRepository) : ViewModel(){
+class CartViewModel (val repository: CustomerRepository) : ViewModel(){
 
     private val _cartList = MutableLiveData<List<CartEntity>>()
     val cartList: LiveData<List<CartEntity>> = _cartList

@@ -53,6 +53,7 @@ import com.bogareksa.R
 import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.navigation.Screen
+import com.bogareksa.ui.pembeli.viewmodel.CartViewModel
 import com.bogareksa.ui.penjual.homePage.component.BoxData
 import com.bogareksa.ui.penjual.homePage.component.CardItem
 import com.bogareksa.ui.penjual.homePage.component.CardProfile
@@ -65,6 +66,7 @@ import java.io.File
 
 @Composable
 fun HomePageSeller(
+    orderVm : CartViewModel,
     navCrontroller: NavHostController,
     email:String,vm: ProductSellerViewModel,
     toTheListProduct: () -> Unit,
@@ -80,13 +82,15 @@ fun HomePageSeller(
 
     Box(modifier = Modifier){
         HomePageContent(
+
             navControl = navCrontroller,
             email= email,
             token = theToken,
             vm = vm,
             getAddPageRoute = getAddPageRoute,
             toTheListProduct = toTheListProduct,
-            toTheNotification = toTheNotification
+            toTheNotification = toTheNotification,
+            orderVm = orderVm
 //            toDetailPage = toTheDetail
         )
     }
@@ -98,6 +102,7 @@ fun HomePageSeller(
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomePageContent(
+    orderVm: CartViewModel,
     navControl:NavHostController,
     email:String, token: String,
     vm: ProductSellerViewModel,

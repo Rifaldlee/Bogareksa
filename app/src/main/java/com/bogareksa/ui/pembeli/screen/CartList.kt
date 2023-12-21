@@ -76,7 +76,7 @@ fun CartListContent(
             ) {
                 itemsIndexed(data.orEmpty()) {idx,cart ->
                     TransactionItem(
-                        vm= viewModel,
+//                        vm= viewModel,
                         data = cart,
                         index = idx)
                 }

@@ -1,6 +1,10 @@
 package com.bogareksa.ui.penjual.addProductPage.component
 
 import android.content.ContentValues
+import android.content.Context
+import android.database.Cursor
+import android.net.Uri
+import android.provider.MediaStore
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -46,6 +50,19 @@ class AddProductViewModel : ViewModel(){
 //            Log.d("result from api post",msg.toString())
 //        }
 
+    }
+
+    fun getRealPathFromURI(context: Context, contentUri: Uri): String? {
+        var cursor: Cursor? = null
+        return try {
+            val proj = arrayOf(MediaStore.Images.Media.DATA)
+            cursor = context.contentResolver.query(contentUri, proj, null, null, null)
+            val columnIndex = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor?.moveToFirst()
+            columnIndex?.let { cursor?.getString(it) }
+        } finally {
+            cursor?.close()
+        }
     }
 
 

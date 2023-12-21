@@ -2,11 +2,13 @@ package com.bogareksa.ui.penjual
 
 import android.annotation.SuppressLint
 import android.app.Activity
+import android.app.Application
 import android.content.Intent
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavType
 import androidx.navigation.activity
@@ -18,6 +20,8 @@ import androidx.navigation.navArgument
 import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.navigation.Screen
+import com.bogareksa.ui.pembeli.CustomerRepository
+import com.bogareksa.ui.pembeli.viewmodel.CartViewModel
 import com.bogareksa.ui.penjual.addProductPage.AddProductActivity
 //import com.bogareksa.ui.penjual.addProductPage.AddProductPageSeller
 import com.bogareksa.ui.penjual.addProductPage.component.AddProductViewModel
@@ -49,6 +53,13 @@ fun SellerMainPage(email : String) {
     val navBackStakEntry by navController.currentBackStackEntryAsState()
     val currentRoute = navBackStakEntry?.destination?.route
 
+    val customerRepository = remember {
+        CustomerRepository.getInstance(context.applicationContext as Application)
+    }
+
+    val cartViewModel = remember {
+        CartViewModel(customerRepository)
+    }
 
     //TOKEN
     val session = LoginSession(ctx = LocalContext.current)
@@ -70,6 +81,7 @@ fun SellerMainPage(email : String) {
         NavHost(navController = navController, startDestination = Screen.HomePageSeller.route ){
             composable(Screen.HomePageSeller.route){
                 HomePageSeller(
+                    orderVm = cartViewModel,
                     email = email,
                     getAddPageRoute = {
 //                        navController.navigate(Screen.AddProductSeller.route)

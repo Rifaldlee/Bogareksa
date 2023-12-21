@@ -1,6 +1,7 @@
 package com.bogareksa.ui.penjual.addProductPage
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.provider.CalendarContract.Colors
 import android.provider.MediaStore.Images
@@ -133,6 +134,9 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
 
 
     val fixImgPath = imgPath.removePrefix("file://")
+//    val fix = imgPath.removePrefix("content://")
+//    val ur = Uri.parse(fix)
+//    val fixImgPath = vm.getRealPathFromURI(context =ctx, contentUri = ur)
 
 
 
