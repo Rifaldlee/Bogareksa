@@ -37,49 +37,47 @@ fun CustomerProfile(
     Surface(
         modifier = modifier
             .fillMaxSize()
-            .padding(horizontal = 16.dp)
     ) {
         Column{
             Row(
-                verticalAlignment = Alignment.CenterVertically,
-                modifier = Modifier
-                    .padding(top = 12.dp)
-            ) {
-                Image(
-                    painter = painterResource(R.drawable.back),
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .size(24.dp)
-                        .clickable { onBackClick() }
-                )
-                Spacer(modifier = Modifier.width(24.dp))
-                Text(
-                    text = "Cart List",
-                    fontSize = 16.sp,
-                )
-            }
-            Spacer(modifier = Modifier.height(32.dp))
-            CardUserProfile("Customer", "cutomer1@gmail.com")
-            Spacer(modifier = Modifier.height(24.dp))
-            Spacer(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(2.dp)
-                    .background(color = Color(0xFF00698C))
-            )
-            Spacer(modifier = Modifier.height(24.dp))
-            Text(
-                text = "Settings",
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-            )
-            Spacer(modifier = Modifier.height(64.dp))
-            BuyButton(
-                text = "Log Out",
+                    .background(Color(0xFF00698C))
+            ){
+                Text(
+                    text = "Profile",
+                    fontSize = 24.sp,
+                    color = Color.White,
+                    modifier = Modifier
+                        .padding(start = 16.dp, top = 10.dp, bottom = 10.dp)
+                )
+            }
+            Column(
                 modifier = modifier
-                    .padding(horizontal = 12.dp)
-            ) {}
+                    .padding(horizontal = 16.dp)
+            ){
+                Spacer(modifier = Modifier.height(32.dp))
+                CardUserProfile("Customer", "cutomer1@gmail.com")
+                Spacer(modifier = Modifier.height(24.dp))
+                Spacer(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .height(2.dp)
+                        .background(color = Color(0xFF00698C))
+                )
+                Spacer(modifier = Modifier.height(24.dp))
+                Text(
+                    text = "Settings",
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 16.sp,
+                )
+                Spacer(modifier = Modifier.height(64.dp))
+                BuyButton(
+                    text = "Log Out",
+                    modifier = modifier
+                        .padding(horizontal = 12.dp)
+                ) {}
+            }
         }
     }
 }

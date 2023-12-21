@@ -4,12 +4,14 @@
     <!-- <uses-feature android:name="android.hardware.camera" /> -->
 
 
+
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" />
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -25,22 +27,34 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bogareksa"
         tools:targetApi="31">
+
+
         <activity
             android:name=".ui.penjual.uploadImage.component.CameraActivity"
             android:exported="false" />
         <activity
             android:name=".ui.penjual.uploadImage.UploadImageActivity"
             android:exported="false" /> <!-- <activity -->
+
         <!-- android:name=".HomeSellerActivity" -->
         <!-- android:exported="false" /> -->
         <activity
             android:name=".ui.pembeli.screen.AddressActivity"
             android:exported="false" />
+
         <activity
+            android:name=".ui.pembeli.screen.ProductDetailActivity"
+            android:exported="false" />
+
+        <activity
+
             android:name=".ui.auth.RegisterActivity"
             android:exported="false" /> <!-- <activity android:name=".ui.penjual.homePage.HomePageSellerActivity" /> -->
         <activity
             android:name=".ui.auth.LoginActivity"
+            android:exported="false"></activity>
+        <activity
+            android:name=".ui.pembeli.CustomerActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

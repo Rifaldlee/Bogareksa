@@ -26,34 +26,16 @@ import com.bogareksa.R
 
 @Composable
 fun ProductCounter(
-    orderId: Long,
+    orderId: Int,
     amount: Int,
-    increased: (Long) -> Unit,
-    decreased: (Long) -> Unit,
+    increased: (Int) -> Unit,
+    decreased: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = modifier
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.plus),
-            contentDescription = "increase",
-            contentScale = ContentScale.Crop,
-            modifier = modifier
-                .height(24.dp)
-                .clickable{
-                    increased(orderId)
-                }
-        )
-        Text(
-            text = stringResource(amount),
-            fontSize = 20.sp,
-            color = Color.White,
-            textAlign = TextAlign.Center,
-            modifier = modifier
-                .width(64.dp)
-        )
         Image(
             painter = painterResource(id = R.drawable.minus),
             contentDescription = "increase",
@@ -62,6 +44,24 @@ fun ProductCounter(
                 .height(24.dp)
                 .clickable{
                     decreased(orderId)
+                }
+        )
+        Text(
+            text = amount.toString(),
+            fontSize = 20.sp,
+            color = Color.White,
+            textAlign = TextAlign.Center,
+            modifier = modifier
+                .width(64.dp)
+        )
+        Image(
+            painter = painterResource(id = R.drawable.plus),
+            contentDescription = "increase",
+            contentScale = ContentScale.Crop,
+            modifier = modifier
+                .height(24.dp)
+                .clickable{
+                    increased(orderId)
                 }
         )
     }

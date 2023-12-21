@@ -1,5 +1,6 @@
 package com.bogareksa.ui.pembeli.screen
 
+import android.app.Application
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -14,21 +15,52 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Devices
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.rememberAsyncImagePainter
 import com.bogareksa.R
 import com.bogareksa.ui.pembeli.components.BuyButton
+import com.bogareksa.ui.pembeli.di.Injection
+import com.bogareksa.ui.pembeli.state.UiState
+import com.bogareksa.ui.pembeli.viewmodel.ProductDetailViewModel
+import com.bogareksa.ui.pembeli.viewmodel.ViewModelFactory
 
 @Composable
 fun ProductDetail(
+    onBackClick: () -> Unit,
+    id: String,
+    image: String,
+    name: String,
+    price: Int,
+    desc: String,
+){
+    DetailContent(
+        image = image,
+        name = name,
+        price = price,
+        desc = desc,
+        onBackClick = onBackClick,
+    )
+}
+
+@Composable
+fun DetailContent(
+    image: String,
+    name: String,
+    price: Int,
+    desc: String,
     onBackClick: () -> Unit,
     modifier: Modifier = Modifier,
 ){
@@ -44,7 +76,7 @@ fun ProductDetail(
                     .padding(bottom = 12.dp,),
             ){
                 Image(
-                    painter = painterResource(R.drawable.food),
+                    painter = rememberAsyncImagePainter(image),
                     contentDescription = null,
                     contentScale = ContentScale.Crop,
                     modifier = modifier
@@ -57,7 +89,7 @@ fun ProductDetail(
                     contentScale = ContentScale.Crop,
                     modifier = modifier
                         .padding(start = 12.dp, top = 12.dp)
-                        .size(48.dp)
+                        .size(32.dp)
                         .clickable { onBackClick() }
                 )
             }
@@ -66,7 +98,7 @@ fun ProductDetail(
                     .padding(start = 12.dp, end = 12.dp, bottom = 24.dp),
             ) {
                 Text(
-                    text = "Fast Food",
+                    text = name,
                     color = Color.Black,
                     fontSize = 20.sp,
                     modifier = modifier
@@ -77,19 +109,10 @@ fun ProductDetail(
                         .padding(top = 12.dp, bottom = 36.dp),
                 ) {
                     Text(
-                        text = "Rp90000",
+                        text = stringResource(R.string.rupiah, price),
                         color = Color.Black,
                         fontSize = 24.sp,
                         fontWeight = FontWeight.ExtraBold,
-                    )
-                    Text(
-                        text = "12-12-9999",
-                        color = Color.Black,
-                        fontSize = 24.sp,
-                        fontWeight = FontWeight.ExtraBold,
-                        textAlign = TextAlign.End,
-                        modifier = modifier
-                            .fillMaxWidth()
                     )
                 }
                 Text(
@@ -98,7 +121,7 @@ fun ProductDetail(
                     fontSize = 20.sp,
                 )
                 Text(
-                    text = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.",
+                    text = desc,
                     color = Color.Black,
                     fontSize = 20.sp,
                     modifier = modifier
@@ -109,15 +132,20 @@ fun ProductDetail(
             BuyButton(
                 text = "buy",
                 modifier = modifier
-                    .padding(start = 12.dp, end = 12.dp,)
-            ) {}
+                    .padding(start = 12.dp, end = 12.dp,),
+                onClick = {}
+            )
         }
     }
 }
-@Preview(showBackground = true, device = Devices.PIXEL_4)
-@Composable
-fun DetailCinemateAppPreview() {
-    MaterialTheme {
-        ProductDetail(onBackClick = {})
-    }
-}
+//@Preview(showBackground = true, device = Devices.PIXEL_4)
+//@Composable
+//fun DetailCinemateAppPreview() {
+//    MaterialTheme {
+//        ProductDetail(
+//            productId = 1,
+//            onBackClick = {},
+//            navigateToCart = {}
+//        )
+//    }
+//}

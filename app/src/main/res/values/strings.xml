@@ -18,7 +18,10 @@
     <string name="save">Save</string>
     <string name="google_button">login google </string>
 
-    <string name="rupiah">Rp%d</string>
+    <string name="rupiah">Rp%s</string>
+    <string name="barang">%d barang</string>
+    <string name="exp">Expired at : %s</string>
+    <string name="toko">Toko:  </string>
 
     <string name="error_empty_data">Data cannot be empty</string>
     <string name="error_empty_name">Please insert your name</string>
