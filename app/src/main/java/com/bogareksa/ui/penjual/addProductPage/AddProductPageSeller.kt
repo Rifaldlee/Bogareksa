@@ -2,6 +2,7 @@ package com.bogareksa.ui.penjual.addProductPage
 
 import android.content.Intent
 import android.os.Bundle
+import android.provider.CalendarContract.Colors
 import android.provider.MediaStore.Images
 import android.util.Log
 import android.widget.Toast
@@ -53,8 +54,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
@@ -190,22 +193,38 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
 
 
                 if(dialog.value){
+                    val backgroundColor = if (dataValid) Color.Green else Color.Red
                     AlertDialog(
+                        containerColor = backgroundColor,
                         title = {
                             if(dataValid){
-                                Text(text = "Product Successfully Uploaded")
+                                Text(text = "Product Successfully Uploaded, upload another product ?", fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.Bold)
                             }else{
-                                Text(text = "Product not valid or has expired !")
+                                Text(text =
+                                """Product not valid or has expired !,
+|Try to upload another product ?""".trimMargin(), fontSize = 15.sp, color = Color.White, fontWeight = FontWeight.Bold)
                             }
                         },
                         onDismissRequest = {
                                            vm.dialogShow(false)
                         },
                         confirmButton = { 
-                            TextButton(onClick = { vm.dialogShow(false)}) {
-                                Text(text = "ok")
+                            TextButton(onClick = {
+                                vm.dialogShow(false)
+                                getImgPage()
+
+                            }) {
+                                Text(text = "Yes")
                             }
                         },
+                        dismissButton = {
+                            TextButton(onClick = {
+                                vm.dialogShow(false)
+                                   navBack()
+                            }) {
+                                Text(text = "No")
+                            }
+                        }
 
                     )
                 }
