@@ -8,8 +8,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
+import androidx.compose.material.icons.filled.Warning
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
@@ -118,7 +120,7 @@ private fun BottomBar(
                 screen = Screen.ProductList
             ),
             NavigationItem(
-                icon = Icons.Default.ShoppingCart,
+                icon = Icons.Default.List,
                 screen = Screen.CartList
             ),
             NavigationItem(
