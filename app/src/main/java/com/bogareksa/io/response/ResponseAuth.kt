@@ -4,6 +4,10 @@ import com.google.gson.annotations.SerializedName
 
 data class ResponseAuth(
 
+	@field:SerializedName("apiToken")
+	val apiToken: String? = null,
+
+
 	@field:SerializedName("message")
 	val message: String? = null,
 
@@ -59,5 +63,8 @@ data class LoginDetail(
 	val email: String? = null,
 
 	@field:SerializedName("passwordHash")
-	val passwordHash: String? = null
+	val passwordHash: String? = null,
+
+	@field:SerializedName("role")
+	val role: Int? = null
 )

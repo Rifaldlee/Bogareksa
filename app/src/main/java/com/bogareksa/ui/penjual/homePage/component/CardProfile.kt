@@ -34,7 +34,7 @@ fun CardProfile(modifier: Modifier = Modifier,sellerName : String,sellerEmail:St
     ){
         Image( modifier = modifier
             .size(70.dp)
-            .clip(CircleShape),painter = painterResource(id = R.drawable.food), contentDescription = "avatar")
+            .clip(CircleShape),painter = painterResource(id = R.drawable.profilevector), contentDescription = "avatar")
         Column(modifier.padding(5.dp)){
             Text(text = sellerName, style = MaterialTheme.typography.titleMedium.copy(fontSize = 15.sp))
             Spacer(modifier = modifier.height(10.dp))
