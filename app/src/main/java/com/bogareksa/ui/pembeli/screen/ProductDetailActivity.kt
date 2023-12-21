@@ -210,6 +210,7 @@ fun DetailActivity(
                         amount = orderCount,
                         totalPrice = totalPrice
                     )
+                    back()
                 }
             )
         }

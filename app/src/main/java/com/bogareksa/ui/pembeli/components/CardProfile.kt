@@ -36,7 +36,7 @@ fun CardUserProfile(
         Image(
             modifier = modifier
             .size(70.dp)
-            .clip(CircleShape),painter = painterResource(id = R.drawable.user),
+            .clip(CircleShape),painter = painterResource(id = R.drawable.profilevector),
             contentDescription = "avatar"
         )
         Spacer(modifier = modifier.width(24.dp))

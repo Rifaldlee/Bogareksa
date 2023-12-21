@@ -36,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
         viewModel.regisAuth.observe(this){
             if(it.desc == "Successfully registered!"){
                 Log.d("Result regis Auth",it.desc.toString())
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
             }else{
                 Log.d("Result Auth fail",it.desc.toString())

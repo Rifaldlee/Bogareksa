@@ -86,6 +86,11 @@ class CustomerRepository(application: Application) {
         cartDao.addToCart(orderProductEntity)
     }
 
+
+    fun delete(cart: CartEntity){
+        cartDao.delete(cart)
+    }
+
     companion object {
         @Volatile
         private var instance: CustomerRepository? = null

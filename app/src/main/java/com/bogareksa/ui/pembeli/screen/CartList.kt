@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -73,9 +74,11 @@ fun CartListContent(
                     .weight(1f)
                     .padding(horizontal = 8.dp)
             ) {
-                items(data.orEmpty()) {cart ->
+                itemsIndexed(data.orEmpty()) {idx,cart ->
                     TransactionItem(
-                        data = cart)
+                        vm= viewModel,
+                        data = cart,
+                        index = idx)
                 }
             }
 

@@ -14,6 +14,15 @@ class CartViewModel (private val repository: CustomerRepository) : ViewModel(){
     private val _cartList = MutableLiveData<List<CartEntity>>()
     val cartList: LiveData<List<CartEntity>> = _cartList
 
+
+    fun deleteCart(idx : Int){
+
+        cartList.value?.let {
+            repository.delete(it[idx])
+        }
+
+    }
+
     fun getCartList() {
         viewModelScope.launch {
             repository.getCartList().collect{

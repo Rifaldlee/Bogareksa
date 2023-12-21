@@ -20,6 +20,7 @@ abstract class CartDatabase : RoomDatabase(){
                         context.applicationContext,
                         CartDatabase::class.java, "cart_database"
                     )
+                        .allowMainThreadQueries()
                         .build()
                 }
             }

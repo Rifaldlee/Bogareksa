@@ -26,7 +26,7 @@ fun BuyButton(
         onClick = onClick,
         enabled = enabled,
         colors = ButtonDefaults.buttonColors(
-            containerColor = (Color(0xFF00698C))),
+            containerColor = (Color(0xFFFF5733))),
         modifier = modifier
             .fillMaxWidth()
             .height(50.dp)
