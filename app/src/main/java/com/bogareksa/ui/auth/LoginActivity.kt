@@ -6,16 +6,20 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import com.bogareksa.MainActivity
 import com.bogareksa.R
 import com.bogareksa.databinding.ActivityLoginBinding
+import com.bogareksa.io.retrofit.ApiService
+import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.penjual.homePage.HomePageContent
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
 
@@ -24,10 +28,26 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var binding: ActivityLoginBinding
     private var animationPlayed = false
 
+    private lateinit var viewModel: LoginViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        viewModel =ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[LoginViewModel::class.java]
+
+        viewModel.authData.observe(this){
+            if(it.desc == "Successfully signed in!"){
+                Log.d("Result Auth",it.desc.toString())
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }else{
+                Log.d("Result Auth fail",it.desc.toString())
+            }
+
+        }
 
         setupView()
         setupAction()
@@ -60,21 +80,24 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
         binding.signinButton.setOnClickListener{
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
-//            val email = binding.emailEditText.text.toString()
-//            val password = binding.passwordEditText.text.toString()
-//
-//            if (email.isBlank()) {
-//                binding.emailEditText.error = getString(R.string.error_empty_email)
-//            }
-//            else if (password.isBlank()) {
-//                binding.passwordEditText.error = getString(R.string.error_empty_password)
-//            }
-//            else if (password.length < 8){
-//                binding.passwordEditText.error = getString(R.string.error_password_more_7)
-//            }
-//            else{
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+            val email = binding.emailEditText.text.toString()
+            val password = binding.passwordEditText.text.toString()
+
+            if (email.isBlank()) {
+                binding.emailEditText.error = getString(R.string.error_empty_email)
+            }
+            else if (password.isBlank()) {
+                binding.passwordEditText.error = getString(R.string.error_empty_password)
+            }
+            else if (password.length < 8){
+                binding.passwordEditText.error = getString(R.string.error_password_more_7)
+            }
+            else{
+
+                viewModel.getAuthLogin(email,password)
+
 //                AlertDialog.Builder(this).apply {
 //                    setTitle("Yeah!")
 //                    setMessage("Anda berhasil login. Sudah tidak sabar untuk belajar ya?")
@@ -87,15 +110,14 @@ class LoginActivity : AppCompatActivity() {
 //                    create()
 //                    show()
 //                }
-//            }
+            }
+
+
+
         }
     }
 
-//    @Composable
-//    fun OpenHomepage(intent: Intent) {
-//        // Render the Jetpack Compose page
-//        HomePageContent()
-//    }
+
 
     private fun playAnimation() {
         ObjectAnimator.ofFloat(binding.imageView, View.ALPHA, 0f, 1f).apply {

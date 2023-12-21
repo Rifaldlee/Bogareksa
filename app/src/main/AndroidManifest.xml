@@ -1,9 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
+    <!-- <uses-feature android:name="android.hardware.camera" /> -->
 
-    <uses-permission android:name="android.permission.INTERNET" />
+
+
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+        android:maxSdkVersion="28" />
+
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -19,10 +27,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Bogareksa"
         tools:targetApi="31">
-<!--        <activity-->
-<!--            android:name=".ui.pembeli.screen.DetailProductActivity"-->
-<!--            android:exported="false" />-->
-        <!-- <activity -->
+
+
+        <activity
+            android:name=".ui.penjual.uploadImage.component.CameraActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.penjual.uploadImage.UploadImageActivity"
+            android:exported="false" /> <!-- <activity -->
+
         <!-- android:name=".HomeSellerActivity" -->
         <!-- android:exported="false" /> -->
         <activity
@@ -34,6 +47,7 @@
             android:exported="false" />
 
         <activity
+
             android:name=".ui.auth.RegisterActivity"
             android:exported="false" /> <!-- <activity android:name=".ui.penjual.homePage.HomePageSellerActivity" /> -->
         <activity

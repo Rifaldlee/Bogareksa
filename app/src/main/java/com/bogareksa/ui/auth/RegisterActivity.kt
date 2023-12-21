@@ -5,25 +5,43 @@ import android.animation.ObjectAnimator
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
+import com.bogareksa.MainActivity
 import com.bogareksa.R
 import com.bogareksa.databinding.ActivityRegisterBinding
+import com.bogareksa.ui.auth.component.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity() {
     private lateinit var binding: ActivityRegisterBinding
     private var animationPlayed = false
+
+    private lateinit var viewModel : RegisterViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityRegisterBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        viewModel = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[RegisterViewModel::class.java]
+
         setupView()
         setupAction()
+
+        viewModel.regisAuth.observe(this){
+            if(it.desc == "Successfully registered!"){
+                Log.d("Result regis Auth",it.desc.toString())
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+            }else{
+                Log.d("Result Auth fail",it.desc.toString())
+            }
+        }
 
         if (!animationPlayed) {
             playAnimation()
@@ -61,7 +79,7 @@ class RegisterActivity : AppCompatActivity() {
                 binding.passwordEditText.error = getString(R.string.error_password_more_7)
             }
             else{
-                SignUpSuccess()
+                viewModel.getAuthRegister(email,password, name,"1")
             }
         }
     }
