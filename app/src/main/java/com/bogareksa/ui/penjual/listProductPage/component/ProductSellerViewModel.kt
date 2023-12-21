@@ -43,7 +43,7 @@ class ProductSellerViewModel : ViewModel(){
                 if (response.isSuccessful) {
                     _listProduct.value = response.body()?.myProducts
                     _isFetch.value = true
-                    Log.d("berhasil respons product","success product cuy ${listProducts.value!![0].name}")
+//                    Log.d("berhasil respons product","success product cuy ${listProducts.value!![0].name}")
                     Log.d("print all the fetched product", response.body()?.myProducts.toString())
 
                 } else {

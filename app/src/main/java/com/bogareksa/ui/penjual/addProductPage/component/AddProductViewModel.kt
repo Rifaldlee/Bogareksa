@@ -19,14 +19,35 @@ import java.io.File
 
 class AddProductViewModel : ViewModel(){
 
-    private var _upResponse =  MutableLiveData<ResponseAddProduct>()
-    var upResponse : LiveData<ResponseAddProduct> = _upResponse
+    private val _upResponse =  MutableLiveData<ResponseAddProduct>()
+    val upResponse : LiveData<ResponseAddProduct> get() = _upResponse
 
 
     private var _isLogin = MutableLiveData<Boolean>(false)
     var isLogin : LiveData<Boolean> = _isLogin
 
+    private var _showDialog = MutableLiveData<Boolean>(false)
+    var showDialog : LiveData<Boolean> = _showDialog
+
     var hasImage : Boolean = false
+
+
+    fun dialogShow(isShow : Boolean){
+        _showDialog.value = isShow
+//        if(msg == "Detected date is valid"){
+//            dataValid = true
+//            _showDialog.value = true
+////            Log.d("result from api post valid",resultData.value?.data?.message.toString())
+//        }else if(msg != "Detected date is valid" && msg != null){
+//            dataValid = false
+//            _showDialog.value = true
+////            Log.d("result from api post not valid",resultData.value?.data?.message.toString())
+//        }else{
+//            Log.d("result from api post",msg.toString())
+//        }
+
+    }
+
 
 
     fun uploadProduct(token:String,name:String,price:Int,uploaded:File){
@@ -40,6 +61,7 @@ class AddProductViewModel : ViewModel(){
                 "multipart/form-data".toMediaTypeOrNull(), uploaded)))
 
         val requestBody = builder.build()
+
 //
 //        val filePart = MultipartBody.Part.createFormData(
 //            "uploadedFile",
@@ -57,11 +79,13 @@ class AddProductViewModel : ViewModel(){
             ) {
                 if (response.isSuccessful) {
                     _upResponse.value = response.body()
-                    Log.d("berhasil add product product","success add new product cuy ${_upResponse.value?.data?.name}")
+                    Log.d("berhasil add product product","success add new product cuy ${_upResponse.value?.data?.message}")
                     _isLogin.value =  false
+                    _showDialog.value = true
                 } else {
                     Log.e(ContentValues.TAG, "onFailure: ${response.message()}")
                     _isLogin.value =  false
+
                 }
             }
 

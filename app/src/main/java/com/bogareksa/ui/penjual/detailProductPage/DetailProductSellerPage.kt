@@ -156,18 +156,18 @@ fun DetailProductSellerPageContent(
 
 
                 Spacer(modifier = modifier.height(10.dp))
-                if (true){
-                    Button(onClick = {
-                    },modifier.fillMaxWidth()) {
-                        Text(text = "Add To Cart")
-                    }
-                }else{
-                    Button(onClick = {
-
-                    },modifier.fillMaxWidth(), colors = ButtonColors(containerColor = Color.Gray, contentColor = Color.Black, disabledContainerColor = Color.White, disabledContentColor = Color.Gray)) {
-                        Text(text = "Add To Cart")
-                    }
-                }
+//                if (true){
+//                    Button(onClick = {
+//                    },modifier.fillMaxWidth()) {
+//                        Text(text = "Add To Cart")
+//                    }
+//                }else{
+//                    Button(onClick = {
+//
+//                    },modifier.fillMaxWidth(), colors = ButtonColors(containerColor = Color.Gray, contentColor = Color.Black, disabledContainerColor = Color.White, disabledContentColor = Color.Gray)) {
+//                        Text(text = "Add To Cart")
+//                    }
+//                }
 
             }
 

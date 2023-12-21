@@ -26,6 +26,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,8 +34,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.runtime.mutableStateOf
@@ -81,6 +84,9 @@ class AddProductActivity : ComponentActivity() {
         var user: HashMap<String,String> = session.getUserProduct()
         val castToTxt = user.toString()
         val theToken = castToTxt.substringAfter("{token=").substringBefore("}")
+        viewModel.upResponse.observe(this){
+
+        }
         setContent {
             AddProductSellerContent(
                 token = theToken,
@@ -112,11 +118,20 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
 //    val imgExists = false
     val ctx = LocalContext.current
 
+//    var dialogShow by remember{mutableStateOf(false)}
+    var dataValid by remember {
+        mutableStateOf(false)
+    }
+    
+
     val resultData by rememberUpdatedState(newValue = vm.upResponse.observeAsState())
     val loading by rememberUpdatedState(newValue = vm.isLogin.observeAsState())
+    val dialog by rememberUpdatedState(newValue = vm.showDialog.observeAsState(false))
 
 
     val fixImgPath = imgPath.removePrefix("file://")
+
+
 
     var txt by remember {
       mutableStateOf("")
@@ -172,6 +187,42 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
 
 
                 }
+
+
+                if(dialog.value){
+                    AlertDialog(
+                        title = {
+                            if(dataValid){
+                                Text(text = "Product Successfully Uploaded")
+                            }else{
+                                Text(text = "Product not valid or has expired !")
+                            }
+                        },
+                        onDismissRequest = {
+                                           vm.dialogShow(false)
+                        },
+                        confirmButton = { 
+                            TextButton(onClick = { vm.dialogShow(false)}) {
+                                Text(text = "ok")
+                            }
+                        },
+
+                    )
+                }
+
+                if(resultData.value?.data?.message.toString() == "Detected date is valid"){
+                    dataValid = true
+//                    vm.dialogShow(true)
+//                    Log.d("result from api post valid",resultData.value?.data?.message.toString())
+                }else if(resultData.value?.data?.message.toString() != "Detected date is valid" && resultData.value?.data?.message != null){
+                    dataValid = false
+//                    vm.dialogShow(true)
+//                    Log.d("result from api post not valid",resultData.value?.data?.message.toString())
+                }else{
+                    Log.d("result from api post",resultData.value?.data?.message.toString())
+                }
+
+
                 Column (modifier.padding(start = 10.dp, end = 10.dp)){
                     if(loading.value == true){
                         CircularProgressIndicator()

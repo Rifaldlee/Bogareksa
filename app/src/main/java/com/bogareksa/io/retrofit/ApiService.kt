@@ -56,8 +56,7 @@ interface ApiService {
 
 
     @POST("products")
-    fun
-            addProduct(
+    fun addProduct(
         @Header("Authorization") token: String,
         @Body requestBody: RequestBody
     ): Call<ResponseAddProduct>

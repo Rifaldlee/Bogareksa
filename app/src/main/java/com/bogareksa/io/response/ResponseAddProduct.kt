@@ -36,7 +36,13 @@ data class Data(
 	val predictedData: PredictedData? = null,
 
 	@field:SerializedName("desc")
-	val desc: String? = null
+	val desc: String? = null,
+
+	@field:SerializedName("detectedDate")
+	val detectedDate: String? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null
 )
 
 data class Status(

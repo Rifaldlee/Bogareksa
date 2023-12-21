@@ -2,6 +2,7 @@ package com.bogareksa.ui.auth
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -41,6 +42,7 @@ class LoginActivity : AppCompatActivity() {
     lateinit var session : LoginSession
 
 
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
@@ -54,17 +56,17 @@ class LoginActivity : AppCompatActivity() {
             val detailUser = auth.loginDetail
             if(auth.desc == "Successfully signed in!"){
                 val token = "Bearer ${auth.apiToken.toString()}"
-                session.createLoginSession(token)
-                viewmodelProduct.findProducts(token)
-
-
                     if (detailUser != null && auth.loginDetail.role == 2){
+                        session.createLoginSession(token)
+                        viewmodelProduct.findProducts(token)
                         val intent = Intent(this, MainActivity::class.java)
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                         intent.putExtra("email",detailUser.email)
                         startActivity(intent)
-                    }else{
+                    }else if(detailUser != null && auth.loginDetail.role == 1){
                         Toast.makeText(this,"masuk ke halaman pembeli",Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(this,"Email & password is not valid !!",Toast.LENGTH_SHORT).show()
                     }
             }else{
                 Log.d("Result Auth fail",auth.desc.toString())

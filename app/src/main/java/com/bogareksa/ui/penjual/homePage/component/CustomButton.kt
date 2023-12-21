@@ -36,7 +36,7 @@ fun CustomButton(title:String,onClick:()->Unit){
 fun CustomButtonFillWidth(title:String,onClick:()->Unit){
     Button(
         colors = ButtonColors(containerColor = Color(0xff00698C), disabledContentColor = Color(0xff00698C), contentColor = Color.White, disabledContainerColor = Color(0xff00698C)),
-        modifier = Modifier.fillMaxWidth().background(color = Color(0xff00698C)),
+        modifier = Modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.medium,
         onClick = onClick) {
         Text(text = title)
