@@ -2,6 +2,7 @@ package com.bogareksa.ui.auth
 
 import android.animation.AnimatorSet
 import android.animation.ObjectAnimator
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -10,18 +11,24 @@ import android.util.Log
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
+import com.bogareksa.CustomerMainActivity
 import com.bogareksa.MainActivity
 import com.bogareksa.R
 import com.bogareksa.databinding.ActivityLoginBinding
+import com.bogareksa.io.response.ResponseProducts
 import com.bogareksa.io.retrofit.ApiService
+import com.bogareksa.sessions.LoginSession
 import com.bogareksa.ui.auth.component.LoginViewModel
 import com.bogareksa.ui.penjual.homePage.HomePageContent
 import com.bogareksa.ui.penjual.homePage.HomePageSeller
+import com.bogareksa.ui.penjual.listProductPage.component.ProductSellerViewModel
+import retrofit2.Call
 
 
 class LoginActivity : AppCompatActivity() {
@@ -30,23 +37,46 @@ class LoginActivity : AppCompatActivity() {
 
     private lateinit var viewModel: LoginViewModel
 
+    private lateinit var viewmodelProduct: ProductSellerViewModel
 
+    lateinit var session : LoginSession
+
+
+    @SuppressLint("SuspiciousIndentation")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        session = LoginSession(this)
 
+        viewmodelProduct = ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[ProductSellerViewModel::class.java]
         viewModel =ViewModelProvider(this,ViewModelProvider.NewInstanceFactory())[LoginViewModel::class.java]
 
-        viewModel.authData.observe(this){
-            if(it.desc == "Successfully signed in!"){
-                Log.d("Result Auth",it.desc.toString())
-                val intent = Intent(this, MainActivity::class.java)
-                startActivity(intent)
+        viewModel.authData.observe(this){auth ->
+            val detailUser = auth.loginDetail
+            if(auth.desc == "Successfully signed in!"){
+                val token = "Bearer ${auth.apiToken.toString()}"
+                    if (detailUser != null && auth.loginDetail.role == 2){
+                        session.createLoginSession(token)
+                        viewmodelProduct.findProducts(token)
+                        val intent = Intent(this, MainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        intent.putExtra("email",detailUser.email)
+                        startActivity(intent)
+                    }else if(detailUser != null && auth.loginDetail.role == 1){
+                        Toast.makeText(this,"masuk ke halaman pembeli",Toast.LENGTH_SHORT).show()
+                    }else{
+                        Toast.makeText(this,"Email & password is not valid !!",Toast.LENGTH_SHORT).show()
+                    }
             }else{
-                Log.d("Result Auth fail",it.desc.toString())
+                Log.d("Result Auth fail",auth.desc.toString())
             }
 
+        }
+
+
+        viewModel.islogin.observe(this){
+            showLoading(it)
         }
 
         setupView()

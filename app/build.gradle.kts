@@ -59,6 +59,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.6.2")
     implementation("androidx.activity:activity-ktx:1.8.1")
+    implementation("androidx.datastore:datastore-core:1.0.0")
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
@@ -103,4 +104,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
+
+    //COMPOSE
+    implementation ("androidx.compose.runtime:runtime-livedata:1.6.0-beta02")
+    implementation("io.coil-kt:coil-compose:2.4.0")
 }
