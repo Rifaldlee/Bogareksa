@@ -73,10 +73,13 @@ fun CustomerProfile(
                 )
                 Spacer(modifier = Modifier.height(64.dp))
                 BuyButton(
+                    onClick = {
+
+                    },
                     text = "Log Out",
                     modifier = modifier
                         .padding(horizontal = 12.dp)
-                ) {}
+                )
             }
         }
     }

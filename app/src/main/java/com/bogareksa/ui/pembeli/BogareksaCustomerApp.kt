@@ -30,6 +30,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.bogareksa.MainActivity
 import com.bogareksa.ui.pembeli.navigation.NavigationItem
 import com.bogareksa.ui.pembeli.navigation.Screen
 import com.bogareksa.ui.pembeli.screen.CartList
@@ -102,7 +103,14 @@ fun BogareksaCustomerApp(
                     viewModel = cartViewModel)
             }
             composable(Screen.CustomerProfile.route) {
-                CustomerProfile(onBackClick = {})
+                CustomerProfile(
+                    onBackClick = {
+                        activityResultLauncher.launch(
+                           Intent(context,MainActivity::class.java).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+
+                        )
+                    }
+                )
             }
         }
     }

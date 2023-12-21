@@ -64,6 +64,9 @@ class LoginActivity : AppCompatActivity() {
                         intent.putExtra("email",detailUser.email)
                         startActivity(intent)
                     }else if(detailUser != null && auth.loginDetail.role == 1){
+                        val itn = Intent(this,CustomerMainActivity::class.java)
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                        startActivity(itn)
                         Toast.makeText(this,"masuk ke halaman pembeli",Toast.LENGTH_SHORT).show()
                     }else{
                         Toast.makeText(this,"Email & password is not valid !!",Toast.LENGTH_SHORT).show()
