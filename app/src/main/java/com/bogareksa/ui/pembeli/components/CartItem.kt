@@ -9,12 +9,14 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -22,16 +24,14 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.bogareksa.R
+import com.bogareksa.ui.pembeli.data.local.CartEntity
 
 @Composable
 fun CartItem (
-    productId: Long,
-    image: Int,
-    name: String,
-    price: Int,
-    count: Int,
-    amountChanged: (id: Long, count: Int) -> Unit,
+    data: CartEntity,
+    amountChanged: (id: Int, count: Int) -> Unit,
     modifier: Modifier = Modifier
 ){
     Row(
@@ -39,12 +39,21 @@ fun CartItem (
         modifier = modifier
             .fillMaxWidth()
     ){
-        Image(
-            painter = painterResource(image),
+        AsyncImage(
+            model = data.imageUrl,
             contentDescription = "image description",
             contentScale = ContentScale.Crop,
             modifier = modifier
-                .height(75.dp)
+                .size(80.dp)
+                .fillMaxWidth()
+                .clip(
+                    shape = RoundedCornerShape(
+                        topStart = 10.dp,
+                        topEnd = 10.dp,
+                        bottomStart = 0.dp,
+                        bottomEnd = 0.dp
+                    )
+                )
         )
         Column(
             modifier = modifier
@@ -57,7 +66,7 @@ fun CartItem (
                 .padding(8.dp),
         ) {
             Text(
-                text = name,
+                text = data.name,
                 color = Color.White,
                 fontSize = 20.sp,
                 maxLines = 1,
@@ -71,28 +80,29 @@ fun CartItem (
                     .fillMaxHeight()
             ){
                 Text(
-                    text = stringResource(R.string.rupiah, price),
+                    text = stringResource(R.string.rupiah, data.price),
                     color = Color.White,
                     fontSize = 20.sp,
                 )
                 Spacer(modifier = Modifier.weight(1f))
-                ProductCounter(
-                    orderId = productId,
-                    amount = count,
-                    increased = {amountChanged(productId, count + 1)},
-                    decreased = {amountChanged(productId, count - 1)},
-                )
             }
         }
     }
 }
-@Composable
-@Preview(showBackground = true)
-fun CartItemPreview() {
-    MaterialTheme {
-        CartItem(
-            1, R.drawable.food, "Fast Food", 90000, 0,
-            amountChanged = {productId,count ->}
-        )
-    }
-}
+//@Composable
+//@Preview(showBackground = true)
+//fun CartItemPreview() {
+//    MaterialTheme {
+//        val product = CartEntity(
+//            imageUrl = "R.drawable.food",
+//            name = "Fast Food",
+//            price = 90000,
+//            amount = 1
+//        )
+//        CartItem(
+//            data = product,
+//            count = 1,
+//            amountChanged = {productId,count ->}
+//        )
+//    }
+//}

@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -17,15 +18,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import coil.compose.AsyncImage
 import com.bogareksa.R
+import com.bogareksa.ui.pembeli.data.local.CartEntity
 
 @Composable
 fun TransactionItem (
-    modifier: Modifier = Modifier
+    data: CartEntity
 ){
     Column(
         modifier = Modifier
@@ -41,12 +45,12 @@ fun TransactionItem (
             modifier = Modifier
                 .fillMaxWidth()
         ){
-            Image(
-                painter = painterResource(R.drawable.food),
+            AsyncImage(
+                model = data.imageUrl,
                 contentDescription = "image description",
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .height(75.dp)
+                    .size(75.dp)
             )
             Column(
                 modifier = Modifier
@@ -55,13 +59,13 @@ fun TransactionItem (
                     .padding(start = 8.dp)
             ) {
                 Text(
-                    text = "Fast Food",
+                    text = data.name,
                     fontSize = 20.sp,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                 )
                 Text(
-                    text = "1 Barang",
+                    text = stringResource(R.string.barang, data.amount),
                     fontSize = 16.sp,
                 )
             }
@@ -71,7 +75,7 @@ fun TransactionItem (
             fontSize = 16.sp,
         )
         Text(
-            text = "Rp 90000",
+            text = stringResource(R.string.rupiah, data.price),
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
         )
@@ -88,10 +92,10 @@ fun TransactionItem (
         )
     }
 }
-@Composable
-@Preview(showBackground = true)
-fun TransactionItemPreview() {
-    MaterialTheme {
-        TransactionItem()
-    }
-}
+//@Composable
+//@Preview(showBackground = true)
+//fun TransactionItemPreview() {
+//    MaterialTheme {
+//        TransactionItem()
+//    }
+//}

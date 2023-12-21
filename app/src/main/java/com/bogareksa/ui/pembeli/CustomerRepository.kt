@@ -5,45 +5,43 @@ import android.content.ContentValues
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.bogareksa.ui.pembeli.data.FakeDataSource
-import com.bogareksa.ui.pembeli.data.OrderProduct
-//import com.bogareksa.ui.pembeli.data.local.CartDao
-//import com.bogareksa.ui.pembeli.data.local.CartDatabase
-//import com.bogareksa.ui.pembeli.data.local.CartEntity
+import com.bogareksa.ui.pembeli.data.local.CartDao
+import com.bogareksa.ui.pembeli.data.local.CartDatabase
+import com.bogareksa.ui.pembeli.data.local.CartEntity
 import com.bogareksa.ui.pembeli.data.remote.ApiConfig
 import com.bogareksa.ui.pembeli.data.remote.ApiService
 import com.bogareksa.ui.pembeli.data.remote.ProductResponse
-import com.bogareksa.ui.pembeli.data.remote.ProductsItem
+import com.bogareksa.ui.pembeli.data.remote.ProductItem
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class CustomerRepository(application: Application) {
     private val apiService: ApiService
-//    private val cartDao: CartDao
-    private val orderProduct = mutableListOf<OrderProduct>()
+    private val cartDao: CartDao
 
     init{
-        if (orderProduct.isEmpty()){
-            FakeDataSource.productData.forEach{
-                orderProduct.add(OrderProduct(it, 0))
-            }
-        }
-//        val db = CartDatabase.getInstance(application)
-//        cartDao = db.cartDAO()
+        val db = CartDatabase.getInstance(application)
+        cartDao = db.cartDAO()
         apiService = ApiConfig.getApiService()
     }
 
-    fun getAllProduct(): LiveData<List<ProductsItem>> {
-        val liveData = MutableLiveData<List<ProductsItem>>()
+    fun getAllProduct(): LiveData<List<ProductItem>> {
+        val liveData = MutableLiveData<List<ProductItem>>()
 
-        apiService.getProducts().enqueue(object : Callback<ProductResponse> {
-            override fun onResponse(call: Call<ProductResponse>, response: Response<ProductResponse>) {
+        apiService.getProducts().enqueue(object : Callback<List<ProductItem>> {
+            override fun onResponse(
+                call: Call<List<ProductItem>>,
+                response: Response<List<ProductItem>>
+            ) {
                 if (response.isSuccessful) {
-                    liveData.value = response.body()?.productList ?: emptyList()
+                    liveData.value = (response.body()?: emptyList())
                 }
             }
-            override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<ProductItem>>, t: Throwable) {
                 Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
             }
         })
@@ -53,75 +51,44 @@ class CustomerRepository(application: Application) {
     fun searchProduct(query: String): LiveData<List<ProductResponse>> {
         val liveData = MutableLiveData<List<ProductResponse>>()
 
-        apiService.getProducts().enqueue(object : Callback<ProductResponse> {
-            override fun onResponse(call: Call<ProductResponse>, response: Response<ProductResponse>) {
+        apiService.getProducts().enqueue(object : Callback<List<ProductItem>> {
+            override fun onResponse(call: Call<List<ProductItem>>, response: Response<List<ProductItem>>) {
                 if (response.isSuccessful) {
-                    val filteredList = response.body()?.productList
-                        ?.filter { it.name?.contains(query, ignoreCase = true) == true }
+                    val filteredList = response.body()?.filter {
+                        it.name?.contains(query, ignoreCase = true) == true
+                    }
                     liveData.value = listOf(ProductResponse(productList = filteredList))
                 }
             }
-            override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
+            override fun onFailure(call: Call<List<ProductItem>>, t: Throwable) {
                 Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
             }
         })
         return liveData
     }
 
-    fun getProductById(productId: String): LiveData<ProductResponse> {
-        val liveData = MutableLiveData<ProductResponse>()
-
-        apiService.getProductById(productId).enqueue(object : Callback<ProductResponse> {
-            override fun onResponse(call: Call<ProductResponse>, response: Response<ProductResponse>) {
-                if (response.isSuccessful) {
-                    liveData.value = response.body()
-                }
-            }
-            override fun onFailure(call: Call<ProductResponse>, t: Throwable) {
-                Log.e(ContentValues.TAG, "onFailure: ${t.message.toString()}")
-            }
-        })
-
-        return liveData
+    fun getCartList(): Flow<List<CartEntity>> {
+        return cartDao.getAllCartItems()
     }
 
-//    fun getAddedOrderProduct(): Flow<List<CartEntity>> {
-//        return cartDao.getAllCartItems()
-//    }
-//
-
-//
-//    suspend fun addToCart(productId: Long) {
-//        val existingOrderProduct = cartDao.getOrderProductById(productId)
-//
-//        if (existingOrderProduct != null) {
-//            val updatedProduct = existingOrderProduct.copy(amount = existingOrderProduct.amount + 1)
-//            cartDao.addToCart(updatedProduct)
-//        } else {
-//            val productToAdd = FakeDataSource.productData.firstOrNull { it.id == productId }
-//            if (productToAdd != null) {
-//                val orderProductEntity = CartEntity(0, productToAdd, 1)
-//                cartDao.addToCart(orderProductEntity)
-//            }
-//        }
-//    }
-//
-//    fun updateOrderProduct(productId: Long, newAmountValue: Int): Flow<Boolean> {
-//        val index = orderProduct.indexOfFirst { it.product.id == productId }
-//        val result = if (index >= 0) {
-//            val updatedOrderProduct = orderProduct[index].copy(amount = newAmountValue)
-//            orderProduct[index] = updatedOrderProduct
-//            true
-//        } else {
-//            false
-//        }
-//        return flowOf(result)
-//    }
+    suspend fun addToCart(
+        imageUrl: String,
+        name: String,
+        amount: Int,
+        totalPrice: Int
+    ) = withContext(Dispatchers.IO) {
+        val orderProductEntity = CartEntity(
+            imageUrl = imageUrl,
+            name = name,
+            price = totalPrice,
+            amount = amount
+        )
+        cartDao.addToCart(orderProductEntity)
+    }
 
     companion object {
         @Volatile
         private var instance: CustomerRepository? = null
-
         fun getInstance(application: Application): CustomerRepository =
             instance ?: synchronized(this) {
                 CustomerRepository(application).apply {

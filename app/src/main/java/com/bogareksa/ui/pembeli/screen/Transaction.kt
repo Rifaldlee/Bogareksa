@@ -24,9 +24,9 @@ fun TransactionContent(
             .padding(horizontal = 16.dp)
     ){
         repeat(10){
-            item{
-                TransactionItem()
-            }
+//            item{
+//                TransactionItem()
+//            }
         }
     }
 }

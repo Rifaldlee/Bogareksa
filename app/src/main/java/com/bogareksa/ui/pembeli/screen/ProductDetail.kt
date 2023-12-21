@@ -45,7 +45,6 @@ fun ProductDetail(
     name: String,
     price: Int,
     desc: String,
-    navigateToCart: () -> Unit,
 ){
     DetailContent(
         image = image,
@@ -53,10 +52,6 @@ fun ProductDetail(
         price = price,
         desc = desc,
         onBackClick = onBackClick,
-//        addToCart = {
-//            viewModel.addToCart(data.product)
-//            navigateToCart()
-//        }
     )
 }
 
@@ -67,7 +62,6 @@ fun DetailContent(
     price: Int,
     desc: String,
     onBackClick: () -> Unit,
-//    addToCart: () ->Unit,
     modifier: Modifier = Modifier,
 ){
     Column(modifier = modifier) {
@@ -120,15 +114,6 @@ fun DetailContent(
                         fontSize = 24.sp,
                         fontWeight = FontWeight.ExtraBold,
                     )
-//                    Text(
-//                        text = expired,
-//                        color = Color.Black,
-//                        fontSize = 24.sp,
-//                        fontWeight = FontWeight.ExtraBold,
-//                        textAlign = TextAlign.End,
-//                        modifier = modifier
-//                            .fillMaxWidth()
-//                    )
                 }
                 Text(
                     text = "Product Description",

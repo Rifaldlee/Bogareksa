@@ -1,47 +1,21 @@
 package com.bogareksa.ui.pembeli.data.remote
 
 import com.google.gson.annotations.SerializedName
+import java.io.Serializable
 
 data class ProductResponse(
 
-	@field:SerializedName("productList")
-	val productList: List<ProductsItem>?
+	@field:SerializedName("ProductResponse")
+	val productList: List<ProductItem?>? = null
 )
 
-data class PredictedData(
+data class ProductItem(
 
-	@field:SerializedName("status")
-	val status: Status? = null,
+	@field:SerializedName("predictionResult")
+	val predictionResult: PredictionResult? = null,
 
-	@field:SerializedName("detectedDate")
-	val detectedDate: String? = null,
-
-	@field:SerializedName("message")
-	val message: String? = null
-)
-
-data class PredictionData(
-
-	@field:SerializedName("statusMsg")
-	val statusMsg: String? = null,
-
-	@field:SerializedName("responseCode")
-	val responseCode: Int? = null
-)
-
-data class Status(
-
-	@field:SerializedName("code")
-	val code: Int? = null,
-
-	@field:SerializedName("detected_date")
-	val detectedDate: String? = null,
-
-	@field:SerializedName("message")
-	val message: String? = null
-)
-
-data class ProductsItem(
+	@field:SerializedName("addedDate")
+	val addedDate: String? = null,
 
 	@field:SerializedName("productId")
 	val productId: String? = null,
@@ -58,15 +32,18 @@ data class ProductsItem(
 	@field:SerializedName("name")
 	val name: String? = null,
 
-	@field:SerializedName("predictionData")
-	val predictionData: PredictionData? = null,
-
-	@field:SerializedName("ownedBy")
-	val ownedBy: String? = null,
+	@field:SerializedName("ownerId")
+	val ownerId: String? = null,
 
 	@field:SerializedName("desc")
-	val desc: String? = null,
+	val desc: String? = null
+): Serializable
 
-	@field:SerializedName("predictedData")
-	val predictedData: PredictedData? = null
+data class PredictionResult(
+
+	@field:SerializedName("detectedDate")
+	val detectedDate: String? = null,
+
+	@field:SerializedName("message")
+	val message: String? = null
 )

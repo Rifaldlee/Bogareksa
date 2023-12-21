@@ -3,8 +3,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.CAMERA"/>
-    <uses-feature android:name="android.hardware.camera" android:required="false"/>
+    <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-feature
+        android:name="android.hardware.camera"
+        android:required="false" />
 
     <application
         android:allowBackup="true"
@@ -17,20 +20,25 @@
         android:theme="@style/Theme.Bogareksa"
         tools:targetApi="31">
 <!--        <activity-->
-<!--            android:name=".HomeSellerActivity"-->
+<!--            android:name=".ui.pembeli.screen.DetailProductActivity"-->
 <!--            android:exported="false" />-->
+        <!-- <activity -->
+        <!-- android:name=".HomeSellerActivity" -->
+        <!-- android:exported="false" /> -->
         <activity
             android:name=".ui.pembeli.screen.AddressActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".ui.pembeli.screen.ProductDetailActivity"
+            android:exported="false" />
+
         <activity
             android:name=".ui.auth.RegisterActivity"
-            android:exported="false" />
-<!--        <activity android:name=".ui.penjual.homePage.HomePageSellerActivity" />-->
+            android:exported="false" /> <!-- <activity android:name=".ui.penjual.homePage.HomePageSellerActivity" /> -->
         <activity
             android:name=".ui.auth.LoginActivity"
-            android:exported="false">
-
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".ui.pembeli.CustomerActivity"
             android:exported="true">

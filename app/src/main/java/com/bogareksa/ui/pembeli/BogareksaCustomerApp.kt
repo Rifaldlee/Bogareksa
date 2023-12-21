@@ -1,11 +1,13 @@
 package com.bogareksa.ui.pembeli
 
+import android.app.Activity
 import android.app.Application
+import android.content.Intent
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.List
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.material3.Icon
@@ -22,19 +24,17 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.bogareksa.ui.pembeli.navigation.NavigationItem
 import com.bogareksa.ui.pembeli.navigation.Screen
-//import com.bogareksa.ui.pembeli.screen.CartList
+import com.bogareksa.ui.pembeli.screen.CartList
 import com.bogareksa.ui.pembeli.screen.CustomerProfile
-import com.bogareksa.ui.pembeli.screen.ProductDetail
+import com.bogareksa.ui.pembeli.screen.ProductDetailActivity
 import com.bogareksa.ui.pembeli.screen.ProductList
-import com.bogareksa.ui.pembeli.screen.TransactionContent
+import com.bogareksa.ui.pembeli.viewmodel.CartViewModel
 import com.bogareksa.ui.pembeli.viewmodel.ProductListViewModel
 
 @Composable
@@ -50,6 +50,15 @@ fun BogareksaCustomerApp(
     }
     val productListViewModel = remember {
         ProductListViewModel(customerRepository)
+    }
+    val cartViewModel = remember {
+        CartViewModel(customerRepository)
+    }
+    val activityResultLauncher = rememberLauncherForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == Activity.RESULT_OK) {
+        }
+        else {
+        }
     }
 
     Scaffold(
@@ -69,51 +78,25 @@ fun BogareksaCustomerApp(
                 ProductList(
                     viewModel = productListViewModel,
                     modifier = modifier,
-                    navigateToDetail = navController
-                )
-            }
-//            composable(Screen.CartList.route) {
-//                CartList(onOrderButtonClicked = {})
-//            }
-            composable(Screen.Transaction.route) {
-                TransactionContent()
-            }
-            composable(Screen.Profile.route) {
-                CustomerProfile(onBackClick = {})
-            }
-            composable(
-                route = Screen.ProductDetail.route,
-                arguments = listOf(
-                    navArgument("productId") { type = NavType.StringType },
-                    navArgument("productImage"){type = NavType.StringType},
-                    navArgument("productName"){type = NavType.StringType},
-                    navArgument("productPrice"){type = NavType.IntType},
-                    navArgument("productDesc"){type = NavType.StringType},
-                    ),
-            ){
-                val id = it.arguments?.getString("productId")?: ""
-                val image = it.arguments?.getString("productImage") ?: ""
-                val name = it.arguments?.getString("productName") ?: ""
-                val price = it.arguments?.getInt("productPrice") ?: 0
-                val desc = it.arguments?.getString("productDesc")?: ""
-                ProductDetail(
-                    id = id,
-                    image = image,
-                    name = name,
-                    price = price,
-                    desc = desc,
-                    onBackClick = { navController.navigateUp() },
-                    navigateToCart = {
-                        navController.popBackStack()
-                        navController.navigate(Screen.CartList.route){
-                            popUpTo(navController.graph.findStartDestination().id){
-                                saveState = true
-                            }
-                            launchSingleTop = true
-                            restoreState = true
-                        }
+                    navigateToDetail = { name,image,price,desc,seller,date ->
+                        activityResultLauncher.launch(
+                            Intent(context, ProductDetailActivity::class.java)
+                                .putExtra("name",name)
+                                .putExtra("image",image)
+                                .putExtra("price",price)
+                                .putExtra("desc",desc)
+                                .putExtra("seller",seller)
+                                .putExtra("date",date)
+                        )
                     }
                 )
+            }
+            composable(Screen.CartList.route) {
+                CartList(
+                    viewModel = cartViewModel)
+            }
+            composable(Screen.CustomerProfile.route) {
+                CustomerProfile(onBackClick = {})
             }
         }
     }
@@ -139,12 +122,8 @@ private fun BottomBar(
                 screen = Screen.CartList
             ),
             NavigationItem(
-                icon = Icons.Default.List,
-                screen = Screen.Transaction
-            ),
-            NavigationItem(
                 icon = Icons.Default.Person,
-                screen = Screen.Profile
+                screen = Screen.CustomerProfile
             ),
         )
         navigationItems.map { item ->

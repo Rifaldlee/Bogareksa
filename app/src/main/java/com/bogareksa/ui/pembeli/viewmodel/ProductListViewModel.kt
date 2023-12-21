@@ -10,14 +10,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.bogareksa.ui.pembeli.CustomerRepository
 import com.bogareksa.ui.pembeli.data.remote.ProductResponse
-import com.bogareksa.ui.pembeli.data.remote.ProductsItem
+import com.bogareksa.ui.pembeli.data.remote.ProductItem
 import kotlinx.coroutines.launch
-
 
 class ProductListViewModel(private val repository: CustomerRepository) : ViewModel() {
 
-    private val _productList = MutableLiveData<List<ProductsItem>>()
-    var productList: LiveData<List<ProductsItem>> = _productList
+    private val _productList = MutableLiveData<List<ProductItem>>()
+    var productList: LiveData<List<ProductItem>> = _productList
 
     private val _searchResult = MutableLiveData<List<ProductResponse>>()
     val searchResult: LiveData<List<ProductResponse>> get() = _searchResult
@@ -31,7 +30,6 @@ class ProductListViewModel(private val repository: CustomerRepository) : ViewMod
                 _productList.value = it
             }
         }
-
     }
 
     fun search(newQuery: String) {

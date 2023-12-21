@@ -26,10 +26,10 @@ import com.bogareksa.R
 
 @Composable
 fun ProductCounter(
-    orderId: Long,
+    orderId: Int,
     amount: Int,
-    increased: (Long) -> Unit,
-    decreased: (Long) -> Unit,
+    increased: (Int) -> Unit,
+    decreased: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
     Row(
