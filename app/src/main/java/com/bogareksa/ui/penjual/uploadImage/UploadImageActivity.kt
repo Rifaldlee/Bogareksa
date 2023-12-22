@@ -15,14 +15,17 @@ import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
+import androidx.lifecycle.ViewModelProvider
 import com.bogareksa.databinding.ActivityUploadImageBinding
 import com.bogareksa.ui.penjual.addProductPage.AddProductActivity
+import com.bogareksa.ui.penjual.addProductPage.component.AddProductViewModel
 import com.bogareksa.ui.penjual.uploadImage.component.CameraActivity
 import com.bogareksa.ui.penjual.uploadImage.component.CameraActivity.Companion.CAMERAX_RESULT
 
 class UploadImageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityUploadImageBinding
+
 
     private var currentImageUri: Uri? = null
 
@@ -51,9 +54,13 @@ class UploadImageActivity : AppCompatActivity() {
         private const val REQUIRED_PERMISSION = Manifest.permission.CAMERA
     }
 
-
+    private lateinit var viewModel : AddProductViewModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        viewModel = ViewModelProvider(this,
+            ViewModelProvider.NewInstanceFactory())[AddProductViewModel::class.java]
+
         binding = ActivityUploadImageBinding.inflate(layoutInflater)
         setContentView(binding.root)
 

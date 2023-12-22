@@ -1,14 +1,22 @@
 package com.bogareksa.ui.penjual.addProductPage.component
 
+import android.annotation.SuppressLint
+import android.content.ContentUris
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.net.Uri
+import android.os.Build
+import android.os.Environment
+import android.provider.DocumentsContract
 import android.provider.MediaStore
+import android.text.TextUtils
 import android.util.Log
+import androidx.core.net.toFile
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.loader.content.CursorLoader
 import com.bogareksa.io.response.ResponseAddProduct
 import com.bogareksa.io.response.ResponseDeleteProduct
 import com.bogareksa.io.retrofit.ApiConfig
@@ -53,16 +61,19 @@ class AddProductViewModel : ViewModel(){
     }
 
     fun getRealPathFromURI(context: Context, contentUri: Uri): String? {
-        var cursor: Cursor? = null
-        return try {
-            val proj = arrayOf(MediaStore.Images.Media.DATA)
-            cursor = context.contentResolver.query(contentUri, proj, null, null, null)
-            val columnIndex = cursor?.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
-            cursor?.moveToFirst()
-            columnIndex?.let { cursor?.getString(it) }
-        } finally {
-            cursor?.close()
+        val proj = arrayOf(MediaStore.Images.Media.DATA)
+        var result: String? = null
+
+        val cursorLoader = CursorLoader(context, contentUri, proj, null, null, null)
+        val cursor = cursorLoader.loadInBackground()
+
+        if (cursor != null) {
+            val columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA)
+            cursor.moveToFirst()
+            result = cursor.getString(columnIndex)
+            cursor.close()
         }
+        return result
     }
 
 
@@ -70,12 +81,14 @@ class AddProductViewModel : ViewModel(){
     fun uploadProduct(token:String,name:String,price:Int,uploaded:File){
         _isLogin.value = true
 
+
+
         val builder = MultipartBody.Builder()
             .setType(MultipartBody.FORM)
             .addFormDataPart("price", price.toString())
             .addFormDataPart("name", name)
             .addPart(MultipartBody.Part.createFormData("uploadedFile", uploaded.name, RequestBody.create(
-                "multipart/form-data".toMediaTypeOrNull(), uploaded)))
+                "multipart/form-data".toMediaTypeOrNull(), uploaded.name)))
 
         val requestBody = builder.build()
 
@@ -112,5 +125,19 @@ class AddProductViewModel : ViewModel(){
             }
         })
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

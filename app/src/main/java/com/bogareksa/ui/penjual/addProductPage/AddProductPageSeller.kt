@@ -60,6 +60,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.core.net.toFile
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
@@ -126,17 +127,21 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
     var dataValid by remember {
         mutableStateOf(false)
     }
-    
+    var fixImgPath by remember {
+        mutableStateOf("")
+    }
+
 
     val resultData by rememberUpdatedState(newValue = vm.upResponse.observeAsState())
     val loading by rememberUpdatedState(newValue = vm.isLogin.observeAsState())
     val dialog by rememberUpdatedState(newValue = vm.showDialog.observeAsState(false))
 
-
-    val fixImgPath = imgPath.removePrefix("file://")
-//    val fix = imgPath.removePrefix("content://")
-//    val ur = Uri.parse(fix)
-//    val fixImgPath = vm.getRealPathFromURI(context =ctx, contentUri = ur)
+    if (imgPath.contains("content://") && imgPath != null){
+        val u = Uri.parse(imgPath)
+        fixImgPath = vm.getRealPathFromURI(ctx,u).toString()
+    }else{
+        fixImgPath = imgPath.removePrefix("file://")
+    }
 
 
 
@@ -272,6 +277,7 @@ fun AddProductSellerContent(imgPath:String,token: String,vm: AddProductViewModel
                             )
                             .background(color = Color(0xff00698C))
                             .clickable {
+                                Log.d("yg mau di scan",fixImgPath)
                                 vm.uploadProduct(
                                     token = token,
                                     name = txt,
